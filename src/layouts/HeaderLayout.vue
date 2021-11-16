@@ -1,5 +1,5 @@
 <template>
-  <i class="bi bi-li nav-button"></i>
+  <i class="nav-button">|||</i>
   <router-link to="/"><img class="logo" :src="logoPath"/></router-link>
 </template>
 
