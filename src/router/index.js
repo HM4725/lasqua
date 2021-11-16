@@ -6,7 +6,6 @@ const routes = [
     path: '/',
     name: 'ChoiceView',
     component: ChoiceView,
-    meta: { transition: 'slide-left'}
   },
   {
     path: '/watcher',
