@@ -4,7 +4,11 @@
       <header-layout/>
     </div>
     <div class="content align-middle">
-      <router-view/>
+      <router-view v-slot="{Component}">
+        <transition name="fade" mode="out-in">
+          <component :is="Component"></component>
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>
@@ -45,5 +49,21 @@ a {
   height: calc(100vh - 3rem);
   justify-content: center;
   align-items: center;
+}
+
+/* route transitions */
+.route-enter-from {
+  opacity: 0;
+  transform: translateY(100px);
+}
+.route-enter-active {
+  transition: transform .3s ease-out;
+}
+.route-leave-to {
+  opacity: 0;
+  transform: translateY(-100px);
+}
+.route-leave-active {
+  transition: transform .3s ease-in;
 }
 </style>
