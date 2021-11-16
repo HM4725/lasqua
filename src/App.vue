@@ -1,10 +1,24 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <div class="header">
+      <header-layout/>
+    </div>
+    <div class="content align-middle">
+      <router-view/>
+    </div>
   </div>
-  <router-view/>
 </template>
+
+<script>
+import HeaderLayout from './layouts/HeaderLayout.vue'
+
+export default {
+  components: {
+    HeaderLayout,
+  }
+}
+</script>
+
 
 <style>
 #app {
@@ -12,19 +26,24 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #333333;
+  width: 100vw;
+  min-height: 100vh;
 }
-
-#nav {
-  padding: 30px;
+a {
+  color: #333333 !important;
+  text-decoration: none !important;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.header {
+  width: 100vw;
+  height: 3rem;
+  border-bottom: 1px solid #cccccc;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.content {
+  display: table-cell;
+  width: 100vw;
+  height: calc(100vh - 3rem);
+  justify-content: center;
+  align-items: center;
 }
 </style>
