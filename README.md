@@ -1,4 +1,4 @@
-# bludiblu
+# la squa
 
 ## Project setup
 ```
