@@ -28,5 +28,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 npm run build
 docker build -t lasqua .
-docker run --name lasqua -p 80:8080 lasqua
+docker run --name lasqua -p 8080:80 lasqua
 ```
