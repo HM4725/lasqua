@@ -1,11 +1,15 @@
 <template>
   <router-link :to="option">
-    <button class="choice-option-button btn btn-light fs-4">{{option}}</button>
+    <button-component class="choice-option-button" :value="option"/>
   </router-link>
 </template>
 
 <script>
+import ButtonComponent from './ButtonComponent.vue'
 export default{
+  components: {
+    ButtonComponent
+  },
   props: {
       option: String
   }
@@ -16,13 +20,19 @@ export default{
 .choice-option-button {
   width: 10rem;
   height: 10rem;
-  color: #333333;
-  border: 1px solid #333333;
   border-radius: 100%;
-  text-align: center;
-  margin: 1rem;
+  border-color: #333333;
+  margin: 0 1rem;
+  font-size: 1.5rem;
 }
-.choice-option-button:hover {
-  color: #999999;
+@media (max-width: 767px) {
+  .choice-option-button {
+    width: -webkit-calc(6rem + 8vw);
+    width: -moz-calc(6rem + 8vw);
+    width: calc(6rem + 8vw);
+    height: -webkit-calc(6rem + 8vw);
+    height: -moz-calc(6rem + 8vw);
+    height: calc(6rem + 8vw);
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div id="choice-project">
+  <div class="choice-wrapper">
     <div class="choice-phrase">
-      <span class="h1">{{choicePhrase}}</span>
+      <span class="choice-phrase-font">{{choicePhrase}}</span>
     </div>
     <div class="choice-select">
       <choice-option-component option="watcher"/>
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-#choice-project {
+.choice-wrapper {
   position: absolute;
   top: 0;
   left: 0;
@@ -43,8 +43,26 @@ export default {
 .choice-phrase {
   margin-bottom: 5rem;
 }
+.choice-phrase-font {
+  font-size: 2.5rem;
+}
 .choice-select {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .choice-wrapper {
+    padding-bottom: 3rem;
+  }
+  .choice-phrase {
+    width: 20rem;
+  }
+  .choice-phrase-font {
+    font-size: -webkit-calc(1.375rem + 1.5vw);
+    font-size: -moz-calc(1.375rem + 1.5vw);
+    font-size: calc(1.375rem + 1.5vw);
+  }
 }
 </style>
