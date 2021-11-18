@@ -1,19 +1,21 @@
 <template>
-  <div class="header-wrapper">
-    <ul class="left-icons">
-      <li>|||</li>
-    </ul>
-    <div class="center-icon">
-      <router-link to="/">
-        <img class="logo" :src="logoPath"/>
-      </router-link>
+  <transition name="fade" mode="out-in">
+    <div class="header-wrapper">
+      <ul class="left-icons">
+        <li>|||</li>
+      </ul>
+      <div class="center-icon">
+        <router-link to="/">
+          <img class="logo" :src="logoPath"/>
+        </router-link>
+      </div>
+      <ul class="right-icons">
+        <li>①</li>
+        <li>②</li>
+        <li>③</li>
+      </ul>
     </div>
-    <ul class="right-icons">
-      <li>①</li>
-      <li>②</li>
-      <li>③</li>
-    </ul>
-  </div>
+  </transition>
 </template>
 
 <script>
