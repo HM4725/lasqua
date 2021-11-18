@@ -22,3 +22,10 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### Docker run
+```
+docker build -t lasqua .
+docker run --name lasqua -p 80:8080 lasqua
+```
