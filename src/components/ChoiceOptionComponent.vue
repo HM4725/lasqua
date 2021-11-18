@@ -1,8 +1,6 @@
 <template>
   <router-link :to="option">
-    <div class="choice-option-button">
-      <span class="fs-4">{{option}}</span>
-    </div>
+    <button class="choice-option-button btn btn-light fs-4">{{option}}</button>
   </router-link>
 </template>
 
@@ -18,10 +16,13 @@ export default{
 .choice-option-button {
   width: 10rem;
   height: 10rem;
-  border: 1px solid black;
+  color: #333333;
+  border: 1px solid #333333;
   border-radius: 100%;
   text-align: center;
-  line-height: 10rem;
   margin: 1rem;
+}
+.choice-option-button:hover {
+  color: #999999;
 }
 </style>

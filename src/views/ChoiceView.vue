@@ -1,7 +1,7 @@
 <template>
   <div id="choice-project">
     <div class="choice-phrase">
-      <span class="fs-2">{{choicePhrase}}</span>
+      <span class="h1">{{choicePhrase}}</span>
     </div>
     <div class="choice-select">
       <choice-option-component option="watcher"/>
@@ -15,7 +15,6 @@
 import ChoiceOptionComponent from '../components/ChoiceOptionComponent.vue'
 import ChoiceBetweenOptionsComponent from '../components/ChoiceBetweenOptionsComponent.vue'
 export default {
-  name: 'Choice',
   components: {
     ChoiceOptionComponent,
     ChoiceBetweenOptionsComponent
