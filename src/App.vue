@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <header-layout/>
+    <header-layout v-show="appStart"/>
     <contents-layout/>
   </div>
 </template>
@@ -14,6 +14,11 @@ export default {
   components: {
     HeaderLayout,
     ContentsLayout
+  },
+  computed: {
+    appStart() {
+      return this.$route.path !== "/"
+    }
   }
 }
 </script>
