@@ -5,14 +5,13 @@
 
 <script>
 export default {
-  name: "header",
+  name: "HeaderLayout",
   data() {
     return {
       logoPath: require("@/assets/logo.png"),
     }
   },
   mounted() {
-    console.log(this.logoSrc)
   }
 }
 </script>
