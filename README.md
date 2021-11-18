@@ -30,3 +30,7 @@ npm run build
 docker build -t lasqua .
 docker run --name lasqua -p 8080:80 lasqua
 ```
+
+### TODO List
+1. Change bootstrap css to vanilla css
+> asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
