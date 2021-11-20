@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="button-6">{{value}}</button>
+  <button type="button" class="button">{{value}}</button>
 </template>
 
 <script>
@@ -11,8 +11,7 @@ export default {
 </script>
 
 <style scoped>
-/* CSS */
-.button-6 {
+.button {
   align-items: center;
   background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -41,18 +40,18 @@ export default {
   width: auto;
 }
 
-.button-6:hover,
-.button-6:focus {
+.button:hover,
+.button:focus {
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   color: rgba(0, 0, 0, 0.65);
 }
 
-.button-6:hover {
+.button:hover {
   transform: translateY(-1px);
 }
 
-.button-6:active {
+.button:active {
   background-color: #F0F0F1;
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
