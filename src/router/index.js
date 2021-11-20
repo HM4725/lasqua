@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ChoiceView from '../views/ChoiceView.vue'
+import IndexView from '../views/IndexView.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'ChoiceView',
-    component: ChoiceView,
+    name: 'IndexView',
+    component: IndexView,
   },
   {
     path: '/watcher',

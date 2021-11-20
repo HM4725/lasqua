@@ -13,7 +13,7 @@ export default{
   },
   methods: {
     async getMsg() {
-      let url = "/api/getHelloworld"
+      let url = "http://13.209.77.47/api/HelloWorld"
       this.msg = await this.$api(url, "get")
     }
   },

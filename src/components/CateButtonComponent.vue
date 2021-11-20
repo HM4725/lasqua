@@ -1,6 +1,6 @@
 <template>
-  <router-link :to="option">
-    <button-component class="choice-option-button" :value="option"/>
+  <router-link :to="category">
+    <button-component class="cate-button" :value="category"/>
   </router-link>
 </template>
 
@@ -11,13 +11,13 @@ export default{
     ButtonComponent
   },
   props: {
-      option: String
+      category: String
   }
 }
 </script>
 
 <style scoped>
-.choice-option-button {
+.cate-button {
   width: 10rem;
   height: 10rem;
   border-radius: 100%;
@@ -26,7 +26,7 @@ export default{
   font-size: 1.5rem;
 }
 @media (max-width: 767px) {
-  .choice-option-button {
+  .cate-button {
     width: -webkit-calc(6rem + 8vw);
     width: -moz-calc(6rem + 8vw);
     width: calc(6rem + 8vw);
