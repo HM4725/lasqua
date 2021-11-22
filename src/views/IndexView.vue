@@ -21,7 +21,8 @@ export default {
   },
   data() {
     return {
-      indexPhrase: "Which kind of project wanna hang out?",
+      //indexPhrase: "Which kind of project wanna hang out?",
+      indexPhrase: "테스트 중입니다.",
     }
   }
 }
