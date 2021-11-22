@@ -1,5 +1,5 @@
 <template>
-  <div id="nav-icon3" @click="toggle" :class="{open: isOpen}">
+  <div id="hamburger-button-icon" @click="toggle" :class="{open: isOpen}">
     <span></span>
     <span></span>
     <span></span>
@@ -23,7 +23,7 @@ export default{
 </script>
 
 <style scoped>
-#nav-icon3{
+#hamburger-button-icon{
   width: 30px;
   height: 24px;
   position: relative;
@@ -39,7 +39,7 @@ export default{
   padding: 3px;
 }
 
-#nav-icon3 span{
+#hamburger-button-icon span{
   display: block;
   position: absolute;
   width: 100%;
@@ -58,41 +58,39 @@ export default{
   transition: .25s ease-in-out;
 }
 
-/* Icon 3 */
-
-#nav-icon3 span:nth-child(1) {
+#hamburger-button-icon span:nth-child(1) {
   top: 0px;
 }
 
-#nav-icon3 span:nth-child(2),#nav-icon3 span:nth-child(3) {
+#hamburger-button-icon span:nth-child(2),#hamburger-button-icon span:nth-child(3) {
   top: 9px;
 }
 
-#nav-icon3 span:nth-child(4) {
+#hamburger-button-icon span:nth-child(4) {
   top: 18px;
 }
 
-#nav-icon3.open span:nth-child(1) {
+#hamburger-button-icon.open span:nth-child(1) {
   top: 18px;
   width: 0%;
   left: 50%;
 }
 
-#nav-icon3.open span:nth-child(2) {
+#hamburger-button-icon.open span:nth-child(2) {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
-#nav-icon3.open span:nth-child(3) {
+#hamburger-button-icon.open span:nth-child(3) {
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 
-#nav-icon3.open span:nth-child(4) {
+#hamburger-button-icon.open span:nth-child(4) {
   top: 9px;
   width: 0%;
   left: 50%;
