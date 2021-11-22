@@ -1,27 +1,30 @@
 <template>
   <transition name="fade" mode="out-in">
     <div class="header-wrapper">
-      <ul class="left-icons">
-        <li>|||</li>
-      </ul>
-      <div class="center-icon">
+      <div class="side">
+        <sidebar-component/>
+      </div>
+      <div class="middle">
         <router-link to="/">
           <img class="logo" :src="logoPath"/>
         </router-link>
       </div>
-      <ul class="right-icons">
-        <li>①</li>
-        <li>②</li>
-        <li>③</li>
-      </ul>
+      <div class="side">
+        <span>①</span>
+        <span>②</span>
+        <span>③</span>
+      </div>
     </div>
   </transition>
 </template>
 
 <script>
+import SidebarComponent from '../components/SidebarComponent.vue'
 export default {
   name: "HeaderLayout",
-
+  components: {
+    SidebarComponent
+  },
   data() {
     return {
       logoPath: require("@/assets/logo.png"),
@@ -37,24 +40,17 @@ export default {
     height: 4rem;
     border-bottom: 1px solid #aaaaaa;
     justify-content: space-between;
+    align-items: center;
   }
-  .left-icons {
+  .side {
+    width: 6rem;
+    padding: 0 1rem;
+  }
+  .middle {
     width: 10rem;
+    height: 80%;
   }
-  .left-icons > li {
-    float: left;
-  }
-  .center-icon {
-    height: 100%;
-    width: 10rem;
-  }
-  .right-icons {
-    width: 10rem;
-  }
-  .right-icons > li {
-    float: right;
-  }
-  .logo {
+  .middle .logo {
     height: 100%;
   }
 </style>
