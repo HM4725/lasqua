@@ -18,7 +18,7 @@ export default {
   border-radius: .25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
   box-sizing: border-box;
-  color: rgba(0, 0, 0, 0.85);
+  color: black;
   cursor: pointer;
   display: inline-flex;
   font-size: 1rem;

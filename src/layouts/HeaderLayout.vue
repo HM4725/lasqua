@@ -1,12 +1,14 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div class="header-wrapper">
+    <div class="header-wrapper" ref="header">
       <div class="side">
         <sidebar-component/>
       </div>
       <div class="middle">
         <router-link to="/">
-          <img class="logo" :src="logoPath"/>
+          <div class="logo-wrapper">
+            <img class="logo" :src="logoPath"/>
+          </div>
         </router-link>
       </div>
       <div class="side">
@@ -47,8 +49,14 @@ export default {
     padding: 0 1rem;
   }
   .middle {
-    width: 10rem;
+    width: 8rem;
     height: 80%;
+  }
+  .logo-wrapper {
+    height: 100%;
+  }
+  .logo-wrapper:active {
+    background-color: rgb(0 0 0 / 20%);
   }
   .middle .logo {
     height: 100%;

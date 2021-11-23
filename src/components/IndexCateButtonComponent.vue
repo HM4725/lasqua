@@ -11,7 +11,7 @@ export default{
     ButtonComponent
   },
   props: {
-      category: String
+    category: String
   }
 }
 </script>

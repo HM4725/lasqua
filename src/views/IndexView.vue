@@ -4,20 +4,20 @@
       <span class="index-phrase-font">{{indexPhrase}}</span>
     </div>
     <div class="cate-select">
-      <cate-button-component category="watcher"/>
-      <cate-mid-buttons-component/>
-      <cate-button-component category="traveler"/>
+      <index-cate-button-component category="watcher"/>
+      <index-cate-mid-buttons-component/>
+      <index-cate-button-component category="traveler"/>
     </div>
   </div>
 </template>
 
 <script>
-import CateButtonComponent from '../components/CateButtonComponent.vue'
-import CateMidButtonsComponent from '../components/CateMidButtonsComponent.vue'
+import IndexCateButtonComponent from '../components/IndexCateButtonComponent.vue'
+import IndexCateMidButtonsComponent from '../components/IndexCateMidButtonsComponent.vue'
 export default {
   components: {
-    CateButtonComponent,
-    CateMidButtonsComponent
+    IndexCateButtonComponent,
+    IndexCateMidButtonsComponent
   },
   data() {
     return {
