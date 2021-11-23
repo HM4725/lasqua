@@ -38,6 +38,7 @@ export default{
     width: -moz-calc(100% - 3.5rem);
     width: calc(100% - 3.5rem);
     margin-right: .5rem;
+    border-radius: 0;
     border: none;
     border-bottom: 1px solid black;
   }
