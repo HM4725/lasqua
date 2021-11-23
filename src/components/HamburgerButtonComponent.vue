@@ -71,9 +71,11 @@ export default{
 }
 
 #hamburger-button-icon.open span:nth-child(1) {
-  top: 18px;
-  width: 0%;
-  left: 50%;
+  opacity: 0;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
 }
 
 #hamburger-button-icon.open span:nth-child(2) {
@@ -91,9 +93,11 @@ export default{
 }
 
 #hamburger-button-icon.open span:nth-child(4) {
-  top: 9px;
-  width: 0%;
-  left: 50%;
+  opacity: 0;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
 }
 
 </style>
