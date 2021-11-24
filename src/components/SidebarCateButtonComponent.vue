@@ -1,6 +1,6 @@
 <template>
   <router-link :to="link">
-    <button-component class="nav-button" @click="closeSidebar" :value="link"/>
+    <button-component class="nav-button" @click="closeSidebar" :value="link" after/>
   </router-link>
 </template>
 
@@ -26,7 +26,5 @@ export default{
   .nav-button {
     width: 100%;
     margin: .5rem 0;
-    display: inline-flex;
-    justify-content: flex-start;
   }
 </style>

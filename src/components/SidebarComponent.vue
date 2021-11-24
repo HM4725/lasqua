@@ -72,7 +72,7 @@ export default{
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: rgb( 0 0 0 / 20%);
+    background-color: rgba(0, 0, 0, 0.2);
     z-index: 1;
     visibility: hidden;
     opacity: 0;
@@ -96,7 +96,7 @@ export default{
     transition: all .45s ease-in-out;
   }
   .sidebar.open .sidebar-menu {
-    box-shadow: 5px 0 20px 5px rgb(0 0 0 / 20%);
+    box-shadow: 5px 0 20px 5px rgba(0, 0, 0, 0.2);
     transform: translateX(18rem);
   }
   .sidebar-footer {
