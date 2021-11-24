@@ -7,7 +7,7 @@
   <div class="sidebar" :class="{open: isOpen}" @click="clickOutside">
     <div class="sidebar-menu">
       <div class="sidebar-header">
-        <search-box-component/>
+        <search-box-component ref="search"/>
       </div>
       <div class="sidebar-nav">
         <nav>
@@ -46,6 +46,7 @@ export default{
     },
     close() {
       this.$refs.icon.inactivate()
+      this.$refs.search.clear()
       this.isOpen = false
     },
     clickOutside(e) {

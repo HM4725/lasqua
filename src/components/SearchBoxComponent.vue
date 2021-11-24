@@ -22,7 +22,11 @@ export default{
   methods: {
     search(e) {
       alert(this.keyword)
-      e.preventDefault();
+      this.clear()
+      e.preventDefault()
+    },
+    clear() {
+      this.keyword = ''
     }
   }
 }
