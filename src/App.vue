@@ -25,8 +25,12 @@ export default {
 
 
 <style>
+*, :after, :before {
+  box-sizing: border-box;
+}
 html, body {
   height: 100% !important;
+  margin: 0;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -35,6 +39,7 @@ html, body {
   text-align: center;
   color: #333333;
   height: 100%;
+  line-height: 1.5;
 }
 a {
   color: #333333 !important;
@@ -43,6 +48,12 @@ a {
 ul {
   list-style-type: none !important;
   padding: 0 !important;
+}
+button, input, optgroup, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 .wrapper {
   display: flex;
