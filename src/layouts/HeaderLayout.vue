@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      logoPath: require("@/assets/logo.png"),
+      logoPath: require("@/assets/img/logo.png"),
     }
   },
 }
