@@ -1,20 +1,24 @@
 import axios from 'axios'
 
+const HOST = "http://lasqua.bludi-blu.com"
+
 export default {
     methods: {
-        async $api(url, method, data) {
+        async $api(path, method, data) {
             // How to use:
             //   async func() {
             //     let url = "{{API URL}}"
             //     this.data = await this.$api(url, "get")
             //   }
-            return (await axios({
+            return await axios({
                 method: method,
-                url,
-                data
-            }).catch(e => {
-                console.log(e)
-            })).data
+                url: HOST + path,
+                data: data
+            }).catch(error => {
+                if(error.response) {
+                    console.log(error.response.status)
+                }
+            })
         }
     }
 }
