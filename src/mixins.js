@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const HOST = "https://lasqua.bludi-blu.com"
+const HOST = "http://lasqua.bludi-blu.com"
 axios.defaults.withCredentials = true
 export default {
     methods: {
