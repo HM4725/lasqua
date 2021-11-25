@@ -16,6 +16,7 @@
       </div>
     </form>
     <div>결과: {{result}}</div>
+    <button-component class="logout-button" @click="logout" type="submit" value="로그아웃"/>
   </div>
 </template>
 
@@ -37,13 +38,28 @@ export default{
   methods: {
     async login(e) {
       e.preventDefault()
-      let info = {id: this.id, pw: this.pw}
       let path = "/api/login"
-      let result = await this.$api(path, "post", info)
+      let method = "post"
+      let info = {id: this.id, pw: this.pw}
+
+      let result = await this.$api(path, method, info)
       if(result) {
         this.result = result.status
       } else {
         this.result = "로그인 실패"
+      }
+    },
+    async logout(e) {
+      e.preventDefault()
+      let path = "/api/logout"
+      let method = "post"
+
+      let result = await this.$api(path, method)
+      if(result) {
+        this.result = "로그아웃 성공"
+        console.log(result)
+      } else {
+        this.result = "로그아웃 실패"
       }
     }
   }
