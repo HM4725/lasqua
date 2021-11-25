@@ -1,5 +1,5 @@
 <template>
-  <div class="traveler">
+  <div class="login">
     <h1>la squadra di blu</h1>
     <p>
       라스콰드라 디 블루에 속한<br>
@@ -14,9 +14,10 @@
         </div>
         <button-component class="login-button" @click="login" type="submit" value="로그인"/>
       </div>
+      <button-component class="logout-button" @click="logout" type="submit" value="로그아웃"/>
+      <button-component class="get-user-button" @click="getUser" type="submit" value="정보확인"/>
     </form>
     <div>결과: {{result}}</div>
-    <button-component class="logout-button" @click="logout" type="submit" value="로그아웃"/>
   </div>
 </template>
 
@@ -41,7 +42,6 @@ export default{
       let path = "/api/login"
       let method = "post"
       let info = {id: this.id, pw: this.pw}
-
       let result = await this.$api(path, method, info)
       if(result) {
         this.result = result.status
@@ -53,13 +53,21 @@ export default{
       e.preventDefault()
       let path = "/api/logout"
       let method = "post"
-
       let result = await this.$api(path, method)
       if(result) {
         this.result = "로그아웃 성공"
         console.log(result)
       } else {
         this.result = "로그아웃 실패"
+      }
+    },
+    async getUser(e) {
+      e.preventDefault()
+      let path = "/api/user/" + this.id
+      let method = "get"
+      let result = await this.$api(path, method)
+      if(result) {
+        console.log(result.data)
       }
     }
   }
