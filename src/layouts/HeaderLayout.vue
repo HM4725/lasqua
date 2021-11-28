@@ -1,21 +1,23 @@
 <template>
-  <header class="header-wrapper" ref="header">
-    <div class="side">
-      <sidebar-component/>
-    </div>
-    <div class="middle">
-      <router-link to="/">
-        <div class="logo-wrapper">
-          <img class="logo" :src="logoPath"/>
-        </div>
-      </router-link>
-    </div>
-    <div class="side">
-      <span>①</span>
-      <span>②</span>
-      <span>③</span>
-    </div>
-  </header>
+  <transition name="fade" mode="out-in">
+    <header class="header-wrapper" ref="header">
+      <div class="side">
+        <sidebar-component/>
+      </div>
+      <div class="middle">
+        <router-link to="/">
+          <div class="logo-wrapper">
+            <img class="logo" :src="logoPath"/>
+          </div>
+        </router-link>
+      </div>
+      <div class="side">
+        <span>①</span>
+        <span>②</span>
+        <span>③</span>
+      </div>
+    </header>
+  </transition>
 </template>
 
 <script>
@@ -58,5 +60,13 @@ export default {
   }
   .middle .logo {
     height: 100%;
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.25s ease;
+  }
+  .fade-enter-from,
+  .fade-leave-active {
+    opacity: 0;
   }
 </style>
