@@ -14,8 +14,8 @@
       </nav>
       <footer class="sidebar-footer">
         <ul>
-          <li><router-link to="/login">로그인</router-link></li>
-          <li><router-link to="/login">회원가입</router-link></li>
+          <li><router-link to="/login" @click="close">로그인</router-link></li>
+          <li><router-link to="/login" @click="close">회원가입</router-link></li>
         </ul>
       </footer>
     </div>
