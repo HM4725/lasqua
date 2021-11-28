@@ -1,19 +1,19 @@
 <template>
   <div class="wrapper">
     <header-layout v-show="appStart"/>
-    <contents-layout/>
+    <main-layout/>
   </div>
 </template>
 
 <script>
 import HeaderLayout from './layouts/HeaderLayout.vue'
-import ContentsLayout from './layouts/ContentsLayout.vue'
+import MainLayout from './layouts/MainLayout.vue'
 
 export default {
   name: "laSquaApp",
   components: {
     HeaderLayout,
-    ContentsLayout
+    MainLayout
   },
   computed: {
     appStart() {
@@ -28,6 +28,11 @@ export default {
 *, :after, :before {
   box-sizing: border-box;
 }
+:root {
+  --base-color: black;
+  --active-color: rgba(0, 0, 0, 0.25);
+  --active-bg-color: #dddddd;
+}
 html, body {
   height: 100% !important;
   margin: 0;
@@ -37,17 +42,24 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #333333;
+  color: var(--base-color);
   height: 100%;
   line-height: 1.5;
 }
 a {
-  color: #333333 !important;
-  text-decoration: none !important;
+  all: unset;
+  color: var(--base-color);
+  text-decoration: none;
 }
-ul {
-  list-style-type: none !important;
-  padding: 0 !important;
+a:hover {
+  color: var(--active-color);
+  cursor: pointer;
+}
+a:active {
+  color: var(--active-color);
+}
+ul, li {
+  all: unset;
 }
 button, input, optgroup, select, textarea {
   margin: 0;

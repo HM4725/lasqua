@@ -2,17 +2,17 @@
   <div class="search-box">
     <form>
         <input class="search-input" type="text" v-model="keyword" placeholder="Search..."/>
-        <button-component class="search-button" @click="search" type="submit" value="검색"/>
+        <default-button class="search-button" @click="search" type="submit" value="검색"/>
     </form>
   </div>
 </template>
 
 <script>
-import ButtonComponent from './ButtonComponent.vue'
+import DefaultButton from './DefaultButton.vue'
 
 export default{
   components: {
-    ButtonComponent
+    DefaultButton
   },
   data() {
     return {
@@ -44,7 +44,7 @@ export default{
     margin-right: .5rem;
     border-radius: 0;
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--base-color);
   }
   .search-input:focus {
     outline: none;

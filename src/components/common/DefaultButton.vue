@@ -1,21 +1,22 @@
 <template>
   <button type="button" class="button" :class="{'after': after}">
     <span>{{value}}</span>
-    <span v-if="after">
-      <after-icon-component/>
-    </span>
+    <after-icon v-if="after"/>
   </button>
 </template>
 
 <script>
-import AfterIconComponent from './AfterIconComponent.vue'
+import AfterIcon from '../icons/AfterIcon.vue'
 
 export default {
   components: {
-    AfterIconComponent
+    AfterIcon
   },
   props: {
-    value: String,
+    value: {
+      type: String,
+      default: "버튼"
+    },
     after: {
       type: Boolean,
       default: false
@@ -28,12 +29,11 @@ export default {
 .button {
   align-items: center;
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--base-color);
   border-radius: .25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
   box-sizing: border-box;
-  color: black;
-  fill: black;
+  color: var(--base-color);
   cursor: pointer;
   display: inline-flex;
   font-size: 1rem;
@@ -56,20 +56,18 @@ export default {
 }
 .button:hover,
 .button:focus {
-  border-color: rgba(0, 0, 0, 0.25);
+  border-color: var(--active-color);
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-  color: rgba(0, 0, 0, 0.65);
-  fill: rgba(0, 0, 0, 0.65);
+  color: var(--active-color);
 }
 .button:hover {
   transform: translateY(-1px);
 }
 .button:active {
-  background-color: #F0F0F1;
-  border-color: rgba(0, 0, 0, 0.25);
+  background-color: var(--active-bg-color);
+  border-color: var(--active-color);
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
-  color: rgba(0, 0, 0, 0.65);
-  fill: rgba(0, 0, 0, 0.65);
+  color: var(--active-color);
   transform: translateY(0);
 }
 .button.after {

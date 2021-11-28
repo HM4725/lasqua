@@ -1,23 +1,21 @@
 <template>
-  <transition name="fade" mode="out-in">
-    <div class="header-wrapper" ref="header">
-      <div class="side">
-        <sidebar-component/>
-      </div>
-      <div class="middle">
-        <router-link to="/">
-          <div class="logo-wrapper">
-            <img class="logo" :src="logoPath"/>
-          </div>
-        </router-link>
-      </div>
-      <div class="side">
-        <span>①</span>
-        <span>②</span>
-        <span>③</span>
-      </div>
+  <header class="header-wrapper" ref="header">
+    <div class="side">
+      <sidebar-component/>
     </div>
-  </transition>
+    <div class="middle">
+      <router-link to="/">
+        <div class="logo-wrapper">
+          <img class="logo" :src="logoPath"/>
+        </div>
+      </router-link>
+    </div>
+    <div class="side">
+      <span>①</span>
+      <span>②</span>
+      <span>③</span>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -39,7 +37,7 @@ export default {
   .header-wrapper {
     display: flex;
     width: 100%;
-    height: 4rem;
+    height: 48px;
     border-bottom: 1px solid #aaaaaa;
     justify-content: space-between;
     align-items: center;
@@ -56,7 +54,7 @@ export default {
     height: 100%;
   }
   .logo-wrapper:active {
-    background-color: rgb(0 0 0 / 20%);
+    background-color: var(--active-bg-color);
   }
   .middle .logo {
     height: 100%;
