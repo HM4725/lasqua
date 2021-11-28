@@ -13,8 +13,8 @@ export default{
   },
   methods: {
     async getMsg() {
-      let path = "/api/HelloWorld"
-      this.msg = await this.$api(path, "get")
+      let result = await this.$api("get", "/api/HelloWorld")
+      this.msg = result ? result : "Error"
     }
   },
   created() {

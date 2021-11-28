@@ -18,6 +18,7 @@
       <button-component class="get-user-button" @click="getUser" type="submit" value="정보확인"/>
     </form>
     <div>결과: {{result}}</div>
+    <button-component @click="test" type="button" value="size"/>
   </div>
 </template>
 
@@ -41,8 +42,8 @@ export default{
       e.preventDefault()
       let path = "/api/login"
       let method = "post"
-      let info = {id: this.id, pw: this.pw}
-      let result = await this.$api(path, method, info)
+      let data = {id: this.id, pw: this.pw}
+      let result = await this.$api(method, path, data)
       if(result) {
         this.result = result.status
       } else {
@@ -53,7 +54,7 @@ export default{
       e.preventDefault()
       let path = "/api/logout"
       let method = "post"
-      let result = await this.$api(path, method)
+      let result = await this.$api(method, path)
       if(result) {
         this.result = "로그아웃 성공"
         console.log(result)
@@ -65,10 +66,14 @@ export default{
       e.preventDefault()
       let path = "/api/user/" + this.id
       let method = "get"
-      let result = await this.$api(path, method)
+      let result = await this.$api(method, path)
       if(result) {
         console.log(result.data)
       }
+    },
+    test() {
+      alert("inner" + window.innerHeight)
+      alert("outer" + window.outerHeight)
     }
   }
 }
