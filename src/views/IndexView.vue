@@ -1,14 +1,14 @@
 <template>
-  <div class="index-wrapper">
-    <div class="index-phrase">
+  <section class="index-wrapper">
+    <header class="index-phrase">
       <span class="index-phrase-font">{{indexPhrase}}</span>
-    </div>
-    <div class="cate-select">
+    </header>
+    <article class="cate-select">
       <index-button category="watcher"/>
       <x-icon class="x-icon" :size="xIconSize"/>
       <index-button category="traveler"/>
-    </div>
-  </div>
+    </article>
+  </section>
 </template>
 
 <script>
