@@ -2,15 +2,11 @@
   <transition name="fade" mode="out-in">
     <header class="header-wrapper" ref="header">
       <div class="side left">
-        <hamburger-icon @click="openSidebar"/>
+        <hamburger-icon class="wide-click" @click="openSidebar"/>
         <sidebar-layout ref="sidebar"/>
       </div>
       <div class="middle">
-        <router-link to="/">
-          <div class="logo-wrapper">
-            <img class="logo" :src="logoPath"/>
-          </div>
-        </router-link>
+        <img  @click="$router.push('/')" class="logo wide-click" :src="logoPath"/>
       </div>
       <div class="side right">
         <span>①</span>
@@ -23,8 +19,7 @@
 
 <script>
 import SidebarLayout from './SidebarLayout.vue'
-import HamburgerIcon from '../components/icons/HamburgerIcon.vue'
-
+import HamburgerIcon from '@/components/icons/HamburgerIcon.vue'
 
 export default {
   name: "HeaderLayout",
@@ -50,33 +45,26 @@ export default {
     display: flex;
     width: 100%;
     height: 48px;
-    border-bottom: 1px solid #aaaaaa;
     justify-content: space-between;
     align-items: center;
   }
   .side {
-    width: 6rem;
-    padding: 0 1rem;
+    width: 80px;
+    padding: 0 16px;
   }
   .side.left {
     text-align: left;
-    height: 24px;
+    height: 32px;
+  }
+  .middle {
+    width: 150px;
+    height: 100%;
+  }
+  .middle > .logo {
+    height: 40px;
   }
   .side.right {
     text-align: right;
-  }
-  .middle {
-    width: 8rem;
-    height: 80%;
-  }
-  .logo-wrapper {
-    height: 100%;
-  }
-  .logo-wrapper:active {
-    background-color: var(--active-bg-color);
-  }
-  .middle .logo {
-    height: 100%;
   }
   .fade-enter-active,
   .fade-leave-active {

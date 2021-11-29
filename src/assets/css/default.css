@@ -1,0 +1,33 @@
+:root {
+  --base-color: black;
+  --active-color: rgba(0, 0, 0, 0.25);
+  --active-bg-color: #dddddd;
+}
+*, :after, :before {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100% !important;
+  margin: 0;
+}
+a {
+  all: unset;
+  color: var(--base-color);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--active-color);
+  cursor: pointer;
+}
+a:active {
+  color: var(--active-color);
+}
+ul, li {
+  all: unset;
+}
+button, input, optgroup, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}

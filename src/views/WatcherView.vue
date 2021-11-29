@@ -24,9 +24,9 @@ export default{
 </script>
 
 <style scoped>
-.test-box {
-  width: 10rem;
-  height: 10rem;
-  background-color: blanchedalmond;
-}
+  .test-box {
+    width: 10rem;
+    height: 10rem;
+    background-color: blanchedalmond;
+  }
 </style>

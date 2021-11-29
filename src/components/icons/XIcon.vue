@@ -1,5 +1,5 @@
 <template>
-  <base-icon :size="size">
+  <base-icon class="x-icon" :size="size">
     <line x1="0" y1="0" x2="100%" y2="100%"/>
     <line x1="0" y1="100%" x2="100%" y2="0"/>
   </base-icon>
@@ -20,3 +20,9 @@ export default{
   }
 }
 </script>
+
+<style scoped>
+.x-icon {
+  cursor: default;
+}
+</style>

@@ -10,25 +10,25 @@
 
 <script>
 export default {
-  name: "ContentsLayout"
+  name: "MainLayout"
 }
 </script>
 
 <style scoped>
-.main-wrapper {
-  display: -webkit-box;
-  display: flex;
-  width: 100%;
-  margin: auto;
-  -webkit-box-pack: center;
-  justify-content: center;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.fade-enter-from,
-.fade-leave-active {
-  opacity: 0;
-}
+  .main-wrapper {
+    display: -webkit-box;
+    display: flex;
+    width: 100%;
+    margin: auto;
+    -webkit-box-pack: center;
+    justify-content: center;
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.25s ease;
+  }
+  .fade-enter-from,
+  .fade-leave-active {
+    opacity: 0;
+  }
 </style>

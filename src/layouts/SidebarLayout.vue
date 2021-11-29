@@ -9,8 +9,8 @@
       </nav>
       <footer class="sidebar-footer">
         <ul>
-          <li><router-link to="/login" @click="close">로그인</router-link></li>
-          <li><router-link to="/login" @click="close">회원가입</router-link></li>
+          <li><router-link class="wide-click" to="/sign-in" @click="close">로그인</router-link></li>
+          <li><router-link class="wide-click" to="/sign-up" @click="close">회원가입</router-link></li>
         </ul>
       </footer>
     </div>
@@ -18,12 +18,13 @@
 </template>
 
 <script>
-import RouterButton from '../components/common/RouterButton.vue'
-import SearchBox from '../components/common/SearchBox.vue'
+import RouterButton from '@/components/common/RouterButton.vue'
+import SearchBox from '@/components/common/SearchBox.vue'
 
 const CATEGORIES = ['watcher', 'traveler', 'notice']
 
 export default{
+  name: "SidebarLayout",
   components: {
     SearchBox,
     RouterButton
@@ -96,17 +97,18 @@ export default{
     bottom: 1.5rem;
   }
   .sidebar-footer li {
-    padding: .5rem 0 .5rem .5rem;
+    float: left;
+    margin-right: .2rem;
   }
-  .sidebar-footer li:last-of-type {
-    padding: .5rem;
+  .sidebar-footer li::before {
+    content: "|";
+    color: var(--base-color);
+    position: relative;
+    top: -1px;
+    padding-right: .2rem;
   }
-  .sidebar-footer li:not(:last-of-type):after {
-    content: '';
-    margin-left: .5rem;
-    border-right: 1px solid var(--base-color);
+  .sidebar-footer li:first-child::before {
+    content: "";
   }
-  .sidebar-footer li:active {
-    background-color: var(--active-bg-color);
-  }
+
 </style>

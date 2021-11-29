@@ -10,7 +10,7 @@ export default{
     size: {
       type: Number,
       default: 32
-    }
+    },
   }
 }
 </script>
@@ -19,6 +19,7 @@ export default{
   .icon {
     fill: var(--base-color);
     transition: fill .25s ease-in-out;
+    cursor: pointer;
   }
   .icon:hover {
     fill: var(--active-color);

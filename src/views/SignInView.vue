@@ -26,7 +26,7 @@
 import DefaultButton from '../components/common/DefaultButton.vue'
 
 export default{
-  name: 'LoginView',
+  name: 'SignInView',
   components: {
     DefaultButton
   },

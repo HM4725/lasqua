@@ -1,0 +1,8 @@
+.wide-click {
+  box-sizing: content-box;
+  padding: 4px;
+  cursor: pointer;
+}
+.wide-click:active {
+  background-color: var(--active-bg-color);
+}

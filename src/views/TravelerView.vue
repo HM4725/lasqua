@@ -1,14 +1,14 @@
 <template>
-  <login-view/>
+  <sign-in-view/>
 </template>
 
 <script>
-import LoginView from './LoginView.vue'
+import SignInView from './SignInView.vue'
 
 export default {
   name: 'TravelerView',
   components: {
-    LoginView
+    SignInView
   },
     data() {
         return {};
