@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import IndexView from '../views/IndexView.vue'
+import IndexPage from '../views/IndexPage.vue'
+import store from '../store'
 
 const routes = [
   {
     path: '/',
-    name: 'IndexView',
-    component: IndexView,
+    name: 'Index',
+    component: IndexPage,
   },
   {
     path: '/watcher',
@@ -18,18 +19,46 @@ const routes = [
   {
     path: '/traveler',
     name: 'Traveler',
-    component: () => import(/* webpackChunkName: "traveler" */ '../views/TravelerView.vue')
+    component: () => import(/* webpackChunkName: "traveler" */ '../views/TravelerView.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
-    path: '/sign-in',
-    name: 'SignIn',
-    component: () => import(/* webpackChunkName: "sign-in" */ '../views/SignInView.vue')
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/LoginPage.vue')
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    component: () => import(/* webpackChunkName: "signup" */ '../views/SignupPage.vue')
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'Error',
+    component: () => import(/* webpackChunkName: "error" */ '../views/ErrorPage.vue')
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters['isLoggedIn']) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

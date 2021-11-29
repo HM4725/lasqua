@@ -1,14 +1,15 @@
 <template>
   <div>
-    Traveler
+    error
   </div>
 </template>
 
 <script>
-export default {
-  name: 'TravelerView',
-};
+export default{
+  
+}
 </script>
 
 <style scoped>
+
 </style>
