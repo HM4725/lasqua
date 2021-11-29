@@ -1,7 +1,7 @@
 <template>
   <base-icon :size="size">
-    <line class="line" x1="0" y1="0" x2="100%" y2="100%"/>
-    <line class="line" x1="0" y1="100%" x2="100%" y2="0"/>
+    <line x1="0" y1="0" x2="100%" y2="100%"/>
+    <line x1="0" y1="100%" x2="100%" y2="0"/>
   </base-icon>
 </template>
 
@@ -20,9 +20,3 @@ export default{
   }
 }
 </script>
-
-<style scoped>
-  .line {
-    stroke: var(--base-color);
-  }
-</style>
