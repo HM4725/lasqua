@@ -1,7 +1,7 @@
 <template>
   <transition name="fade" mode="out-in">
     <header class="header-wrapper" ref="header">
-      <div class="side">
+      <div class="side left">
         <hamburger-icon @click="openSidebar"/>
         <sidebar-layout ref="sidebar"/>
       </div>
@@ -12,7 +12,7 @@
           </div>
         </router-link>
       </div>
-      <div class="side">
+      <div class="side right">
         <span>①</span>
         <span>②</span>
         <span>③</span>
@@ -57,6 +57,13 @@ export default {
   .side {
     width: 6rem;
     padding: 0 1rem;
+  }
+  .side.left {
+    text-align: left;
+    height: 24px;
+  }
+  .side.right {
+    text-align: right;
   }
   .middle {
     width: 8rem;
