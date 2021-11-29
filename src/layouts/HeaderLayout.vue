@@ -2,7 +2,8 @@
   <transition name="fade" mode="out-in">
     <header class="header-wrapper" ref="header">
       <div class="side">
-        <sidebar-component/>
+        <hamburger-icon @click="openSidebar"/>
+        <sidebar-layout ref="sidebar"/>
       </div>
       <div class="middle">
         <router-link to="/">
@@ -21,17 +22,26 @@
 </template>
 
 <script>
-import SidebarComponent from '../components/SidebarComponent.vue'
+import SidebarLayout from './SidebarLayout.vue'
+import HamburgerIcon from '../components/icons/HamburgerIcon.vue'
+
+
 export default {
   name: "HeaderLayout",
   components: {
-    SidebarComponent
+    SidebarLayout,
+    HamburgerIcon
   },
   data() {
     return {
       logoPath: require("@/assets/img/logo.png"),
     }
   },
+  methods: {
+    openSidebar() {
+      this.$refs.sidebar.open()
+    }
+  }
 }
 </script>
 

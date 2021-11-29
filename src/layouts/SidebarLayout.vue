@@ -1,9 +1,4 @@
 <template>
-  <!-- Always visible -->
-  <div class="sidebar-icon">
-    <hamburger-icon @click="open"/>
-  </div>
-  <!-- Visible if button clicked -->
   <div class="sidebar-wrapper" :class="{open: isOpen}" @click="clickOutside">
     <div class="sidebar">
       <header class="sidebar-header">
@@ -23,19 +18,19 @@
 </template>
 
 <script>
-import RouterButton from './common/RouterButton.vue'
-import HamburgerIcon from './icons/HamburgerIcon.vue'
-import SearchBox from './common/SearchBox.vue'
+import RouterButton from '../components/common/RouterButton.vue'
+import SearchBox from '../components/common/SearchBox.vue'
+
+const CATEGORIES = ['watcher', 'traveler', 'notice']
 
 export default{
   components: {
-    HamburgerIcon,
     SearchBox,
     RouterButton
   },
   data() {
     return {
-      categories: ['watcher', 'traveler', 'notice'],
+      categories: CATEGORIES,
       isOpen: false
     }
   },
