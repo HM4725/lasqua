@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <h1>la squadra di blu</h1>
+    <p>la squadra di blu</p>
     <p>
       라스콰드라 디 블루에 속한<br>
       아티스트와 기업을 위한 페이지입니다.<br>
@@ -12,23 +12,23 @@
           <input type="text" name="id" class="text-box" v-model="id" placeholder="아이디">
           <input type="password" name="pw" class="text-box" v-model="pw" placeholder="비밀번호">
         </div>
-        <button-component class="login-button" @click="login" type="submit" value="로그인"/>
+        <default-button class="login-button" @click="login" type="submit" value="로그인"/>
       </div>
-      <button-component class="logout-button" @click="logout" type="submit" value="로그아웃"/>
-      <button-component class="get-user-button" @click="getUser" type="submit" value="정보확인"/>
+      <default-button class="logout-button" @click="logout" type="submit" value="로그아웃"/>
+      <default-button class="get-user-button" @click="getUser" type="submit" value="정보확인"/>
     </form>
     <div>결과: {{result}}</div>
-    <button-component @click="test" type="button" value="size"/>
+    <default-button @click="test" type="button" value="size"/>
   </div>
 </template>
 
 <script>
-import ButtonComponent from '../components/ButtonComponent.vue'
+import DefaultButton from '../components/common/DefaultButton.vue'
 
 export default{
   name: 'LoginView',
   components: {
-    ButtonComponent
+    DefaultButton
   },
   data() {
     return {
@@ -92,11 +92,11 @@ export default{
     width: 100%;
     margin: 3px;
     border-radius: 0;
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--base-color);
   }
   .text-box:focus {
     outline: none;
-    border-color: rgba(0, 0, 0, 0.25);
+    border-color: var(--active-color);
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   }
 </style>

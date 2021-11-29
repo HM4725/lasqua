@@ -1,38 +1,37 @@
 <template>
   <!-- Always visible -->
   <div class="sidebar-icon">
-    <hamburger-button-component @click="toggle" ref="icon"/>
+    <hamburger-icon @click="open"/>
   </div>
   <!-- Visible if button clicked -->
-  <div class="sidebar" :class="{open: isOpen}" @click="clickOutside">
-    <div class="sidebar-menu">
-      <div class="sidebar-header">
-        <search-box-component ref="search"/>
-      </div>
-      <div class="sidebar-nav">
-        <nav>
-          <sidebar-cate-button-component v-for="(cate, i) in categories" :key="i" :link="cate"/>
-        </nav>
-      </div>
-      <div class="sidebar-footer">
-        <sidebar-footer-component/>
-      </div>
+  <div class="sidebar-wrapper" :class="{open: isOpen}" @click="clickOutside">
+    <div class="sidebar">
+      <header class="sidebar-header">
+        <search-box ref="search"/>
+      </header>
+      <nav class="sidebar-nav">
+        <router-button class="nav-button" @click="close" v-for="(cate, i) in categories" :key="i" :link="cate" after/>
+      </nav>
+      <footer class="sidebar-footer">
+        <ul>
+          <li><router-link to="/login" @click="close">로그인</router-link></li>
+          <li><router-link to="/login" @click="close">회원가입</router-link></li>
+        </ul>
+      </footer>
     </div>
   </div>
 </template>
 
 <script>
-import HamburgerButtonComponent from './HamburgerButtonComponent.vue'
-import SearchBoxComponent from './SearchBoxComponent.vue'
-import SidebarCateButtonComponent from './SidebarCateButtonComponent.vue'
-import SidebarFooterComponent from './SidebarFooterComponent.vue'
+import RouterButton from './common/RouterButton.vue'
+import HamburgerIcon from './icons/HamburgerIcon.vue'
+import SearchBox from './common/SearchBox.vue'
 
 export default{
   components: {
-      HamburgerButtonComponent,
-      SearchBoxComponent,
-      SidebarCateButtonComponent,
-      SidebarFooterComponent
+    HamburgerIcon,
+    SearchBox,
+    RouterButton
   },
   data() {
     return {
@@ -41,18 +40,17 @@ export default{
     }
   },
   methods: {
-    toggle() {
-      this.isOpen = !this.isOpen
+    open() {
+      this.isOpen = true
     },
     close() {
-      this.$refs.icon.inactivate()
       this.$refs.search.clear()
       this.isOpen = false
     },
     clickOutside(e) {
       let el = e.target
       // Close the sidebar, if click outside of it.
-      if(el.classList.contains('sidebar')) {
+      if(el.classList.contains('sidebar-wrapper')) {
         this.close()
       }
     }
@@ -61,13 +59,7 @@ export default{
 </script>
 
 <style scoped>
-  .sidebar-icon {
-    position: relative;
-    top: 0;
-    left: 0;
-    z-index: 2;
-  }
-  .sidebar {
+  .sidebar-wrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -79,11 +71,11 @@ export default{
     opacity: 0;
     transition: all .25s ease-in-out;
   }
-  .sidebar.open {
+  .sidebar-wrapper.open {
     visibility: visible;
     opacity: 1;
   }
-  .sidebar-menu {
+  .sidebar {
     position: relative;
     top: 0;
     left: -18rem;
@@ -96,12 +88,30 @@ export default{
     padding-bottom: 1.5rem;
     transition: all .45s ease-in-out;
   }
-  .sidebar.open .sidebar-menu {
+  .sidebar-wrapper.open .sidebar {
     box-shadow: 5px 0 20px 5px rgba(0, 0, 0, 0.2);
     transform: translateX(18rem);
+  }
+  .sidebar-nav > .nav-button {
+    width: 100%;
+    margin: .5rem 0;
   }
   .sidebar-footer {
     position: absolute;
     bottom: 1.5rem;
+  }
+  .sidebar-footer li {
+    padding: .5rem 0 .5rem .5rem;
+  }
+  .sidebar-footer li:last-of-type {
+    padding: .5rem;
+  }
+  .sidebar-footer li:not(:last-of-type):after {
+    content: '';
+    margin-left: .5rem;
+    border-right: 1px solid var(--base-color);
+  }
+  .sidebar-footer li:active {
+    background-color: var(--active-bg-color);
   }
 </style>

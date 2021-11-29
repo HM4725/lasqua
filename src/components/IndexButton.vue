@@ -1,14 +1,13 @@
 <template>
-  <router-link :to="category">
-    <button-component class="cate-button" :value="category"/>
-  </router-link>
+  <router-button class="index-button" :link="category" :value="category"/>
 </template>
 
 <script>
-import ButtonComponent from './ButtonComponent.vue'
+import RouterButton from './common/RouterButton.vue'
+
 export default{
   components: {
-    ButtonComponent
+    RouterButton
   },
   props: {
     category: String
@@ -17,16 +16,15 @@ export default{
 </script>
 
 <style scoped>
-.cate-button {
+.index-button {
   width: 10rem;
   height: 10rem;
   border-radius: 100%;
-  border-color: #333333;
   margin: 0 1rem;
   font-size: 1.5rem;
 }
 @media (max-width: 767px) {
-  .cate-button {
+  .index-button {
     width: -webkit-calc(6rem + 8vw);
     width: -moz-calc(6rem + 8vw);
     width: calc(6rem + 8vw);

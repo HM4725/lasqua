@@ -1,26 +1,28 @@
 <template>
-  <div class="index-wrapper">
-    <div class="index-phrase">
+  <section class="index-wrapper">
+    <header class="index-phrase">
       <span class="index-phrase-font">{{indexPhrase}}</span>
-    </div>
-    <div class="cate-select">
-      <index-cate-button-component category="watcher"/>
-      <index-cate-mid-buttons-component/>
-      <index-cate-button-component category="traveler"/>
-    </div>
-  </div>
+    </header>
+    <article class="cate-select">
+      <index-button category="watcher"/>
+      <x-icon class="x-icon" :size="xIconSize"/>
+      <index-button category="traveler"/>
+    </article>
+  </section>
 </template>
 
 <script>
-import IndexCateButtonComponent from '../components/IndexCateButtonComponent.vue'
-import IndexCateMidButtonsComponent from '../components/IndexCateMidButtonsComponent.vue'
+import IndexButton from '../components/IndexButton.vue'
+import XIcon from '../components/icons/XIcon.vue'
+
 export default {
   components: {
-    IndexCateButtonComponent,
-    IndexCateMidButtonsComponent
+    IndexButton,
+    XIcon
   },
   data() {
     return {
+      xIconSize: 192,
       indexPhrase: "Which kind of project wanna hang out?",
     }
   }
@@ -63,6 +65,9 @@ export default {
     font-size: -webkit-calc(1.375rem + 1.5vw);
     font-size: -moz-calc(1.375rem + 1.5vw);
     font-size: calc(1.375rem + 1.5vw);
+  }
+  .x-icon {
+    display: none;
   }
 }
 </style>

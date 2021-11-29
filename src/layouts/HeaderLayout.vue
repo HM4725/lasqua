@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div class="header-wrapper" ref="header">
+    <header class="header-wrapper" ref="header">
       <div class="side">
         <sidebar-component/>
       </div>
@@ -16,7 +16,7 @@
         <span>②</span>
         <span>③</span>
       </div>
-    </div>
+    </header>
   </transition>
 </template>
 
@@ -39,7 +39,7 @@ export default {
   .header-wrapper {
     display: flex;
     width: 100%;
-    height: 4rem;
+    height: 48px;
     border-bottom: 1px solid #aaaaaa;
     justify-content: space-between;
     align-items: center;
@@ -56,9 +56,17 @@ export default {
     height: 100%;
   }
   .logo-wrapper:active {
-    background-color: rgb(0 0 0 / 20%);
+    background-color: var(--active-bg-color);
   }
   .middle .logo {
     height: 100%;
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.25s ease;
+  }
+  .fade-enter-from,
+  .fade-leave-active {
+    opacity: 0;
   }
 </style>
