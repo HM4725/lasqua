@@ -1,7 +1,7 @@
 <template>
   <button type="button" class="button" :class="{'after': after}">
     <span>{{value}}</span>
-    <after-icon v-if="after"/>
+    <after-icon class="after-icon" v-if="after"/>
   </button>
 </template>
 
@@ -72,5 +72,11 @@ export default {
 }
 .button.after {
   justify-content: space-between;
+}
+.button.after:hover > .after-icon {
+  fill: var(--active-color);
+}
+.button.after:active > .after-icon {
+  fill: var(--active-color);
 }
 </style>
