@@ -26,6 +26,11 @@ const store = createStore({
       const response = await api("POST", "/api/login", payload)
       response && commit('login', payload)
       return response ? "success" : "fail"
+    },
+    logout: async ({commit}) => {
+      const response = await api("POST", "/api/logout")
+      response && commit('logout')
+      return response ? "success" : "fail"
     }
   },
   plugins: [

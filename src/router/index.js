@@ -20,14 +20,23 @@ const routes = [
     path: '/traveler',
     name: 'Traveler',
     component: () => import(/* webpackChunkName: "traveler" */ '../views/TravelerView.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/LoginPage.vue')
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: () => import(/* webpackChunkName: "logout" */ '../views/LogoutPage.vue')
+  },
+  {
+    path: '/myaccount',
+    name: 'MyAccount',
+    component: () => import(/* webpackChunkName: "myaccount" */ '../views/MyAccountPage.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/signup',
