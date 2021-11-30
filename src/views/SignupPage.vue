@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import InputBox from '@/components/common/InputBox.vue'
+import InputBox from '@/components/form/InputBox.vue'
 
 export default{
   components: {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ProfileIcon from '../components/icons/ProfileIcon.vue'
+import ProfileIcon from '@/components/icons/ProfileIcon.vue'
 
 export default{
   components: {

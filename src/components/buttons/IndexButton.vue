@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import RouterButton from './common/RouterButton.vue'
+import RouterButton from './RouterButton.vue'
 
 export default{
   components: {

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import DefaultButton from './DefaultButton.vue'
+import DefaultButton from '../buttons/DefaultButton.vue'
 
 export default{
   components: {

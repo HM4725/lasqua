@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import RouterButton from '@/components/common/RouterButton.vue'
-import SearchBox from '@/components/common/SearchBox.vue'
+import RouterButton from '@/components/buttons/RouterButton.vue'
+import SearchBox from '@/components/form/SearchBox.vue'
 import SidebarFooter from './SidebarFooter.vue'
 
 const CATEGORIES = ['watcher', 'traveler', 'notice']
