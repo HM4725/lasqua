@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <p>la squadra di blu</p>
+    <p class="f-title">la squadra di blu</p>
     <p>
       라스콰드라 디 블루에 속한<br>
       아티스트와 기업을 위한 페이지입니다.<br>
@@ -9,8 +9,8 @@
     <form class="login-form">
       <div class="login-wrapper">
         <div class="login-info">
-          <input type="text" name="id" class="text-box" v-model="id" placeholder="아이디" autocomplete="username">
-          <input type="password" name="pw" class="text-box" v-model="pw" placeholder="비밀번호" autocomplete="current-password">
+          <input-box class="info-box" type="text" id="id" placeholder="아이디" autocomplete="username" ref="id"/>
+          <input-box class="info-box" type="password" id="pw" placeholder="비밀번호" autocomplete="current-password" ref="pw"/>
         </div>
         <default-button class="login-button" @click="login" type="submit" value="로그인"/>
       </div>
@@ -23,12 +23,14 @@
 </template>
 
 <script>
-import DefaultButton from '../components/buttons/DefaultButton.vue'
+import DefaultButton from '@/components/buttons/DefaultButton.vue'
+import InputBox from '@/components/form/InputBox.vue'
 
 export default{
   name: 'SignInView',
   components: {
-    DefaultButton
+    DefaultButton,
+    InputBox
   },
   data() {
     return {
@@ -39,9 +41,10 @@ export default{
   },
   methods: {
     async login(e) {
-      this.error = false;
       e.preventDefault()
-      const result = await this.$store.dispatch("login", {id: this.id, pw: this.pw})
+      this.error = false;
+      const info = {id: this.$refs.id.getValue(), pw: this.$refs.pw.getValue()}
+      const result = await this.$store.dispatch("login", info)
       if(result === "success") {
         const redirect = this.$route.query.redirect
         if(redirect) {
@@ -50,6 +53,8 @@ export default{
           this.$router.go(-1)
         }
       } else {
+        this.$refs.id.occurError();
+        this.$refs.pw.occurError();
         this.error = true
       }
     },
@@ -66,16 +71,9 @@ export default{
   .login-info {
     width: 10rem;
   }
-  .text-box {
+  .info-box {
     width: 100%;
     margin: 3px;
-    border-radius: 0;
-    border: 1px solid var(--base-color);
-  }
-  .text-box:focus {
-    outline: none;
-    border-color: var(--active-color);
-    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   }
   .error-message {
     color: red;
