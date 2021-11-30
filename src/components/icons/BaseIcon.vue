@@ -27,11 +27,14 @@ export default{
   .icon:active {
     fill: var(--active-color);
   }
-  .icon > line {
+  .icon > * {
     stroke: var(--base-color);
     transition: stroke .25s ease-in-out;
   }
-  .icon:hover > line {
+  .icon:hover > * {
+    stroke: var(--active-color);
+  }
+  .icon:active > * {
     stroke: var(--active-color);
   }
 </style>

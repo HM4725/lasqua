@@ -1,5 +1,5 @@
 <template>
-  <base-icon :size="size" viewBox="0 0 24 24">
+  <base-icon class="after-icon" :size="size" viewBox="0 0 24 24">
     <path d="M21 12l-18 12v-24z"/>
   </base-icon>
 </template>
@@ -19,3 +19,9 @@ export default{
   }
 }
 </script>
+
+<style scoped>
+  .after-icon > * {
+    stroke: none;
+  }
+</style>

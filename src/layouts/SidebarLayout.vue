@@ -8,10 +8,7 @@
         <router-button class="nav-button" @click="close" v-for="(cate, i) in categories" :key="i" :link="cate" after/>
       </nav>
       <footer class="sidebar-footer">
-        <ul>
-          <li><router-link class="wide-click" to="/login" @click="close">로그인</router-link></li>
-          <li><router-link class="wide-click" to="/signup" @click="close">회원가입</router-link></li>
-        </ul>
+        <sidebar-footer/>
       </footer>
     </div>
   </div>
@@ -20,6 +17,7 @@
 <script>
 import RouterButton from '@/components/common/RouterButton.vue'
 import SearchBox from '@/components/common/SearchBox.vue'
+import SidebarFooter from './SidebarFooter.vue'
 
 const CATEGORIES = ['watcher', 'traveler', 'notice']
 
@@ -27,7 +25,8 @@ export default{
   name: "SidebarLayout",
   components: {
     SearchBox,
-    RouterButton
+    RouterButton,
+    SidebarFooter
   },
   data() {
     return {
@@ -96,19 +95,4 @@ export default{
     position: absolute;
     bottom: 1.5rem;
   }
-  .sidebar-footer li {
-    float: left;
-    margin-right: .2rem;
-  }
-  .sidebar-footer li::before {
-    content: "|";
-    color: var(--base-color);
-    position: relative;
-    top: -1px;
-    padding-right: .2rem;
-  }
-  .sidebar-footer li:first-child::before {
-    content: "";
-  }
-
 </style>
