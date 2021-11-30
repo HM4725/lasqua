@@ -61,7 +61,7 @@ export default{
     bottom: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    z-index: 10;
     visibility: hidden;
     opacity: 0;
     transition: all .25s ease-in-out;
