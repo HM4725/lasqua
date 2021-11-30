@@ -14,7 +14,7 @@ export default{
   methods: {
     async getUser() {
       const id = this.$store.getters.getUserId
-      const { data } = await this.$api("GET", `/user/${id}`)
+      const { data } = await this.$api("GET", `/user/${id}/info`)
       this.info = data
     }
   },
