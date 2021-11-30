@@ -1,0 +1,6 @@
+p {
+  all: unset;
+}
+p.f-title {
+  font-size: 1.5rem;
+}

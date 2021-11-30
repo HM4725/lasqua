@@ -27,6 +27,7 @@ export default {
 <style>
   @import "./assets/css/default.css";
   @import "./assets/css/wide-click.css";
+  @import "./assets/css/font.css";
 
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
