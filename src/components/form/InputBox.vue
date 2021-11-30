@@ -63,7 +63,7 @@ export default{
     width: 100%;
     transition: all .25s;
     margin-top: .5rem;
-    padding: 4px 6px;
+    padding: .6rem;
     border: 1px solid var(--base-color);
     border-radius: 0;
     background-color: white !important;
@@ -74,7 +74,7 @@ export default{
   }
   .input-box label {
     position: absolute;
-    left: 7px;
+    left: .6rem;
     top: 1rem;
     padding: 0 1px;
     font-size: .9rem;

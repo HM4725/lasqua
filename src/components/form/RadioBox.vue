@@ -65,7 +65,7 @@ export default{
     height: 1rem;
     line-height: 1rem;
     top: -0.5rem;
-    left: 7px;
+    left: .6rem;
   }
   .option {
     border: 1px solid var(--base-color);
