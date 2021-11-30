@@ -1,7 +1,7 @@
 :root {
   --base-color: black;
   --active-color: rgba(0, 0, 0, 0.25);
-  --active-bg-color: #dddddd;
+  --active-bg-color: #eeeeee;
 }
 *, :after, :before {
   box-sizing: border-box;
