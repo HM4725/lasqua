@@ -6,20 +6,14 @@
 
 <script>
 export default{
+  name: "WatcherPage",
   data() {
     return {
       msg: "아직 응답을 받지 못했습니다."
     }
   },
   methods: {
-    async getMsg() {
-      let result = await this.$api("get", "/api/HelloWorld")
-      this.msg = result ? result : "Error"
-    }
   },
-  created() {
-    this.getMsg()
-  }
 }
 </script>
 

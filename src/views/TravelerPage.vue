@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'TravelerView',
+  name: 'TravelerPage',
 };
 </script>
 
