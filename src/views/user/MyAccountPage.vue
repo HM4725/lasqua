@@ -14,8 +14,12 @@ export default{
   methods: {
     async getUser() {
       const id = this.$store.getters.getUserId
-      const { data } = await this.$api("GET", `/user/${id}/info`)
-      this.info = data
+      try {
+        const { data } = await this.$api("GET", `/user/${id}/info`)
+        this.info = data
+      } catch(error) {
+        this.info.error = error
+      }
     }
   },
   mounted() {
