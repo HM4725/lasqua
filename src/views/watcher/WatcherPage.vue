@@ -1,15 +1,19 @@
 <template>
-  <div class="test-box">
-    {{msg}}
+  <div class="watcher-page">
+    <article-list/>
   </div>
 </template>
 
 <script>
+import ArticleList from '@/components/article/ArticleList.vue'
+
 export default{
   name: "WatcherPage",
+  components: {
+    ArticleList
+  },
   data() {
     return {
-      msg: "아직 응답을 받지 못했습니다."
     }
   },
   methods: {
@@ -18,9 +22,4 @@ export default{
 </script>
 
 <style scoped>
-  .test-box {
-    width: 10rem;
-    height: 10rem;
-    background-color: blanchedalmond;
-  }
 </style>
