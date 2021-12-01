@@ -75,20 +75,13 @@ export default{
         etc_name: this.$refs.etcName.getValue(),
         etc_link: this.$refs.etcLink.getValue()
       }
-      const response = await this.$api("POST", "/signup", newUser)
-      console.log(response)
-      // if(result === "success") {
-      //   const redirect = this.$route.query.redirect
-      //   if(redirect) {
-      //     this.$router.push(redirect)
-      //   } else {
-      //     this.$router.go(-1)
-      //   }
-      // } else {
-      //   this.$refs.id.occurError();
-      //   this.$refs.pw.occurError();
-      //   this.error = true
-      // }
+      try {
+        await this.$api("POST", "/signup", newUser)
+        this.$router.push({name: 'Message', params: {message: "회원가입 성공", redirect: "/login"}})
+      } catch(error) {
+        alert('오류가 발생하였습니다.')
+        console.log(error)
+      }
     },
   }
 }

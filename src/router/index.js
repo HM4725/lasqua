@@ -44,6 +44,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "signup" */ '../views/user/SignupPage.vue')
   },
   {
+    path: '/message',
+    name: 'Message',
+    component: () => import(/* webpackChunkName: "message" */ '../views/MessagePage.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     name: 'Error',
     component: () => import(/* webpackChunkName: "error" */ '../views/ErrorPage.vue')
