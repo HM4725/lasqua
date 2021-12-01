@@ -28,7 +28,7 @@ export default{
   data() {
     return {
       page: 1,
-      articleList: [{}, {}, {title: 'test', image:{"img_link": '300'}}, {}]
+      articleList: [{}, {}, {}, {}]
     }
   },
   methods: {
