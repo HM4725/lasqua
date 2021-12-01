@@ -4,10 +4,9 @@
       <before-icon class="arrow-icon"/>
     </div>
     <ul class="articles">
-      <li><article-card/></li>
-      <li><article-card/></li>
-      <li><article-card/></li>
-      <li><article-card/></li>
+      <li v-for="(article, i) in articleList" :key="i">
+        <article-card :article="article"/>
+      </li>
     </ul>
     <div class="arrow-button">
       <after-icon class="arrow-icon"/>
@@ -25,6 +24,28 @@ export default{
     ArticleCard,
     BeforeIcon,
     AfterIcon
+  },
+  data() {
+    return {
+      page: 1,
+      articleList: [{}, {}, {title: 'test', image:{"img_link": '300'}}, {}]
+    }
+  },
+  methods: {
+    async loadArticleList() {
+      try {
+        const response = await this.$api("GET", `/articlelist?page=${this.page}`)
+        const receivedArticles = response.data.article
+        for(let i in receivedArticles) {
+          this.articleList[i] = receivedArticles[i]
+        }
+      } catch(error) {
+        console.error(error)
+      }
+    }
+  },
+  mounted() {
+    this.loadArticleList()
   }
 }
 </script>
