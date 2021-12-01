@@ -21,7 +21,7 @@ export default{
 </script>
 
 <style scoped>
-  .after-icon > * {
+  .before-icon > * {
     stroke: none;
   }
 </style>
