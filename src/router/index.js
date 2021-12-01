@@ -5,52 +5,52 @@ import store from '@/store.js'
 const routes = [
   {
     path: '/',
-    name: 'Index',
+    name: 'index',
     component: IndexPage,
   },
   {
     path: '/watcher',
-    name: 'Watcher',
+    name: 'watcher',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "watcher" */ '../views/watcher/WatcherPage.vue')
+    component: () => import(/* webpackChunkName: "watcher" */ '../views/watcher/WatcherPage.vue'),
   },
   {
     path: '/traveler',
-    name: 'Traveler',
+    name: 'traveler',
     component: () => import(/* webpackChunkName: "traveler" */ '../views/traveler/TravelerPage.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/user/LoginPage.vue')
   },
   {
     path: '/logout',
-    name: 'Logout',
+    name: 'logout',
     component: () => import(/* webpackChunkName: "logout" */ '../views/user/LogoutPage.vue')
   },
   {
     path: '/myaccount',
-    name: 'MyAccount',
+    name: 'myaccount',
     component: () => import(/* webpackChunkName: "myaccount" */ '../views/user/MyAccountPage.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/signup',
-    name: 'Signup',
+    name: 'signup',
     component: () => import(/* webpackChunkName: "signup" */ '../views/user/SignupPage.vue')
   },
   {
     path: '/message',
-    name: 'Message',
+    name: 'message',
     component: () => import(/* webpackChunkName: "message" */ '../views/MessagePage.vue')
   },
   {
     path: '/:catchAll(.*)',
-    name: 'Error',
+    name: 'error',
     component: () => import(/* webpackChunkName: "error" */ '../views/ErrorPage.vue')
   }
 ]

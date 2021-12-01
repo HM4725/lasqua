@@ -37,6 +37,7 @@ import RadioBox from '@/components/form/RadioBox.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 
 export default{
+  name: "user/SignupPage",
   components: {
     InputBox,
     RadioBox,
@@ -77,7 +78,7 @@ export default{
       }
       try {
         await this.$api("POST", "/signup", newUser)
-        this.$router.push({name: 'Message', params: {message: "회원가입 성공", redirect: "/login"}})
+        this.$router.push({name: 'message', params: {message: "회원가입 성공", redirect: "/login"}})
       } catch(error) {
         alert('오류가 발생하였습니다.')
         console.error(error)

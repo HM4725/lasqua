@@ -14,10 +14,14 @@ export default{
     }
   },
   mounted() {
-    this.message = this.$route.params.message
-    setTimeout(() => {
-      this.$router.push(this.$route.params.redirect)
-    }, this.time * 1000)
+    if(this.$route.params.redirect) {
+      this.message = this.$route.params.message
+      setTimeout(() => {
+        this.$router.push({path: this.$route.params.redirect})
+      }, this.time * 1000)
+    } else {
+      this.$router.replace({path: '/'})
+    }
   }
 }
 </script>

@@ -19,7 +19,7 @@ const store = createStore({
     }
   },
   getters: {
-    isLoggedIn: (state) => Object.keys(state.user).length !== 0,
+    isLoggedIn: (state) => state.user.id !== undefined,
     getUserId: (state) => state.user.id
   },
   actions: {

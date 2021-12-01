@@ -6,6 +6,7 @@
 
 <script>
 export default{
+  name: "user/MyAccountPage",
   data() {
     return {
       info: {}

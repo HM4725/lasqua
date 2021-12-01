@@ -6,6 +6,7 @@
 
 <script>
 export default{
+  name: "user/LogoutPage",
   data() {
     return {
       msg: '로그아웃 중입니다.'
@@ -14,9 +15,7 @@ export default{
   methods: {
     async logout() {
       this.$store.getters.isLoggedIn &&
-      await this.$store.dispatch("logout") &&
-      console.log('logout success')
-
+        await this.$store.dispatch("logout")
       this.$router.go(-1)
     }
   },

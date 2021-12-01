@@ -27,7 +27,7 @@ import DefaultButton from '@/components/buttons/DefaultButton.vue'
 import InputBox from '@/components/form/InputBox.vue'
 
 export default{
-  name: 'SignInView',
+  name: 'user/LoginPage',
   components: {
     DefaultButton,
     InputBox
@@ -47,11 +47,7 @@ export default{
       const result = await this.$store.dispatch("login", info)
       if(result === "success") {
         const redirect = this.$route.query.redirect
-        if(redirect) {
-          this.$router.push(redirect)
-        } else {
-          this.$router.go(-1)
-        }
+        redirect ? this.$router.push({path: redirect}) : this.$router.go(-1)
       } else {
         this.$refs.id.occurError();
         this.$refs.pw.occurError();
