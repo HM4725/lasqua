@@ -80,7 +80,7 @@ export default{
         this.$router.push({name: 'Message', params: {message: "회원가입 성공", redirect: "/login"}})
       } catch(error) {
         alert('오류가 발생하였습니다.')
-        console.log(error)
+        console.error(error)
       }
     },
   }

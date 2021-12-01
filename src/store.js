@@ -24,14 +24,24 @@ const store = createStore({
   },
   actions: {
     login: async ({commit}, payload) => {
-      const response = await api("POST", "/login", payload)
-      response && commit('login', payload)
-      return response ? "success" : "fail"
+      try {
+        await api("POST", "/login", payload)
+        commit('login', payload)
+        return "success"
+      } catch(error) {
+        console.error(error)
+        return "fail"
+      }
     },
     logout: async ({commit}) => {
-      const response = await api("POST", "/logout")
-      response && commit('logout')
-      return response ? "success" : "fail"
+      try {
+        await api("POST", "/logout")
+        commit('logout')
+        return "success"
+      } catch(error) {
+        console.error(error)
+        return "fail"
+      }
     }
   },
   plugins: [
