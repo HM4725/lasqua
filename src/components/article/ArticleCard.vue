@@ -84,7 +84,7 @@ export default{
   }
 
   .card.deactivate {
-    color: var(--activate-bg-color);
+    color: var(--active-bg-color);
     border: 1px solid var(--active-bg-color);
     border-radius: .25rem;
   }
@@ -95,7 +95,7 @@ export default{
   .card.deactivate:hover,
   .card.deactivate:focus,
   .card.deactivate:active {
-    color: inherit;
+    color: var(--active-bg-color);
     transform: none;
     box-shadow: none;
     background-color: inherit;
