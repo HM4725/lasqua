@@ -1,6 +1,6 @@
 <template>
-  <base-icon class="after-icon" :size="size" viewBox="0 0 16 16">
-    <polygon points="2,0 2,16 14,8"/>
+  <base-icon class="before-icon" :size="size" viewBox="0 0 16 16">
+    <polygon points="14,0 14,16 2,8"/>
   </base-icon>
 </template>
 
