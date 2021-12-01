@@ -38,6 +38,9 @@ export default{
         const receivedArticles = response.data.article
         for(let i in receivedArticles) {
           this.articleList[i] = receivedArticles[i]
+          if(i === 3) {
+            break
+          }
         }
       } catch(error) {
         console.error(error)
