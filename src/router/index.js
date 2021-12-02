@@ -17,6 +17,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "watcher" */ '../views/watcher/WatcherPage.vue'),
   },
   {
+    path: '/watcher/view',
+    name: 'watcherView',
+    component: () => import(/* webpackChunkName: "traveler" */ '../views/watcher/ViewPage.vue'),
+  },
+  {
     path: '/traveler',
     name: 'traveler',
     component: () => import(/* webpackChunkName: "traveler" */ '../views/traveler/TravelerPage.vue'),

@@ -5,7 +5,7 @@
     </div>
     <ul class="articles">
       <li v-for="(article, i) in articleList" :key="i">
-        <article-card :article="article"/>
+        <article-card :article="article" @click="$router.push(`/watcher/view?no=${article.no}`)"/>
       </li>
     </ul>
     <div class="arrow-button">
