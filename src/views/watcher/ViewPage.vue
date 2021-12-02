@@ -55,6 +55,6 @@ export default{
     align-items: stretch;
   }
   .image {
-    margin: 4rem;
+    margin: 16px;
   }
 </style>
