@@ -22,4 +22,7 @@ export default{
 </script>
 
 <style scoped>
+  .watcher-page {
+    width: 100%;
+  }
 </style>
