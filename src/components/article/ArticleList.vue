@@ -39,10 +39,6 @@ export default{
         let i = 0
         for(i in receivedArticles) {
           this.articleList[i] = receivedArticles[i]
-          if(i === '2') {
-            console.log('break')
-            break
-          }
         }
       } catch(error) {
         console.error(error)
