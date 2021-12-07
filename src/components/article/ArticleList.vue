@@ -55,6 +55,7 @@ export default{
 
 <style scoped>
   .container {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -74,7 +75,9 @@ export default{
   .arrow-button:active > .arrow-icon {
     fill: var(--active-color);
   }
-  .articles {display: grid;
+  .articles {
+    width: 100%;
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 1.5rem;
   }
