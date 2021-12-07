@@ -25,7 +25,7 @@ export default{
         this.$parent.activate && this.$parent.activate()
       }
       image.onerror = () => {
-        console.error(`NOT FOUND: ${src}`)
+        src !== '' && console.error(`NOT FOUND: ${src}`)
       }
     }
   },
