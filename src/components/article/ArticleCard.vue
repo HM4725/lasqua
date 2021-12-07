@@ -34,17 +34,7 @@ export default{
       return this.article.title ? this.article.title : this.default.title
     },
     imgSrc() {
-      // article 명칭 수정 되면 고쳐야함.
-      let src = "errer"
-      if(this.article.image) {
-        if(this.article.image['img_link']) {
-          src = this.article.image['img_link']
-        } else if(this.article.image['link']) {
-          src = this.article.image['link']
-        }
-      }
-      console.log(src)
-      return src
+      return this.article.image ? this.article.image.link : ''
     }
   }
 }
