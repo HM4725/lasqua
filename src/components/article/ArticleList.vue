@@ -5,7 +5,7 @@
     </div>
     <ul class="articles">
       <li v-for="(article, i) in articleList" :key="i">
-        <article-card :article="article" @click="$router.push(`/watcher/view?no=${article.no}`)"/>
+        <thumb-nail :article="article"/>
       </li>
     </ul>
     <div class="arrow-button">
@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import ArticleCard from './ArticleCard.vue'
+import ThumbNail from './ThumbNail.vue'
 import BeforeIcon from '@/components/icons/BeforeIcon.vue'
 import AfterIcon from '@/components/icons/AfterIcon.vue'
 
 export default{
   components: {
-    ArticleCard,
+    ThumbNail,
     BeforeIcon,
     AfterIcon
   },
@@ -36,9 +36,11 @@ export default{
       try {
         const response = await this.$api("GET", `/articlelist?page=${this.page}`)
         const receivedArticles = response.data.article
-        for(let i in receivedArticles) {
+        let i = 0
+        for(i in receivedArticles) {
           this.articleList[i] = receivedArticles[i]
-          if(i === 3) {
+          if(i === '2') {
+            console.log('break')
             break
           }
         }

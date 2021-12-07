@@ -13,20 +13,29 @@ export default{
   },
   data() {
     return {
-      imgSrc: require('../../assets/svg/spinner-3x4.svg'),
-      dataSrc: 'no!'
+      imgSrc: require('@/assets/svg/spinner-3x4.svg'),
+    }
+  },
+  methods: {
+    lazyLoading(src) {
+      let image = new Image()
+      image.src = src
+      image.onload = () => {
+        this.imgSrc = src
+        this.$parent.activate && this.$parent.activate()
+      }
+      image.onerror = () => {
+        console.error(`NOT FOUND: ${src}`)
+      }
     }
   },
   watch: {
-    src() {
-      if(this.src !== '') {
-        let image = new Image()
-        image.src = this.src
-        image.onload = () => {
-          this.imgSrc = this.src
-        }
-      }
+    src(newVal) {
+      this.lazyLoading(newVal)
     }
+  },
+  mounted() {
+    this.lazyLoading(this.src)
   }
 }
 </script>

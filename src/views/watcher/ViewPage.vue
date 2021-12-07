@@ -26,20 +26,15 @@ export default{
       try {
         const response = await this.$api("GET", `/article/${this.no}`)
         const receivedImages = response.data.image
-        console.log("도착: " + receivedImages)
         for(let i in receivedImages) {
-          this.imageList[i] = receivedImages[i]
+          this.imageList.push(receivedImages[i])
         }
       } catch(error) {
         console.error(error)
       }
     }
   },
-  beforeCreate() {
-    this.no = this.$route.query.no
-  },
-  mounted() {
-    console.log(this.no)
+  created() {
     this.no = this.$route.query.no
     this.loadArticle()
   }
