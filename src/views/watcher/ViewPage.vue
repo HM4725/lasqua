@@ -25,7 +25,7 @@ export default{
     async loadArticle() {
       try {
         const response = await this.$api("GET", `/article/${this.no}`)
-        const receivedImages = response.data.image
+        const receivedImages = response.data.images
         for(let i in receivedImages) {
           this.imageList.push(receivedImages[i])
         }

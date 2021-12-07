@@ -34,7 +34,7 @@ export default{
       return this.article.title ? this.article.title : '없음'
     },
     imgSrc() {
-      return this.article.image ? this.article.image.link : ''
+      return this.article.images ? this.article.images.link : ''
     },
     link() {
       return this.article.no ? `/watcher/view?no=${this.article.no}` : '.'
