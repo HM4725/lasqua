@@ -22,7 +22,7 @@ export default{
 </script>
 
 <style scoped>
-.x-icon {
-  cursor: default;
-}
+  .x-icon {
+    cursor: default;
+  }
 </style>
