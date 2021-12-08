@@ -1,5 +1,5 @@
 <template>
-  <default-button @click="$router.push(link)" :value="link" :after="after"/>
+  <default-button @click="$router.push(link)" :value="value" :after="after"/>
 </template>
 
 <script>
@@ -14,7 +14,11 @@ export default{
       type: String,
       default: "/"
     },
+    value: {
+      type: String,
+      default: "link"
+    },
     after: Boolean
-  }
+  },
 }
 </script>
