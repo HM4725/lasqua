@@ -5,11 +5,12 @@ axios.defaults.withCredentials = true
 
 export default {
   methods: {
-    async $api(method, path, data) {
+    async $api(method, path, data, headers) {
       return await axios({
         method: method,
         url: HOST + path,
-        data: data
+        data: data,
+        headers: headers
       })
     }
   }
