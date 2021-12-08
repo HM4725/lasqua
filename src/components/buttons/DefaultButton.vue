@@ -54,8 +54,7 @@ export default {
   vertical-align: baseline;
   width: auto;
 }
-.button:hover,
-.button:focus {
+.button:hover {
   border-color: var(--active-color);
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   color: var(--active-color);
