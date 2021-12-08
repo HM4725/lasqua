@@ -19,12 +19,18 @@ const routes = [
   {
     path: '/watcher/view',
     name: 'watcherView',
-    component: () => import(/* webpackChunkName: "traveler" */ '../views/watcher/ViewPage.vue'),
+    component: () => import(/* webpackChunkName: "watcherView" */ '../views/watcher/ViewPage.vue'),
   },
   {
     path: '/traveler',
     name: 'traveler',
     component: () => import(/* webpackChunkName: "traveler" */ '../views/traveler/TravelerPage.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/upload',
+    name: 'upload',
+    component: () => import(/* webpackChunkName: "upload" */ '../views/traveler/UploadPage.vue'),
     meta: { requiresAuth: true }
   },
   {
