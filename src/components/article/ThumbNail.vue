@@ -7,6 +7,10 @@
 <script>
 import ImgComponent from './ImgComponent.vue'
 
+function getExtension(file) {
+  return file.substring(file.lastIndexOf('.'))
+}
+
 export default{
   props: {
     article: {
@@ -24,10 +28,12 @@ export default{
   methods: {
     activate() {
       this.active = true
-      this.$refs.thumbnail.addEventListener("click", () => {
-        this.$router.push(this.link)
-      })
-    }
+      if(getExtension(this.article.images.link) !== '.svg') {
+        this.$refs.thumbnail.addEventListener("click", () => {
+          this.$router.push(this.link)
+        })
+      }
+    },
   },
   computed: {
     title() {
@@ -51,7 +57,7 @@ export default{
   }
   .thumbnail > .thumbnail-img {
     border-radius: calc(0.25rem - 1px);
-    display: block;
+    transition: all .25s ease-in-out;
   }
   .thumbnail.activate {
     cursor: pointer;
