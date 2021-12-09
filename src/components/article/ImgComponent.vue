@@ -17,31 +17,36 @@ export default{
     }
   },
   watch: {
-    src() {
-      this.lazyLoading(this.src)
+    src:{
+      handler() {
+        this.lazyLoading(this.src)
+      },
+      immediate: true
     }
   },
   methods: {
     lazyLoading(src) {
-      this.imgSrc = require('@/assets/svg/spinner-3x4.svg')
-      let image = new Image()
-      image.src = src
-      image.onload = () => {
-        this.imgSrc = src
-        this.$emit("imgLoad")
-      }
-      image.onerror = () => {
-        src !== '' && console.error(`NOT FOUND: ${src}`)
-        this.$emit("error")
+      if(src) {
+        this.imgSrc = require('@/assets/svg/spinner-3x4.svg')
+        let image = new Image()
+        image.src = src
+        image.onload = () => {
+          this.imgSrc = src
+          this.$emit("imgLoad")
+        }
+        image.onerror = () => {
+          src !== '' && console.error(`NOT FOUND: ${src}`)
+          this.$emit("error")
+        }
       }
     }
   },
-  beforeMount() {
-    if(this.src) {
-      this.imgSrc = this.src
-      this.$emit("imgLoad")
-    }
-  }
+  // beforeMount() {
+  //   if(this.src) {
+  //     this.imgSrc = this.src
+  //     this.$emit("imgLoad")
+  //   }
+  // }
 }
 </script>
 
