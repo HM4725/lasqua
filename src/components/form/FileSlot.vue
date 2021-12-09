@@ -19,6 +19,7 @@ export default{
         const formData = new FormData()
         formData.append("image", e.target.files[0])
         this.$emit("upload", formData)
+        e.target.value = ''
       }
     }
   }
