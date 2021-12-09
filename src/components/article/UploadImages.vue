@@ -84,7 +84,7 @@ export default{
         const headers = {
           "Content-Type": "multipart/form-data"
         }
-        const response = await this.$api("POST", "/article/image", formData, headers)
+        const response = await this.$api("POST", "/file", formData, headers)
         console.log(response)
       } catch(error) {
         console.error(error)
