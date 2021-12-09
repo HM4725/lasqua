@@ -9,7 +9,7 @@
     <form class="login-form">
       <div class="login-wrapper">
         <div class="login-info">
-          <input-box class="info-box" type="text" id="id" placeholder="아이디" autocomplete="username" ref="id"/>
+          <input-box class="info-box" type="text" id="id" placeholder="아이디" autocomplete="username" focus ref="id"/>
           <input-box class="info-box" type="password" id="pw" placeholder="비밀번호" autocomplete="current-password" ref="pw"/>
         </div>
         <default-button class="login-button" @click="login" type="submit" value="로그인"/>

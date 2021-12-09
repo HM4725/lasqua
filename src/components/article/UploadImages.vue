@@ -22,7 +22,7 @@
           <p class="f-title">상세 정보</p>
         </template>
         <template v-slot:body>
-          <input-box type="text" id="imageName" placeholder="이미지명" ref="imageName"/>
+          <input-box type="text" id="imageName" placeholder="이미지명" ref="imageName" @keydown.enter="submitModal" focus/>
           <div v-show="error" class="error-message">{{errorMessage}}</div>
         </template>
       </modal-slot>
@@ -113,6 +113,9 @@ export default{
         this.error = true
       }
     },
+    submitModal() {
+      this.$refs.imageDetails.close()
+    }
   }
 }
 </script>
