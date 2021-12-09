@@ -45,7 +45,7 @@ export default{
     width: 100%;
   }
   .content-wrapper {
-    margin: 2.5rem 0 1rem 0;
+    margin: 2.5rem 3rem 1rem 3rem;
   }
   .content{
     height: 5rem;
