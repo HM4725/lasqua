@@ -7,16 +7,15 @@
 <script>
 import ImgComponent from './ImgComponent.vue'
 
-function getExtension(file) {
-  const idx = file.lastIndexOf('.')
-  return idx !== -1 ? file.substring(idx) : ""
-}
-
 export default{
   props: {
     article: {
       type: Object
     },
+    useLink: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     ImgComponent
@@ -29,12 +28,12 @@ export default{
   methods: {
     activate() {
       this.active = true
-      if(getExtension(this.article.images.link) !== '.svg') {
+      if(this.useLink) {
         this.$refs.thumbnail.addEventListener("click", () => {
-          this.$router.push(this.link)
+            this.$router.push(this.link)
         })
       }
-    },
+    }
   },
   computed: {
     title() {
