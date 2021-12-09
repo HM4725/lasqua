@@ -32,23 +32,23 @@ const routes = [
   {
     path: '/watcher',
     name: 'watcher',
-    component: () => import('@/views/watcher/WatcherPage.vue'),
+    component: () => import('@/views/article/WatcherPage.vue'),
   },
   {
-    path: '/watcher/view',
-    name: 'watcher.view',
-    component: () => import('@/views/watcher/ViewPage.vue'),
+    path: '/article/view',
+    name: 'article.view',
+    component: () => import('@/views/article/ViewPage.vue'),
   },
   {
     path: '/traveler',
     name: 'traveler',
-    component: () => import('@/views/traveler/TravelerPage.vue'),
+    component: () => import('@/views/article/TravelerPage.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/upload',
     name: 'upload',
-    component: () => import('@/views/traveler/UploadPage.vue'),
+    component: () => import('@/views/article/UploadPage.vue'),
     meta: { requiresAuth: true }
   },
   {
@@ -59,7 +59,7 @@ const routes = [
   {
     path: '/logout',
     name: 'logout',
-    component: () => import('@/views/user/LogoutPage.vue')
+    component: () => import('@/views/user/LogoutPage.vue'),
   },
   {
     path: '/myaccount',
@@ -75,12 +75,12 @@ const routes = [
   {
     path: '/message',
     name: 'message',
-    component: () => import('@/views/MessagePage.vue')
+    component: () => import('@/views/utils/MessagePage.vue')
   },
   {
     path: '/:catchAll(.*)',
     name: 'error',
-    component: () => import('@/views/ErrorPage.vue')
+    component: () => import('@/views/utils/ErrorPage.vue')
   }
 ]
 

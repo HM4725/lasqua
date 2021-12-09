@@ -39,13 +39,13 @@ export default{
 
 <style scoped>
   .upload-wrapper {
-    width: 80vw;
+    width: 100%;
   }
-  .images-wraper {
+  .images-wraper > section {
     width: 100%;
   }
   .content-wrapper {
-    margin: 2.5rem 3rem 1rem 3rem;
+    margin: 2.5rem 0 1rem 0;
   }
   .content{
     height: 5rem;
