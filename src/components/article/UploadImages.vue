@@ -6,6 +6,7 @@
       <ul class="images">
         <li v-for="(image, i) in images" :key="i">
           <thumb-nail :article="image"/>
+          <div class="delete-image">x</div>
         </li>
         <li>
           <file-slot ref="file" @upload="uploadImage">
@@ -85,13 +86,13 @@ export default{
           "Content-Type": "multipart/form-data"
         }
         const response = await this.$api("POST", "/file", formData, headers)
+        this.choiceImage.orderNo = this.getNo()
+        this.$refs.imageDetails.show() // name -> async
+        this.choiceImage.link = formData.get('file').name
         console.log(response)
       } catch(error) {
         console.error(error)
       }
-      this.choiceImage.orderNo = this.getNo()
-      this.$refs.imageDetails.show() // name -> async
-      this.choiceImage.link = formData.get('image').name
     },
     submitImageDetails() {
       this.error = false
@@ -146,6 +147,9 @@ export default{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 1.5rem;
+  }
+  .delete-image {
+    position: relative;
   }
   .error-message {
     color: red;
