@@ -20,6 +20,7 @@ export default{
     fill: var(--base-color);
     transition: fill .25s ease-in-out;
     cursor: pointer;
+    display: block;
   }
   .icon:hover {
     fill: var(--active-color);
