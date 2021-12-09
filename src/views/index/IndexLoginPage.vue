@@ -21,6 +21,12 @@ export default{
 </script>
 
 <style scoped>
+  .index-wrapper {
+    width: 100%;
+  }
+  .index-wrapper > section {
+    width: 100%;
+  }
   .index-wrapper > section:first-child {
     padding-bottom: 3rem;
   }
