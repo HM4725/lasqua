@@ -1,0 +1,132 @@
+<template>
+  <div class="upload-images">
+      <div class="arrow-button">
+        <before-icon class="arrow-icon"/>
+      </div>
+      <ul class="images">
+        <li v-for="(image, i) in images" :key="i">
+          <thumb-nail :article="image"/>
+        </li>
+        <li>
+          <file-slot ref="file" @upload="uploadImage">
+            <thumb-nail :article="addButton"/>
+          </file-slot>
+        </li>
+      </ul>
+      <div class="arrow-button">
+        <after-icon class="arrow-icon"/>
+      </div>
+      <modal-slot ref="imageDetails" @close="submitImageDetails">
+        <template v-slot:header>
+          <p class="f-title">상세 정보</p>
+        </template>
+        <template v-slot:body>
+          <input-box type="text" id="imageName" placeholder="이미지명" ref="imageName"/>
+        </template>
+      </modal-slot>
+  </div>
+</template>
+
+<script>
+import ThumbNail from './ThumbNail.vue'
+import BeforeIcon from '../icons/BeforeIcon.vue'
+import AfterIcon from '../icons/AfterIcon.vue'
+import FileSlot from '../form/FileSlot.vue'
+import ModalSlot from './ModalSlot.vue'
+import InputBox from '../form/InputBox.vue'
+export default{
+  components: {
+    ThumbNail,
+    BeforeIcon,
+    AfterIcon,
+    InputBox,
+    FileSlot,
+    ModalSlot
+  },
+  data() {
+    return {
+      no: 1,
+      images: [{}, {}, {}],
+      uploadedImages: [],
+      addButton: {
+        no: 0,
+        title: '추가',
+        images: {
+          orderNo: 0,
+          name: 'addButton',
+          link: require('@/assets/svg/addbutton-3x4.svg')
+        },
+      },
+      choiceImage: {
+        orderNo: 0,
+        name: '',
+        link: ''
+      }
+    }
+  },
+  methods: {
+    getImage(no) {
+      const idx = this.uploadedImages.findIndex((el) => el.orderNo === no)
+      return this.uploadedImages[idx]
+    },
+    getNo() {
+      return this.no++;
+    },
+    checkImageName(name) {
+      console.log(name)
+    },
+    async uploadImage(formData) {
+      try {
+        const headers = {
+          "Content-Type": "multipart/form-data"
+        }
+        const response = await this.$api("POST", "/article/image", formData, headers)
+        console.log(response)
+      } catch(error) {
+        console.error(error)
+      }
+      this.choiceImage.orderNo = this.getNo()
+      this.$refs.imageDetails.show() // name -> async
+      this.choiceImage.link = 'test'
+    },
+    submitImageDetails() {
+      const image = {
+        orderNo: this.choiceImage.orderNo,
+        name: this.$refs.imageName.getValue(),
+        link: this.choiceImage.link
+      }
+      this.uploadedImages.push(image)
+    },
+  }
+}
+</script>
+
+<style scoped>
+  .upload-images {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .arrow-button {
+    display: flex;
+    padding: 0 1rem;
+    cursor: pointer;
+    align-items: center;
+  }
+  .arrow-button:hover > .arrow-icon {
+    fill: var(--active-color);
+  }
+  .arrow-button:active {
+    background-color: var(--active-bg-color);
+  }
+  .arrow-button:active > .arrow-icon {
+    fill: var(--active-color);
+  }
+  .images {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 1.5rem;
+  }
+
+</style>
