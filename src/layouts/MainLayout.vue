@@ -22,7 +22,7 @@ export default {
     margin: auto;
     -webkit-box-pack: center;
     justify-content: center;
-    padding: 2rem 0;
+    padding: 2rem 3rem;
   }
   .fade-enter-active,
   .fade-leave-active {
