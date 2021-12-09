@@ -5,7 +5,7 @@
     </div>
     <ul class="articles">
       <li v-for="(article, i) in articleList" :key="i">
-        <thumb-nail :article="article"/>
+        <thumb-nail :article="article" use-link/>
       </li>
     </ul>
     <div class="arrow-button">
