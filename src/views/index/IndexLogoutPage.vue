@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import IndexButton from '../components/buttons/IndexButton.vue'
-import XIcon from '../components/icons/XIcon.vue'
+import IndexButton from '@/components/buttons/IndexButton.vue'
+import XIcon from '@/components/icons/XIcon.vue'
 
 export default {
   components: {

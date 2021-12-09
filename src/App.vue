@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     appStart() {
-      return this.$route.path !== "/"
+      return this.$route.name !== "index.logout"
     }
   }
 }
