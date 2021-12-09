@@ -1,6 +1,6 @@
 <template>
   <div :class="{thumbnail: true, activate: active}" ref="thumbnail">
-    <img-component :src="imgSrc" :title="title" class="thumbnail-img"/>
+    <img-component :src="imgSrc" :title="title" class="thumbnail-img" @img-load="activate"/>
   </div>
 </template>
 
@@ -8,7 +8,8 @@
 import ImgComponent from './ImgComponent.vue'
 
 function getExtension(file) {
-  return file.substring(file.lastIndexOf('.'))
+  const idx = file.lastIndexOf('.')
+  return idx !== -1 ? file.substring(idx) : ""
 }
 
 export default{
@@ -22,7 +23,7 @@ export default{
   },
   data() {
     return {
-      active: false
+      active: false,
     }
   },
   methods: {
@@ -43,7 +44,7 @@ export default{
       return this.article.images ? this.article.images.link : ''
     },
     link() {
-      return this.article.no ? `/watcher/view?no=${this.article.no}` : '.'
+      return this.article.no ? `/article/view?no=${this.article.no}` : '.'
     }
   }
 }
