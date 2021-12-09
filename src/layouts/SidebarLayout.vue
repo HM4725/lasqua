@@ -5,7 +5,7 @@
         <search-box ref="search"/>
       </header>
       <nav class="sidebar-nav">
-        <router-button class="nav-button" @click="close" v-for="(cate, i) in categories" :key="i" :link="cate" :value="cate" after/>
+        <router-button class="nav-button" @click="close" v-for="(cate, i) in categories" :key="i" :link="`/${cate}`" :value="cate" after/>
       </nav>
       <footer class="sidebar-footer">
         <sidebar-footer/>
