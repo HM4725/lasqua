@@ -1,6 +1,6 @@
 <template>
   <div class="input-box" :class="{filled: filled, error: error}">
-    <input v-bind="$attrs" :type="type" :id="id" :placeholder="placeholder" v-model="value" @focus="enter"/>
+    <input v-bind="$attrs" :type="type" :id="id" :placeholder="placeholder" v-model="value" @focus="enter" ref="input"/>
     <label v-if="placeholder" :for="id">{{placeholder}}</label>
   </div>
 </template>
@@ -21,6 +21,10 @@ export default{
       type: String,
       default: ""
     },
+    focus: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -42,6 +46,11 @@ export default{
   computed: {
     filled() {
       return this.value.length !== 0
+    }
+  },
+  mounted() {
+    if(this.focus) {
+      this.$refs.input.focus()
     }
   }
 }
