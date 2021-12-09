@@ -15,9 +15,11 @@ export default{
       return this.$refs.file
     },
     upload(e) {
-      const formData = new FormData()
-      formData.append("image", e.target.files[0])
-      this.$emit("upload", formData)
+      if(e.target.files[0]) {
+        const formData = new FormData()
+        formData.append("image", e.target.files[0])
+        this.$emit("upload", formData)
+      }
     }
   }
 }
