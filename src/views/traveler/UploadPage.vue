@@ -6,8 +6,8 @@
     <section class="content-wrapper">
       <textarea-box class="content" type="text" id="details" placeholder="프로젝트 설명글" ref="content"/>
     </section>
-    <footer class="submit-wraper">
-      <default-button class="upload-button" value="업로드"/>
+    <footer class="submit-wrapper">
+      <default-button value="업로드"/>
     </footer>
   </div>
 </template>
@@ -39,22 +39,20 @@ export default{
 
 <style scoped>
   .upload-wrapper {
-    margin-top: 2rem;
-  }
-  .upload-wrapper > section {
-    margin-bottom: 2.5rem;
+    width: 80vw;
   }
   .images-wraper {
     width: 100%;
   }
   .content-wrapper {
-    margin: 0 3rem;
+    margin: 2.5rem 3rem 1rem 3rem;
   }
   .content{
     height: 5rem;
   }
-  .upload-button {
-    float: right;
-    margin-right: 3rem;
+  .submit-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 3rem;
   }
 </style>
