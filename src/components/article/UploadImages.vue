@@ -16,12 +16,14 @@
       <div class="arrow-button">
         <after-icon class="arrow-icon"/>
       </div>
+
       <modal-slot ref="imageDetails" @close="submitImageDetails">
         <template v-slot:header>
           <p class="f-title">상세 정보</p>
         </template>
         <template v-slot:body>
           <input-box type="text" id="imageName" placeholder="이미지명" ref="imageName"/>
+          <div v-show="error" class="error-message">{{errorMessage}}</div>
         </template>
       </modal-slot>
   </div>
@@ -61,7 +63,9 @@ export default{
         orderNo: 0,
         name: '',
         link: ''
-      }
+      },
+      error: false,
+      errorMessage: ''
     }
   },
   methods: {
@@ -72,8 +76,8 @@ export default{
     getNo() {
       return this.no++;
     },
-    checkImageName(name) {
-      console.log(name)
+    isProperName(name) {
+      return name !== '' && this.uploadedImages.findIndex(image => image.name === name) === -1
     },
     async uploadImage(formData) {
       try {
@@ -87,15 +91,27 @@ export default{
       }
       this.choiceImage.orderNo = this.getNo()
       this.$refs.imageDetails.show() // name -> async
-      this.choiceImage.link = 'test'
+      this.choiceImage.link = formData.get('image').name
     },
     submitImageDetails() {
-      const image = {
-        orderNo: this.choiceImage.orderNo,
-        name: this.$refs.imageName.getValue(),
-        link: this.choiceImage.link
+      this.error = false
+      const nameComponent = this.$refs.imageName
+      const name = nameComponent.getValue()
+      if(this.isProperName(name)) {
+        const image = {
+          orderNo: this.choiceImage.orderNo,
+          name: name,
+          link: this.choiceImage.link
+        }
+        this.uploadedImages.push(image)
+      } else {
+        this.$refs.imageDetails.show() 
+        nameComponent.occurError()
+        this.errorMessage = name === '' ?
+          '이미지명을 입력하세요.' :
+          '중복된 이미지명을 입력하였습니다.'
+        this.error = true
       }
-      this.uploadedImages.push(image)
     },
   }
 }
@@ -128,5 +144,8 @@ export default{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 1.5rem;
   }
-
+  .error-message {
+    color: red;
+    margin-top: 5px;
+  }
 </style>
