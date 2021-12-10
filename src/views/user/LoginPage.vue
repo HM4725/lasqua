@@ -12,7 +12,7 @@
           <input-box class="info-box" type="text" id="id" placeholder="아이디" autocomplete="username" focus ref="id"/>
           <input-box class="info-box" type="password" id="pw" placeholder="비밀번호" autocomplete="current-password" ref="pw"/>
         </div>
-        <default-button class="login-button" @click="login" type="submit" value="로그인"/>
+        <default-button class="login-button" @click.prevent="login" type="submit" value="로그인"/>
       </div>
       <div v-show="error" class="error-message">
         아이디 또는 비밀번호가 잘못 입력 되었습니다.<br>
@@ -40,14 +40,12 @@ export default{
     }
   },
   methods: {
-    async login(e) {
-      e.preventDefault()
+    async login() {
       this.error = false;
       const info = {id: this.$refs.id.getValue(), pw: this.$refs.pw.getValue()}
       const result = await this.$store.dispatch("login", info)
       if(result === "success") {
-        const redirect = this.$route.query.redirect
-        redirect ? this.$router.push({path: redirect}) : this.$router.go(-1)
+        this.$router.push('/')
       } else {
         this.$refs.id.occurError();
         this.$refs.pw.occurError();
