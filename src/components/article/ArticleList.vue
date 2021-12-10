@@ -1,14 +1,14 @@
 <template>
   <section class="container">
-    <div class="arrow-button">
+    <div class="arrow-button" @click="unshiftArticles">
       <before-icon class="arrow-icon"/>
     </div>
     <ul class="articles">
-      <li v-for="(article, i) in articleList" :key="i">
+      <li v-for="(article, i) in articles.mounted" :key="i">
         <thumb-nail :article="article" use-link/>
       </li>
     </ul>
-    <div class="arrow-button">
+    <div class="arrow-button" @click="shiftArticles">
       <after-icon class="arrow-icon"/>
     </div>
   </section>
@@ -28,25 +28,75 @@ export default{
   data() {
     return {
       page: 1,
-      articleList: [{}, {}, {}, {}]
+      MAXPAGE: 0,
+      articles: {
+        TOTALSIZE: 0,
+        BLOCKSIZE: 0,
+        MOUNTSIZE: 4,
+        mounted: [],
+        loaded: [],
+        itr: 0
+      }
     }
   },
   methods: {
-    async loadArticleList() {
+    async loadArticles(page) {
       try {
-        const response = await this.$api("GET", `/articlelist?page=${this.page}`)
-        const receivedArticles = response.data.article
-        let i = 0
-        for(i in receivedArticles) {
-          this.articleList[i] = receivedArticles[i]
+        const response = await this.$api("GET", `/articlelist?page=${page}`)
+        const articles = response.data.article
+        if(this.MAXPAGE === 0) {
+          this._initArticles(response.data)
+        }
+        for(let i in articles) {
+          this.articles.loaded.push(articles[i])
         }
       } catch(error) {
         console.error(error)
       }
-    }
+    },
+    _initArticles(data) {
+      this.articles.TOTALSIZE = data.allArticleCount
+      this.articles.BLOCKSIZE = data.article.length
+      this.MAXPAGE = data.maxPage
+      for(let i = 0; i < Math.min(this.articles.BLOCKSIZE, this.articles.MOUNTSIZE); i++) {
+        this.articles.mounted.push(data.article[i])
+      }
+      for(let i = this.articles.BLOCKSIZE; i < this.articles.MOUNTSIZE; i++) {
+        this.articles.mounted.push({})
+      }
+    },
+    shiftArticles() {
+      if(this.articles.itr + this.articles.MOUNTSIZE < this.articles.TOTALSIZE) {
+        if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
+          this.loadArticles(++this.page)
+        }
+        const articles = []
+        const right = this.articles.loaded[this.articles.itr + this.articles.MOUNTSIZE]
+        Object.assign(articles, this.articles.mounted)
+        articles.shift()
+        articles.push(right)
+        this.articles.mounted = articles
+        this.articles.itr++
+      } else {
+        console.error(`[Cannot shift articles] itr: ${this.articles.itr} & size: ${this.articles.TOTALSIZE}`)
+      }
+    },
+    unshiftArticles() {
+      if(this.articles.itr > 0) {
+        const articles = []
+        const left = this.articles.loaded[this.articles.itr - 1]
+        Object.assign(articles, this.articles.mounted)
+        articles.unshift(left)
+        articles.pop()
+        this.articles.mounted = articles
+        this.articles.itr--
+      } else {
+        console.error(`[Cannot unshift images] index: ${this.articles.itr}`)
+      }
+    },
   },
-  mounted() {
-    this.loadArticleList()
+  beforeMount() {
+    this.loadArticles(1)
   }
 }
 </script>
