@@ -65,10 +65,10 @@ export default{
         this.articles.mounted.push({})
       }
     },
-    shiftArticles() {
+    async shiftArticles() {
       if(this.articles.itr + this.articles.MOUNTSIZE < this.articles.TOTALSIZE) {
         if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
-          this.loadArticles(++this.page)
+          await this.loadArticles(++this.page)
         }
         const articles = []
         const right = this.articles.loaded[this.articles.itr + this.articles.MOUNTSIZE]
@@ -91,7 +91,7 @@ export default{
         this.articles.mounted = articles
         this.articles.itr--
       } else {
-        console.error(`[Cannot unshift images] index: ${this.articles.itr}`)
+        console.error(`[Cannot unshift articles] index: ${this.articles.itr}`)
       }
     },
   },
