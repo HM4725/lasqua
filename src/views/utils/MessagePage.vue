@@ -6,11 +6,20 @@
 </template>
 
 <script>
+// [How To Use]
+// this.$router.push({
+//   name: 'message',
+//   params: {
+//     message: "${msg}",
+//     redirect: "${path}"
+//     }
+//   }
+// )
 export default{
   data() {
     return {
       message: '',
-      time: 3
+      time: 2
     }
   },
   mounted() {
