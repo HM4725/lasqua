@@ -19,6 +19,11 @@
         <strong>아이디</strong>와 <strong>비밀번호</strong>를 정확히 입력해 주세요.
       </div>
     </form>
+    <footer class="etc">
+      <default-button value="회원가입" @click="$router.push('/signup')"/>
+      <default-button value="아이디 찾기"/>
+      <default-button value="비밀번호 찾기"/>
+    </footer>
   </div>
 </template>
 
@@ -57,13 +62,21 @@ export default{
 </script>
 
 <style scoped>
+  .login {
+    width: 30rem;
+  }
+  form.login-form {
+    margin: 1rem 0;
+  }
   .login-wrapper {
     display: flex;
     justify-content: space-evenly;
-    width: 20rem;
+    width: 100%;
+    border: 1px solid var(--base-color);
+    padding: 1rem 0;
   }
   .login-info {
-    width: 10rem;
+    width: 15rem;
   }
   .info-box {
     width: 100%;
@@ -71,5 +84,10 @@ export default{
   }
   .error-message {
     color: red;
+  }
+  footer.etc {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 1rem;
   }
 </style>
