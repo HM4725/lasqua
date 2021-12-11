@@ -1,18 +1,36 @@
 <template>
-  <div>
-    <router-button link="upload" value="게시글 올리기"/>
+  <div class="index-wrapper">
+    <section class="portfolios">
+      <article-list/>
+      <p class="f-title">PORTFOLIOS</p>
+    </section>
+    <section class="artists">
+      <article-list/>
+      <p class="f-title">ARTISTS</p>
+    </section>
   </div>
 </template>
 
 <script>
-import RouterButton from '@/components/buttons/RouterButton'
-export default {
-  name: 'TravelerPage',
+import ArticleList from '@/components/article/ArticleList.vue'
+export default{
   components: {
-    RouterButton
-  },
-};
+    ArticleList
+  }
+}
 </script>
 
 <style scoped>
+  .index-wrapper {
+    width: 100%;
+  }
+  .index-wrapper > section {
+    width: 100%;
+  }
+  .index-wrapper > section:first-child {
+    padding-bottom: 3rem;
+  }
+  section > p {
+    margin-top: 10px;
+  }
 </style>

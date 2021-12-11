@@ -1,33 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import IndexLoginPage from '@/views/index/IndexLoginPage.vue'
-import IndexLogoutPage from '@/views/index/IndexLogoutPage.vue'
+import IndexPage from '@/views/index/IndexPage.vue'
 import store from '@/store.js'
 
 const routes = [
   {
     path: '/',
     name: 'index',
-    beforeEnter: (to, from, next) => {
-      if (store.getters['isLoggedIn']) {
-        next({
-          name: 'index.login'
-        })
-      } else {
-        next({
-          name: 'index.logout'
-        })
-      }
-    }
-  },
-  {
-    path: '/',
-    name: 'index.login',
-    component: IndexLoginPage
-  },
-  {
-    path: '/',
-    name: 'index.logout',
-    component: IndexLogoutPage
+    component: IndexPage
   },
   {
     path: '/watcher',
@@ -43,6 +22,12 @@ const routes = [
     path: '/traveler',
     name: 'traveler',
     component: () => import('@/views/article/TravelerPage.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
+    component: () => import('@/views/article/MyPage.vue'),
     meta: { requiresAuth: true }
   },
   {

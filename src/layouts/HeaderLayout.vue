@@ -9,6 +9,7 @@
         <img  @click="$router.push('/')" class="logo wide-click" :src="logoPath"/>
       </div>
       <div class="side right">
+        <header-right-icons/>
       </div>
     </header>
   </transition>
@@ -17,12 +18,14 @@
 <script>
 import SidebarLayout from './SidebarLayout.vue'
 import HamburgerIcon from '@/components/icons/HamburgerIcon.vue'
+import HeaderRightIcons from './HeaderRightIcons.vue'
 
 export default {
   name: "HeaderLayout",
   components: {
     SidebarLayout,
     HamburgerIcon,
+    HeaderRightIcons
   },
   data() {
     return {
