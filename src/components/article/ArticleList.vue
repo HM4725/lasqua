@@ -43,7 +43,7 @@ export default{
     async loadArticles(page) {
       try {
         const response = await this.$api("GET", `/articlelist?page=${page}`)
-        const articles = response.data.article
+        const articles = response.data.article || response.data.articles // check!
         if(this.MAXPAGE === 0) {
           this._initArticles(response.data)
         }

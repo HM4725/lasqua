@@ -40,7 +40,8 @@ export default{
       return this.article.title ? this.article.title : '없음'
     },
     imgSrc() {
-      return this.article.images ? this.article.images.link : ''
+      const image = this.article.images || this.article.image // check!
+      return image ? image.link : ''
     },
     link() {
       return this.article.no ? `/article/view?no=${this.article.no}` : '.'
