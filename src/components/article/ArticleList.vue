@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div class="arrow-button" @click="unshiftArticles">
-      <before-icon class="arrow-icon"/>
+      <before-icon class="arrow-icon" :class="{disabled: !isLeftExist}"/>
     </div>
     <ul class="articles">
       <li v-for="(article, i) in articles.mounted" :key="i">
@@ -9,7 +9,7 @@
       </li>
     </ul>
     <div class="arrow-button" @click="shiftArticles">
-      <after-icon class="arrow-icon"/>
+      <after-icon class="arrow-icon" :class="{disabled: !isRightExist}"/>
     </div>
   </section>
 </template>
@@ -18,6 +18,8 @@
 import ThumbNail from './ThumbNail.vue'
 import BeforeIcon from '@/components/icons/BeforeIcon.vue'
 import AfterIcon from '@/components/icons/AfterIcon.vue'
+
+const MOUNTSIZE = 4
 
 export default{
   components: {
@@ -32,11 +34,19 @@ export default{
       articles: {
         TOTALSIZE: 0,
         BLOCKSIZE: 0,
-        MOUNTSIZE: 4,
+        MOUNTSIZE: MOUNTSIZE,
         mounted: [],
         loaded: [],
         itr: 0
       }
+    }
+  },
+  computed: {
+    isRightExist() {
+      return this.articles.itr + this.articles.MOUNTSIZE < this.articles.TOTALSIZE
+    },
+    isLeftExist() {
+      return this.articles.itr > 0
     }
   },
   methods: {
@@ -66,7 +76,7 @@ export default{
       }
     },
     async shiftArticles() {
-      if(this.articles.itr + this.articles.MOUNTSIZE < this.articles.TOTALSIZE) {
+      if(this.isRightExist) {
         if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
           await this.loadArticles(++this.page)
         }
@@ -77,12 +87,10 @@ export default{
         articles.push(right)
         this.articles.mounted = articles
         this.articles.itr++
-      } else {
-        console.error(`[Cannot shift articles] itr: ${this.articles.itr} & size: ${this.articles.TOTALSIZE}`)
       }
     },
     unshiftArticles() {
-      if(this.articles.itr > 0) {
+      if(this.isLeftExist) {
         const articles = []
         const left = this.articles.loaded[this.articles.itr - 1]
         Object.assign(articles, this.articles.mounted)
@@ -90,8 +98,6 @@ export default{
         articles.pop()
         this.articles.mounted = articles
         this.articles.itr--
-      } else {
-        console.error(`[Cannot unshift articles] index: ${this.articles.itr}`)
       }
     },
   },
@@ -126,7 +132,8 @@ export default{
   .articles {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
     grid-gap: 1.5rem;
+    margin: 0 1.5rem;
   }
 </style>

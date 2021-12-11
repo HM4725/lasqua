@@ -22,6 +22,12 @@ export default{
     cursor: pointer;
     display: block;
   }
+  .icon.disabled {
+    fill: var(--active-color);
+  }
+  .icon.disabled > * {
+    stroke: var(--active-color);
+  }
   .icon:hover {
     fill: var(--active-color);
   }
