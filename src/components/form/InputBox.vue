@@ -95,23 +95,23 @@ export default{
     z-index: 1;
     opacity: 0;
   }
-  .input-box input:focus::placeholder {
+  .input-box > input:focus::placeholder {
     opacity: 0;
   }
-  .input-box input:focus + label,
-  .input-box.filled input + label {
+  .input-box > input:focus + label,
+  .input-box.filled > input + label {
     opacity: 1;
     top: .1rem;
     background-color: white;
   }
-  .input-box input:focus{
+  .input-box > input:focus{
     outline: none;
     border-color: var(--active-color);
   }
-  .input-box.error input {
+  .input-box.error > input {
     border-color: red;
   }
-  .input-box.error label {
+  .input-box.error > label {
     color: red;
   }
   .input-box.error {
