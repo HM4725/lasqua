@@ -22,17 +22,21 @@ export default{
   },
   data() {
     return {
-      active: false,
+      active: false
     }
   },
   methods: {
     activate() {
-      this.active = true
       if(this.useLink) {
-        this.$refs.thumbnail.addEventListener("click", () => {
-            this.$router.push(this.link)
-        })
+        if(this.active) {
+          this.$refs.thumbnail.removeEventListener("click", this.handleClick)
+        }
+        this.$refs.thumbnail.addEventListener("click", this.handleClick)
       }
+      this.active = true
+    },
+    handleClick() {
+      this.$router.push(this.link)
     }
   },
   computed: {
@@ -45,6 +49,11 @@ export default{
     },
     link() {
       return this.article.no ? `/article/view?no=${this.article.no}` : '.'
+    }
+  },
+  beforeUnmount() {
+    if(this.useLink && this.active) {
+      this.$refs.thumbnail.removeEventListener('click', this.handleClick)
     }
   }
 }
