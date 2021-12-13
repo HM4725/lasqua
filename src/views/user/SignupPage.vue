@@ -1,31 +1,37 @@
 <template>
   <div>
-    <form class="signup">
+    <form class="signup" @submit.prevent="submit" method="POST">
       <div class="signup-info">
         <div class="necessary">
           <p class="f-title">필수 사항</p>
-          <input-box id="signup-id" type="text" placeholder="아이디" ref="id"/>
-          <input-box id="signup-pw" type="password" placeholder="비밀번호" ref="pw"/>
-          <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" ref="confirmPw"/>
-          <input-box id="signup-name" type="text" placeholder="이름" ref="name"/>
-          <input-box id="signup-email" type="email" placeholder="이메일" ref="email"/>
-          <input-box id="signup-phone" type="tel" placeholder="전화번호" ref="phone"/>
+          <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="username" v-model="id.val" @focus="clearBox(id)"/>
+          <span class="message">{{id.msg}}</span>
+          <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="new-password" v-model="pw.val" @focus="clearBox(pw)"/>
+          <span class="message">{{pw.msg}}</span>
+          <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="new-password" v-model="confirmPw.val" @focus="clearBox(confirmPw)"/>
+          <span class="message">{{confirmPw.msg}}</span>
+          <input-box id="signup-name" type="text" placeholder="이름" v-model="name.val" @focus="clearBox(name)"/>
+          <span class="message">{{name.msg}}</span>
+          <input-box id="signup-email" type="text" placeholder="이메일" v-model="email.val" @focus="clearBox(email)"/>
+          <span class="message">{{email.msg}}</span>
+          <input-box id="signup-phone" type="tel" placeholder="전화번호" v-model="tel.val"  @focus="clearBox(tel)"/>
+          <span class="message">{{tel.msg}}</span>
         </div>
         <div class="optional">
           <p class="f-title">선택 사항</p>
           <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
           <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
-          <input-box id="signup-regdate" type="date" placeholder="생년월일" ref="birth"/>
-          <input-box id="signup-info" type="text" placeholder="간단한 소개" ref="info"/>
-          <input-box id="signup-facebook" type="text" placeholder="페이스북 ID" ref="facebook"/>
-          <input-box id="signup-instagram" type="text" placeholder="인스타그램 ID" ref="instagram"/>
-          <input-box id="signup-twitter" type="text" placeholder="트위터 ID" ref="twitter"/>
-          <input-box id="signup-etc_name" type="text" placeholder="기타 SNS ID" ref="etcName"/>
-          <input-box id="signup-etc_link" type="text" placeholder="기타 SNS 링크" ref="etcLink"/>
+          <date-box id="signup-regdate" placeholder="생년월일" ref="birth"/>
+          <input-box id="signup-info" type="text" placeholder="간단한 소개" v-model="info.val"/>
+          <input-box id="signup-facebook" type="text" placeholder="페이스북 ID" v-model="facebook.val"/>
+          <input-box id="signup-instagram" type="text" placeholder="인스타그램 ID" v-model="instagram.val"/>
+          <input-box id="signup-twitter" type="text" placeholder="트위터 ID" v-model="twitter.val"/>
+          <input-box id="signup-etc_name" type="text" placeholder="기타 SNS ID" v-model="etcName.val"/>
+          <input-box id="signup-etc_link" type="text" placeholder="기타 SNS 링크" v-model="etcLink.val"/>
         </div>
       </div>
       <div>
-        <default-button @click="signup" value="회원가입"/>
+        <default-button type="submit" value="회원가입"/>
       </div>
     </form>
   </div>
@@ -34,6 +40,7 @@
 <script>
 import InputBox from '@/components/form/InputBox.vue'
 import RadioBox from '@/components/form/RadioBox.vue'
+import DateBox from '@/components/form/DateBox.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 
 export default{
@@ -41,47 +48,200 @@ export default{
   components: {
     InputBox,
     RadioBox,
+    DateBox,
     DefaultButton
   },
   data() {
     return {
+      id: {
+        val: '',
+        pattern: '^[0-9a-zA-Z]{4,15}$',
+        constraint: '[영문, 숫자]만 허용 & 4 ~ 15 글자 수 제한',
+        msg: '',
+        required: true
+      },
+      pw: {
+        val: '',
+        pattern: '^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!-/:-@\\[-`{-~]).{8,20}$',
+        constraint: '[영문, 숫자, 특수문자]를 모두 포함 & 8 ~ 20 글자 수 제한',
+        msg: '',
+        required: true
+      },
+      confirmPw: {
+        val: '',
+        msg: '',
+        required: true
+      },
+      name: {
+        val: '',
+        pattern: '^[가-힣a-zA-Z]{1,10}$',
+        constraint: '10글자 이하 제한, 공백 및 특수문자 사용 불가',
+        msg: '',
+        required: true
+      },
+      email: {
+        val: '',
+        pattern: '^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$',
+        constraint: 'email 양식 제한',
+        msg: '',
+        required: true
+      },
+      tel: {
+        val: '',
+        pattern: '^\\d{2,3}-\\d{3,4}-\\d{4}$',
+        constraint: '{2~3자리 숫자}-{3~4자리 숫자}-{4자리 숫자}',
+        msg: '',
+        required: true
+      },
       gender: {
         options: {M: '남자', F: '여자', N: '그 외'},
-        checked: 'N'
+        checked: '',
+        required: false
       },
       company: {
         options: {Y: '기업회원', N: '일반회원'},
-        checked: 'N'
+        checked: '',
+        required: false
       },
-      error: false
+      // birth: {
+      //   val: '',
+      //   required: false
+      // },
+      info: {
+        val: '',
+        required: false
+      },
+      facebook: {
+        val: '',
+        required: false
+      },
+      instagram: {
+        val: '',
+        required: false
+      },
+      twitter: {
+        val: '',
+        required: false
+      },
+      etcName: {
+        val: '',
+        required: false
+      },
+      etcLink: {
+        val: '',
+        required: false
+      }
     }
   },
   methods: {
-    async signup(e) {
-      e.preventDefault()
-      this.error = false;
+    clearBox(target) {
+      target.msg = ''
+    },
+    async submit() {
+      try {
+        this.validation(this.$data)
+        await this.signup(this.$data)
+      } catch(errors) {
+        for(let key in errors) {
+          this.$data[key].msg = errors[key]
+        }
+      }
+    },
+    checkVacantFields(data) {
+      const errors = {}
+      for(let key in data) {
+        let input = data[key]
+        if(input.required && input.val.length === 0) {
+          errors[key] = "필수 사항입니다."
+        }
+      }
+      return errors
+    },
+    checkConfirmPw(data) {
+      const errors = {}
+      if(data['pw'].val !== data['confirmPw'].val) {
+        errors['confirmPw'] = '비밀번호가 일치하지 않습니다.'
+      }
+      return errors
+    },
+    isValidate(input) {
+      return !('pattern' in input) || new RegExp(input.pattern).test(input.val)
+    },
+    checkValidFields(data) {
+      const errors = {}
+      for(let key in data) {
+        let input = data[key]
+        if(!this.isValidate(input)) {
+          errors[key] = input.constraint
+        }
+      }
+      return errors
+    },
+    validation(data) {
+      let errors
+      errors = this.checkVacantFields(data)
+      if(Object.keys(errors).length !== 0) {
+        throw errors
+      }
+      errors = this.checkConfirmPw(data)
+      if(Object.keys(errors).length !== 0) {
+        throw errors
+      }
+      errors = this.checkValidFields(data)
+      if(Object.keys(errors).length !== 0) {
+        throw errors
+      }
+    },
+    async signup(data) {
       const newUser = {
-        id: this.$refs.id.getValue(), 
-        pw: this.$refs.pw.getValue(),
-        name: this.$refs.name.getValue(),
-        email: this.$refs.email.getValue(),
-        phone: this.$refs.phone.getValue(),
+        id: data.id.val, 
+        pw: data.pw.val,
+        name: data.name.val,
+        email: data.email.val,
+        phone: data.tel.val,
         company: this.$refs.company.getValue(),
         gender: this.$refs.gender.getValue(),
         birth: this.$refs.birth.getValue(),
-        info: this.$refs.info.getValue(),
-        facebook: this.$refs.facebook.getValue(),
-        instagram: this.$refs.instagram.getValue(),
-        twitter: this.$refs.twitter.getValue(),
-        etc_name: this.$refs.etcName.getValue(),
-        etc_link: this.$refs.etcLink.getValue()
+        info: data.info.val,
+        facebook: data.facebook.val,
+        instagram: data.instagram.val,
+        twitter: data.twitter.val,
+        etc_name: data.etcName.val,
+        etc_link: data.etcLink.val
       }
       try {
         await this.$api("POST", "/signup", newUser)
         this.$router.push({name: 'message', params: {message: "회원가입 성공", redirect: "/login"}})
-      } catch(error) {
-        alert('오류가 발생하였습니다.')
-        console.error(error)
+      } catch(e) {
+        if(e.response) {
+          const response = e.response.data
+          // Company validation
+          // Gender validation
+          if('Required fields missing' in response) {
+            throw this.checkVacantFields(data)
+          } else {
+            const errors = {}
+            if(!response['Id validation']) {
+              errors.id = data.id.constraint
+            }
+            if(!response['Pw validation']) {
+              errors.pw = data.pw.constraint
+            }
+            if(!response['Name validation']) {
+              errors.name = data.name.constraint
+            }
+            if(!response['Email validation']) {
+              errors.email = data.email.constraint
+            }
+            if(!response['Phone validation']) {
+              errors.tel = data.tel.constraint
+            }
+            if(!response['Id Unique']) {
+              errors.id = "중복된 아이디입니다."
+            }
+            throw errors
+          }
+        }
       }
     },
   }
@@ -96,11 +256,16 @@ export default{
   .signup-info {
     display: flex;
     flex-direction :row;
+    width: 30rem;
   }
   .signup-info > div {
     margin: 1rem;
+    flex: 1;
   }
   .signup-info > div > * {
     margin: .5rem 0;
+  }
+  .message {
+    color: red;
   }
 </style>
