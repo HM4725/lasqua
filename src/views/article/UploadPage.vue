@@ -1,7 +1,7 @@
 <template>
   <div class="upload-wrapper">
     <header class="title">
-      <input-box class="info-box" type="text" id="upload-title" placeholder="프로젝트 제목" v-model="title" focus/>
+      <input-box class="info-box" type="text" id="upload-title" placeholder="프로젝트 제목" v-model="title" maxlength="20" focus/>
     </header>
     <section class="images">
       <upload-images ref="images"/>
