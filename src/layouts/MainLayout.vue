@@ -19,10 +19,11 @@ export default {
     display: -webkit-box;
     display: flex;
     width: 100%;
-    margin: auto;
+    height: 100%;
     -webkit-box-pack: center;
-    justify-content: center;
-    padding: 2rem 3rem;
+  }
+  .main-wrapper > div {
+    margin: auto;
   }
   .fade-enter-active,
   .fade-leave-active {
