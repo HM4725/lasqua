@@ -35,7 +35,7 @@ import ThumbNail from './ThumbNail.vue'
 import BeforeIcon from '../icons/BeforeIcon.vue'
 import AfterIcon from '../icons/AfterIcon.vue'
 import FileSlot from '../form/FileSlot.vue'
-import ModalSlot from './ModalSlot.vue'
+import ModalSlot from '../utils/ModalSlot.vue'
 import InputBox from '../form/InputBox.vue'
 
 function wrapImage(image) {

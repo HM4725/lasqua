@@ -32,6 +32,7 @@
 
 <script>
 import DefaultButton from '../buttons/DefaultButton.vue'
+
 export default{
   components: {
     DefaultButton
