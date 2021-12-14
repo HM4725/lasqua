@@ -27,7 +27,15 @@ const routes = [
   {
     path: '/mypage',
     name: 'mypage',
-    component: () => import('@/views/article/MyPage.vue'),
+    component: () => import('@/views/article/ArtistPage.vue'),
+    props: { mypage: true },
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/artist',
+    name: 'artist',
+    component: () => import('@/views/article/ArtistPage.vue'),
+    props: { mypage: false },
     meta: { requiresAuth: true }
   },
   {
@@ -45,12 +53,6 @@ const routes = [
     path: '/logout',
     name: 'logout',
     component: () => import('@/views/user/LogoutPage.vue'),
-  },
-  {
-    path: '/myaccount',
-    name: 'myaccount',
-    component: () => import('@/views/user/MyAccountPage.vue'),
-    meta: { requiresAuth: true }
   },
   {
     path: '/signup',
