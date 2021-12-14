@@ -37,13 +37,16 @@ export default{
   methods: {
     async uploadArticle() {
       try {
+        const images = this.$refs.images.getValues()
         const data = {
           title: this.title,
-          images: this.$refs.images.getValues(),
+          images: images,
           content: this.content
         }
-        await this.$api("POST", "/article", data)
-        this.$router.push({name: 'message', params: {message: "업로드 성공", redirect: "/"}})
+        if(data.title != '' && data.images.length > 0 && data.content != '') {
+          await this.$api("POST", "/article", data)
+          this.$router.push({name: 'message', params: {message: "업로드 성공", redirect: "/"}})
+        }
       } catch(error) {
         console.error(error)
       }

@@ -5,7 +5,7 @@
     </div>
     <ul class="articles" :style="layoutStyle" ref="articles">
       <li v-for="(article, i) in articles.mounted" :key="i">
-        <thumb-nail :article="article" :use-link="useLink"/>
+        <thumb-nail :article="article" :use-link="useLink" @click="clickArticle(i)"/>
       </li>
       <slot></slot>
     </ul>
@@ -63,16 +63,11 @@ export default{
         { gridTemplateColumns: `repeat(${this.rowlength}, minmax(0px, 1fr))` } : ""
     },
     isRightExist() {
-      return this.articles.itr + this.articles.MOUNTSIZE < this.articles.TOTALSIZE
+      const limit = this.MAXPAGE === 0 ? this.articles.loaded.length : this.articles.TOTALSIZE
+      return this.articles.itr + this.articles.MOUNTSIZE < limit
     },
     isLeftExist() {
       return this.articles.itr > 0
-    },
-    articleHeight() {
-      return this.$refs.articles.querySelector('li').offsetHeight
-    },
-    aritclesVBottom() {
-      return this.$refs.articles.lastElementChild.getBoundingClientRect().top
     },
     hitTheRight() {
       return this.articles.mounted.at(-1).no && 
@@ -118,6 +113,11 @@ export default{
       this.push(articles)
       this.mount(this.articles.loaded.length - this.articles.MOUNTSIZE)
     },
+    remove(no) {
+      const idx = this.articles.loaded.findIndex(article => article.no === no)
+      idx !== -1 && this.articles.loaded.splice(idx, 1)
+      this.mount(this.articles.itr)
+    },
     // Button Event
     async shiftArticles() {
       if(this.isRightExist) {
@@ -150,6 +150,10 @@ export default{
         this.articles.mounted.push(...articles)
         this.articles.itr = this.articles.itr + this.articles.MOUNTSIZE
       }
+    },
+    // Click Thumbnail Event
+    clickArticle(i) {
+      this.$emit("clickArticle", this.articles.mounted[i].no)
     }
   },
   beforeMount() {
@@ -157,9 +161,6 @@ export default{
       this.articles.mounted.push({})
     }
     this.$emit('requestPush', ++this.page)
-    for(let i = 0; i < Math.min(this.articles.MOUNTSIZE, this.articles.BLOCKSIZE); i++) {
-      Object.assign(this.articles.mounted[i], this.articles.loaded[i])
-    }
     this.paging === 'scroll' && window.addEventListener('scroll', this.mountArticlesRow)
   },
   beforeUnmount() {

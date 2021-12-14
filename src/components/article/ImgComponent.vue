@@ -32,21 +32,18 @@ export default{
         image.src = src
         image.onload = () => {
           this.imgSrc = src
-          this.$emit("imgLoad")
+          this.$emit("mount")
         }
         image.onerror = () => {
           src !== '' && console.error(`NOT FOUND: ${src}`)
           this.$emit("error")
         }
+      } else {
+        this.imgSrc = require('@/assets/svg/blank-3x4.svg')
+        this.$emit("unmount")
       }
     }
   },
-  // beforeMount() {
-  //   if(this.src) {
-  //     this.imgSrc = this.src
-  //     this.$emit("imgLoad")
-  //   }
-  // }
 }
 </script>
 

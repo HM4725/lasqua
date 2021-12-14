@@ -1,7 +1,7 @@
 <template>
   <div class="upload-images">
       <div class="images">
-        <article-list ref="images" rowlength="3">
+        <article-list ref="images" rowlength="3" @clickArticle="removeImage">
           <file-slot ref="file" @upload="uploadImage">
             <thumb-nail :article="addButton"/>
           </file-slot>
@@ -78,9 +78,21 @@ export default{
         console.error(error)
       }
     },
+    async removeImage(no) {
+      if(no) {
+        try {
+          const idx = this.images.findIndex(v => v.orderNo === no)
+          await this.$api("DELETE", `/image?link=${this.images[idx].link}`)
+          this.images.splice(idx, 1)
+          this.$refs.images.remove(no)
+        } catch(error) {
+          console.error(error)
+        }
+      }      
+    },
     getValues() {
-      this.state.uploadedImages[0].orderNo = 1
-      return this.state.uploadedImages
+      this.images.length > 0 && (this.images[0].orderNo = 1)
+      return this.images
     },
   },
 }

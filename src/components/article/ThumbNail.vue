@@ -1,6 +1,6 @@
 <template>
-  <div :class="{thumbnail: true, clickable: clickable}" ref="thumbnail">
-    <img-component :src="imgSrc" :title="title" class="thumbnail-img" @img-load="activate"/>
+  <div :class="{thumbnail: true, clickable: clickable}" @click="clickHandler">
+    <img-component :src="imgSrc" :title="title" class="thumbnail-img" @mount="activate" @unmount="deactivate"/>
   </div>
 </template>
 
@@ -29,19 +29,16 @@ export default{
     }
   },
   methods: {
-    addLink() {
-      this.$refs.thumbnail.addEventListener("click", this.addLinkHandler)
-    },
-    removeLink() {
-      this.$refs.thumbnail.removeEventListener("click", this.addLinkHandler)
-      this.clickable = false
-    },
-    addLinkHandler() {
-      this.article.no && this.$router.push(`/article/view?no=${this.article.no}`)
+    clickHandler() {
+      if(this.clickable && this.useLink && this.article.no ) {
+        this.$router.push(this.link)
+      }
     },
     activate() {
       this.clickable = true
-      this.useLink && this.addLink()
+    },
+    deactivate() {
+      this.clickable = false
     }
   },
   computed: {
@@ -51,11 +48,12 @@ export default{
     imgSrc() {
       const image = this.article.images
       return image ? image.link : ''
+    },
+    link() {
+      const no = this.article.no
+      return no && this.useLink ? `/article/view?no=${no}` : ''
     }
   },
-  beforeUnmount() {
-    this.useLink && this.removeLink()
-  }
 }
 </script>
 
