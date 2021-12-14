@@ -5,8 +5,9 @@
     </div>
     <ul class="articles" :style="layoutStyle" ref="articles">
       <li v-for="(article, i) in articles.mounted" :key="i">
-        <thumb-nail :article="article" use-link/>
+        <thumb-nail :article="article" :use-link="useLink"/>
       </li>
+      <slot></slot>
     </ul>
     <div class="arrow-button" @click="shiftArticles" v-if="paging==='button'">
       <after-icon class="arrow-icon" :class="{disabled: !isRightExist}"/>
@@ -36,6 +37,10 @@ export default{
       validator: function(value) {
         return ['button', 'scroll'].indexOf(value) !== -1
       }
+    },
+    useLink: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -68,13 +73,17 @@ export default{
     },
     aritclesVBottom() {
       return this.$refs.articles.lastElementChild.getBoundingClientRect().top
-    } 
+    },
+    hitTheRight() {
+      return this.articles.mounted.at(-1).no && 
+        this.articles.mounted.at(-1).no === this.articles.loaded.at(-1).no
+    }
   },
   methods: {
     // API
     init(data) {
       this.articles.TOTALSIZE = data.allArticleCount
-      this.articles.MAXPAGE = data.maxPage
+      this.MAXPAGE = data.maxPage
       this.articles.BLOCKSIZE = data.articles.length
       this.push(data.articles)
       for(let i = 0; i < Math.min(this.articles.MOUNTSIZE, this.articles.BLOCKSIZE); i++) {
@@ -82,39 +91,48 @@ export default{
       }
     },
     push(articles) {
-      this.articles.loaded.push(...articles)
+      if(articles instanceof Array) {
+        this.articles.loaded.push(...articles)
+      } else {
+        this.articles.loaded.push(articles)
+      }
     },
     unshift(articles) {
-      this.articles.loaded.unshift(...articles)
+      if(articles instanceof Array) {
+        this.articles.loaded.unshift(...articles)
+      } else {
+        this.articles.loaded.unshift(articles)
+      }
     },
-    // Move
-    // Button Methods
+    mount(itr) {
+      if(itr < 0) { itr = 0 }
+      const mounted = this.articles.loaded.slice(itr, itr + this.articles.MOUNTSIZE)
+      const vacants = []
+      for(let i = mounted.length; i < this.articles.MOUNTSIZE; i++) {
+        vacants.push({})
+      }
+      this.articles.mounted = mounted.concat(vacants)
+      this.articles.itr = itr
+    },
+    pushAndMount(articles) {
+      this.push(articles)
+      this.mount(this.articles.loaded.length - this.articles.MOUNTSIZE)
+    },
+    // Button Event
     async shiftArticles() {
       if(this.isRightExist) {
         if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
           await this.$emit('requestPush', ++this.page)
         }
-        const articles = []
-        const right = this.articles.loaded[this.articles.itr + this.articles.MOUNTSIZE]
-        Object.assign(articles, this.articles.mounted)
-        articles.shift()
-        articles.push(right)
-        this.articles.mounted = articles
-        this.articles.itr++
+        this.mount(this.articles.itr + 1)
       }
     },
     unshiftArticles() {
       if(this.isLeftExist) {
-        const articles = []
-        const left = this.articles.loaded[this.articles.itr - 1]
-        Object.assign(articles, this.articles.mounted)
-        articles.unshift(left)
-        articles.pop()
-        this.articles.mounted = articles
-        this.articles.itr--
+        this.mount(this.articles.itr - 1)
       }
     },
-    // Scroll Methods
+    // Scroll Event
     async mountArticlesRow() {
       if(this.isRightExist) {
         if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
@@ -138,7 +156,7 @@ export default{
     for(let i = 0; i < this.articles.MOUNTSIZE; i++) {
       this.articles.mounted.push({})
     }
-    this.$emit('requestPush', 1)
+    this.$emit('requestPush', ++this.page)
     for(let i = 0; i < Math.min(this.articles.MOUNTSIZE, this.articles.BLOCKSIZE); i++) {
       Object.assign(this.articles.mounted[i], this.articles.loaded[i])
     }

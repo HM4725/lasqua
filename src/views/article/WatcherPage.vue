@@ -1,6 +1,6 @@
 <template>
   <div class="watcher-page">
-    <article-list rowlength="4" ref="articles" @request-push="loadArticles"/>
+    <article-list rowlength="4" ref="articles" use-link @request-push="loadArticles"/>
   </div>
 </template>
 

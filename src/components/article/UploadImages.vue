@@ -1,42 +1,19 @@
 <template>
   <div class="upload-images">
-      <div class="arrow-button">
-        <before-icon class="arrow-icon"/>
-      </div>
-      <ul class="images">
-        <li v-for="(image, i) in state.mountedImages" :key="i">
-          <thumb-nail :article="image"/>
-          <div>{{image.title}}</div>
-        </li>
-        <li>
+      <div class="images">
+        <article-list ref="images" rowlength="3">
           <file-slot ref="file" @upload="uploadImage">
-            <thumb-nail :article="utils.addButton"/>
+            <thumb-nail :article="addButton"/>
           </file-slot>
-        </li>
-      </ul>
-      <div class="arrow-button">
-        <after-icon class="arrow-icon"/>
+        </article-list>
       </div>
-      
-      <modal-slot ref="submitDetails" @close="submitDetails">
-        <template v-slot:header>
-          <p class="f-title">상세 정보</p>
-        </template>
-        <template v-slot:body>
-          <input-box type="text" id="imageName" placeholder="이미지명" ref="imageName" @keydown.enter="submitModal" focus/>
-          <div v-show="error.occur" class="error-message">{{error.message}}</div>
-        </template>
-      </modal-slot>
   </div>
 </template>
 
 <script>
+import ArticleList from './ArticleList.vue'
 import ThumbNail from './ThumbNail.vue'
-import BeforeIcon from '../icons/BeforeIcon.vue'
-import AfterIcon from '../icons/AfterIcon.vue'
 import FileSlot from '../form/FileSlot.vue'
-import ModalSlot from '../utils/ModalSlot.vue'
-import InputBox from '../form/InputBox.vue'
 
 function wrapImage(image) {
   return {
@@ -52,47 +29,22 @@ function wrapImage(image) {
 
 export default{
   components: {
+    ArticleList,
     ThumbNail,
-    BeforeIcon,
-    AfterIcon,
-    InputBox,
-    FileSlot,
-    ModalSlot
+    FileSlot
   },
   data() {
     return {
-      state: {
-        no: 1,
-        idx: 0,
-        mountedImages: [{}, {}, {}],
-        uploadedImages: [],
-        uploadedSize: 0,
-        deletedNo: 0,
-        choiceImage: {
+      count: 1,
+      images: [],
+      addButton: {
+        no: 0,
+        title: '추가',
+        images: {
           orderNo: 0,
-          name: '',
-          link: ''
-        },
-      },
-      utils: {
-        blankImage: {
-          no: 0,
-          title: '',
-          images: {
-            orderNo: 0,
-            name: '없음',
-            link: ''
-          }
-        },
-        addButton: {
-          no: 0,
-          title: '추가',
-          images: {
-            orderNo: 0,
-            name: 'addButton',
-            link: require('@/assets/svg/addbutton-3x4.svg')
-          },
-        },
+          name: 'addButton',
+          link: require('@/assets/svg/addbutton-3x4.svg')
+        }
       },
       error: {
         occur: false,
@@ -101,106 +53,35 @@ export default{
     }
   },
   methods: {
-    getImage(no) {
-      const idx = this.state.uploadedImages.findIndex((el) => el.orderNo === no)
-      return this.state.uploadedImages[idx]
-    },
-    isProperName(name) {
-      return name !== '' &&
-        this.state.uploadedImages.findIndex(image => image.name === name) === -1
-    },
     async uploadImage(formData) {
       try {
         const headers = {
           "Content-Type": "multipart/form-data"
         }
         const response = await this.$api("POST", "/file", formData, headers)
-        this.state.choiceImage.orderNo = this.state.no++;
-        this.$refs.submitDetails.show() // name -> async
-        this.state.choiceImage.link = response.data.link
+        const name = formData.get("file").name
+        const sameImage = this.images.find(v => v.name === name)
+        if(sameImage) {
+          const tmp = sameImage.link
+          sameImage.link = response.data.link
+          await this.$api("DELETE", `/image?link=${tmp}`)
+        } else {
+          const image = {
+            orderNo: this.count++,
+            name: name,
+            link: response.data.link
+          }
+          this.images.push(image)
+          this.$refs.images.pushAndMount(wrapImage(image))
+        }
       } catch(error) {
         console.error(error)
       }
-    },
-    submitDetails() {
-      this.error.occur = false
-      const nameComponent = this.$refs.imageName
-      const name = nameComponent.getValue()
-      if(this.isProperName(name)) {
-        const image = {
-          orderNo: this.state.choiceImage.orderNo,
-          name: name,
-          link: this.state.choiceImage.link
-        }
-        this.state.uploadedImages.push(image)
-      } else {
-        this.$refs.submitDetails.show() 
-        nameComponent.occurError()
-        this.error.message = name === '' ?
-          '이미지명을 입력하세요.' :
-          '중복된 이미지명을 입력하였습니다.'
-        this.error.occur = true
-      }
-    },
-    shiftImages() {
-      if(this.state.idx + 3 < this.state.uploadedSize) {
-        const images = []
-        const right = this.state.uploadedImages[this.state.idx + 3]
-        Object.assign(images, this.state.mountedImages)
-        images.shift()
-        images.push(wrapImage(right))
-        this.state.mountedImages = images
-        this.state.idx++
-      } else {
-        console.error(`[Cannot shift images] index: ${this.state.idx} & size: ${this.state.uploadedSize}`)
-      }
-    },
-    unshiftImages() {
-      if(this.state.idx > 0) {
-        const images = []
-        const left = this.state.uploadedImages[this.state.idx - 1]
-        Object.assign(images, this.state.mountedImages)
-        images.unshift(wrapImage(left))
-        images.pop()
-        this.state.mountedImages = images
-        this.state.idx--
-      } else {
-        console.error(`[Cannot unshift images] index: ${this.state.idx}`)
-      }
-    },
-    mountImage() {
-      let num = this.state.uploadedImages.length
-      const lastUpload = this.state.uploadedImages[num - 1]
-      if(num < 4) {
-        this.state.mountedImages[num - 1] = wrapImage(lastUpload)
-      } else {
-        this.shiftImages()
-      }
-    },
-    unmountImage() {
     },
     getValues() {
       this.state.uploadedImages[0].orderNo = 1
       return this.state.uploadedImages
     },
-    submitModal() {
-      this.$refs.submitDetails.close()
-    }
-  },
-  watch: {
-    'state.uploadedImages': {
-      deep: true,
-      handler() {
-        const prevSize = this.state.uploadedSize
-        const size = this.state.uploadedImages.length
-        this.state.uploadedSize = size
-        if(prevSize < size) { // push
-          this.mountImage()
-        } else { // pop
-          this.umountImage()
-        }
-      }
-    }
   },
 }
 </script>
@@ -229,8 +110,9 @@ export default{
   .images {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 9fr 2fr;
     grid-gap: 1.5rem;
+    align-items: center;
   }
   .delete-image {
     position: relative;

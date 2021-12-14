@@ -1,11 +1,7 @@
 <template>
   <div class="index-wrapper">
-    <section class="portfolios">
-      <article-list rowlength="4" ref="portfolios" @request-push="loadPortfolios"/>
-      <p class="f-title">PORTFOLIOs</p>
-    </section>
     <section class="artists">
-      <article-list rowlength="4" ref="artists" @request-push="loadArtists"/>
+      <article-list rowlength="4" ref="artists" @request-push="loadArtists" use-link/>
       <p class="f-title">ARTISTs</p>
     </section>
   </div>
@@ -19,37 +15,18 @@ export default{
   },
   data() {
     return {
-      init: {
-        portfolios: false,
-        artists: false
-      }
+      init: false
     }
   },
   methods: {
-    async loadPortfolios(page) {
-      try {
-        const response = await this.$api("GET", `/articlelist?page=${page}`)
-        const data = response.data
-        if(page === data.page) {
-          if(!this.init.portfolios) {
-            this.$refs.portfolios.init(data)
-            this.init.portfolios = true
-          } else {
-            this.$refs.portfolios.push(data.articles)
-          }
-        }
-      } catch(error) {
-        console.error(error)
-      }
-    },
     async loadArtists(page) {
       try {
         const response = await this.$api("GET", `/articlelist?page=${page}`)
         const data = response.data
         if(page === data.page) {
-          if(!this.init.artists) {
+          if(!this.init) {
             this.$refs.artists.init(data)
-            this.init.artists = true
+            this.init = true
           } else {
             this.$refs.artists.push(data.articles)
           }
