@@ -109,10 +109,6 @@ export default{
   }
   .images {
     width: 100%;
-    display: grid;
-    grid-template-columns: 9fr 2fr;
-    grid-gap: 1.5rem;
-    align-items: center;
   }
   .delete-image {
     position: relative;
