@@ -1,14 +1,14 @@
 <template>
   <section class="container">
-    <div class="arrow-button" @click="unshiftArticles">
+    <div class="arrow-button" @click="unshiftArticles" v-if="paging==='button'">
       <before-icon class="arrow-icon" :class="{disabled: !isLeftExist}"/>
     </div>
-    <ul class="articles">
+    <ul class="articles" :style="layoutStyle" ref="articles">
       <li v-for="(article, i) in articles.mounted" :key="i">
         <thumb-nail :article="article" use-link/>
       </li>
     </ul>
-    <div class="arrow-button" @click="shiftArticles">
+    <div class="arrow-button" @click="shiftArticles" v-if="paging==='button'">
       <after-icon class="arrow-icon" :class="{disabled: !isRightExist}"/>
     </div>
   </section>
@@ -19,13 +19,24 @@ import ThumbNail from './ThumbNail.vue'
 import BeforeIcon from '@/components/icons/BeforeIcon.vue'
 import AfterIcon from '@/components/icons/AfterIcon.vue'
 
-const MOUNTSIZE = 4
-
 export default{
   components: {
     ThumbNail,
     BeforeIcon,
     AfterIcon
+  },
+  props: {
+    rowlength: {
+      type: String,
+      default: '4'
+    },
+    paging: {
+      type: String,
+      default: 'button',
+      validator: function(value) {
+        return ['button', 'scroll'].indexOf(value) !== -1
+      }
+    }
   },
   data() {
     return {
@@ -34,26 +45,36 @@ export default{
       articles: {
         TOTALSIZE: 0,
         BLOCKSIZE: 0,
-        MOUNTSIZE: MOUNTSIZE,
+        MOUNTSIZE: parseInt(this.rowlength),
         mounted: [],
         loaded: [],
         itr: 0
-      }
+      },
     }
   },
   computed: {
+    layoutStyle() {
+      return this.paging === 'scroll' ?
+        { gridTemplateColumns: `repeat(${this.rowlength}, minmax(0px, 1fr))` } : ""
+    },
     isRightExist() {
       return this.articles.itr + this.articles.MOUNTSIZE < this.articles.TOTALSIZE
     },
     isLeftExist() {
       return this.articles.itr > 0
-    }
+    },
+    articleHeight() {
+      return this.$refs.articles.querySelector('li').offsetHeight
+    },
+    aritclesVBottom() {
+      return this.$refs.articles.lastElementChild.getBoundingClientRect().top
+    } 
   },
   methods: {
     async loadArticles(page) {
       try {
         const response = await this.$api("GET", `/articlelist?page=${page}`)
-        const articles = response.data.article || response.data.articles // check!
+        const articles = response.data.articles
         if(this.MAXPAGE === 0) {
           this._initArticles(response.data)
         }
@@ -66,13 +87,10 @@ export default{
     },
     _initArticles(data) {
       this.articles.TOTALSIZE = data.allArticleCount
-      this.articles.BLOCKSIZE = data.article.length
+      this.articles.BLOCKSIZE = data.articles.length
       this.MAXPAGE = data.maxPage
       for(let i = 0; i < Math.min(this.articles.BLOCKSIZE, this.articles.MOUNTSIZE); i++) {
-        this.articles.mounted.push(data.article[i])
-      }
-      for(let i = this.articles.BLOCKSIZE; i < this.articles.MOUNTSIZE; i++) {
-        this.articles.mounted.push({})
+        Object.assign(this.articles.mounted[i], data.articles[i])
       }
     },
     async shiftArticles() {
@@ -100,9 +118,41 @@ export default{
         this.articles.itr--
       }
     },
+    async mountArticlesRow() {
+      if(this.isRightExist) {
+        if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
+          await this.loadArticles(++this.page)
+        }
+        const articles = []
+        const unmountSize = this.articles.TOTALSIZE - (this.articles.itr + this.articles.MOUNTSIZE)
+        const vacantSize = Math.max(this.articles.MOUNTSIZE - unmountSize, 0)
+        for(let i = 0; i < this.articles.MOUNTSIZE - vacantSize; i++) {
+          articles.push(this.articles.loaded[this.articles.itr + this.articles.MOUNTSIZE + i])
+        }
+        for(let i = 0; i < vacantSize; i++) {
+          articles.push({})
+        }
+        this.articles.mounted.push(...articles)
+        this.articles.itr = this.articles.itr + this.articles.MOUNTSIZE
+      }
+    }
   },
   beforeMount() {
+    for(let i = 0; i < this.articles.MOUNTSIZE; i++) {
+      this.articles.mounted.push({})
+    }
     this.loadArticles(1)
+    if(this.paging === 'scroll') {
+      window.addEventListener('scroll', this.mountArticlesRow)
+    }
+  },
+  updated() {
+    console.log(this.articleHeight)
+  },
+  beforeUnmount() {
+    if(this.paging === 'scroll') {
+      window.removeEventListener('scroll', this.mountArticlesRow)
+    }
   }
 }
 </script>
