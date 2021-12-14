@@ -1,6 +1,6 @@
 <template>
   <div class="watcher-page">
-    <article-list/>
+    <article-list rowlength="4" ref="articles" @request-push="loadArticles"/>
   </div>
 </template>
 
@@ -14,10 +14,27 @@ export default{
   },
   data() {
     return {
+      init: false
     }
   },
   methods: {
-  },
+    async loadArticles(page) {
+      try {
+        const response = await this.$api("GET", `/articlelist?page=${page}`)
+        const data = response.data
+        if(page === data.page) {
+          if(!this.init) {
+            this.$refs.articles.init(data)
+            this.init = true
+          } else {
+            this.$refs.articles.push(data.articles)
+          }
+        }
+      } catch(error) {
+        console.error(error)
+      }
+    }
+  }
 }
 </script>
 

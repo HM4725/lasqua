@@ -1,13 +1,13 @@
 <template>
   <div class="artist-page">
     <header>
-      헤더
+      Banner
     </header>
     <section>
       <div class="profile"></div>
       <div class="projects">
         <router-button link="upload" value="게시글 올리기"/>
-        <article-list rowlength="3" paging="scroll"/>
+        <article-list ref="articles" rowlength="3" paging="scroll" @request-push="loadArticles"/>
       </div>
     </section>
   </div>
@@ -28,7 +28,26 @@ export default {
   },
   data() {
     return {
-      id: ''
+      id: '',
+      init: false
+    }
+  },
+  methods: {
+    async loadArticles(page) {
+      try {
+        const response = await this.$api("GET", `/articlelist?page=${page}`)
+        const data = response.data
+        if(page === data.page) {
+          if(!this.init) {
+            this.$refs.articles.init(data)
+            this.init = true
+          } else {
+            this.$refs.articles.push(data.articles)
+          }
+        }
+      } catch(error) {
+        console.error(error)
+      }
     }
   },
   beforeMount() {

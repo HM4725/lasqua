@@ -40,7 +40,7 @@ export default{
   },
   data() {
     return {
-      page: 1,
+      page: 0,
       MAXPAGE: 0,
       articles: {
         TOTALSIZE: 0,
@@ -71,32 +71,28 @@ export default{
     } 
   },
   methods: {
-    async loadArticles(page) {
-      try {
-        const response = await this.$api("GET", `/articlelist?page=${page}`)
-        const articles = response.data.articles
-        if(this.MAXPAGE === 0) {
-          this._initArticles(response.data)
-        }
-        for(let i in articles) {
-          this.articles.loaded.push(articles[i])
-        }
-      } catch(error) {
-        console.error(error)
-      }
-    },
-    _initArticles(data) {
+    // API
+    init(data) {
       this.articles.TOTALSIZE = data.allArticleCount
+      this.articles.MAXPAGE = data.maxPage
       this.articles.BLOCKSIZE = data.articles.length
-      this.MAXPAGE = data.maxPage
-      for(let i = 0; i < Math.min(this.articles.BLOCKSIZE, this.articles.MOUNTSIZE); i++) {
-        Object.assign(this.articles.mounted[i], data.articles[i])
+      this.push(data.articles)
+      for(let i = 0; i < Math.min(this.articles.MOUNTSIZE, this.articles.BLOCKSIZE); i++) {
+        Object.assign(this.articles.mounted[i], this.articles.loaded[i])
       }
     },
+    push(articles) {
+      this.articles.loaded.push(...articles)
+    },
+    unshift(articles) {
+      this.articles.loaded.unshift(...articles)
+    },
+    // Move
+    // Button Methods
     async shiftArticles() {
       if(this.isRightExist) {
         if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
-          await this.loadArticles(++this.page)
+          await this.$emit('requestPush', ++this.page)
         }
         const articles = []
         const right = this.articles.loaded[this.articles.itr + this.articles.MOUNTSIZE]
@@ -118,10 +114,11 @@ export default{
         this.articles.itr--
       }
     },
+    // Scroll Methods
     async mountArticlesRow() {
       if(this.isRightExist) {
         if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
-          await this.loadArticles(++this.page)
+          await this.$emit('requestPush', ++this.page)
         }
         const articles = []
         const unmountSize = this.articles.TOTALSIZE - (this.articles.itr + this.articles.MOUNTSIZE)
@@ -141,18 +138,14 @@ export default{
     for(let i = 0; i < this.articles.MOUNTSIZE; i++) {
       this.articles.mounted.push({})
     }
-    this.loadArticles(1)
-    if(this.paging === 'scroll') {
-      window.addEventListener('scroll', this.mountArticlesRow)
+    this.$emit('requestPush', 1)
+    for(let i = 0; i < Math.min(this.articles.MOUNTSIZE, this.articles.BLOCKSIZE); i++) {
+      Object.assign(this.articles.mounted[i], this.articles.loaded[i])
     }
-  },
-  updated() {
-    console.log(this.articleHeight)
+    this.paging === 'scroll' && window.addEventListener('scroll', this.mountArticlesRow)
   },
   beforeUnmount() {
-    if(this.paging === 'scroll') {
-      window.removeEventListener('scroll', this.mountArticlesRow)
-    }
+    this.paging === 'scroll' && window.removeEventListener('scroll', this.mountArticlesRow)
   }
 }
 </script>
