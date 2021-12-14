@@ -1,5 +1,5 @@
 <template>
-  <div :class="{thumbnail: true, activate: active}" ref="thumbnail">
+  <div :class="{thumbnail: true, clickable: clickable}" ref="thumbnail">
     <img-component :src="imgSrc" :title="title" class="thumbnail-img" @img-load="activate"/>
   </div>
 </template>
@@ -10,7 +10,10 @@ import ImgComponent from './ImgComponent.vue'
 export default{
   props: {
     article: {
-      type: Object
+      type: Object,
+      default() {
+        return {}
+      }
     },
     useLink: {
       type: Boolean,
@@ -22,21 +25,23 @@ export default{
   },
   data() {
     return {
-      active: false
+      clickable: false
     }
   },
   methods: {
-    activate() {
-      if(this.useLink) {
-        if(this.active) {
-          this.$refs.thumbnail.removeEventListener("click", this.handleClick)
-        }
-        this.$refs.thumbnail.addEventListener("click", this.handleClick)
-      }
-      this.active = true
+    addLink() {
+      this.$refs.thumbnail.addEventListener("click", this.addLinkHandler)
     },
-    handleClick() {
-      this.$router.push(this.link)
+    removeLink() {
+      this.$refs.thumbnail.removeEventListener("click", this.addLinkHandler)
+      this.clickable = false
+    },
+    addLinkHandler() {
+      this.article.no && this.$router.push(`/article/view?no=${this.article.no}`)
+    },
+    activate() {
+      this.clickable = true
+      this.useLink && this.addLink()
     }
   },
   computed: {
@@ -44,17 +49,12 @@ export default{
       return this.article.title ? this.article.title : '없음'
     },
     imgSrc() {
-      const image = this.article.images || this.article.image // check!
+      const image = this.article.images
       return image ? image.link : ''
-    },
-    link() {
-      return this.article.no ? `/article/view?no=${this.article.no}` : '.'
     }
   },
   beforeUnmount() {
-    if(this.useLink && this.active) {
-      this.$refs.thumbnail.removeEventListener('click', this.handleClick)
-    }
+    this.useLink && this.removeLink()
   }
 }
 </script>
@@ -69,28 +69,28 @@ export default{
     border-radius: calc(0.25rem - 1px);
     transition: all .25s ease-in-out;
   }
-  .thumbnail.activate {
+  .thumbnail.clickable {
     cursor: pointer;
     border-color: var(--base-color)
   }
-  .thumbnail.activate:hover,
-  .thumbnail.activate:focus {
+  .thumbnail.clickable:hover,
+  .thumbnail.clickable:focus {
     border-color: var(--active-color);
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
     color: var(--active-color);
   }
-  .thumbnail.activate:hover {
+  .thumbnail.clickable:hover {
     transform: translateY(-1px);
   }
-  .thumbnail.activate:active {
+  .thumbnail.clickable:active {
     background-color: var(--active-bg-color);
     border-color: var(--active-color);
     box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
     color: var(--active-color);
     transform: translateY(0);
   }
-  .thumbnail.activate:hover > .thumbnail-img,
-  .thumbnail.activate:active > .thumbnail-img {
+  .thumbnail.clickable:hover > .thumbnail-img,
+  .thumbnail.clickable:active > .thumbnail-img {
     opacity: 0.7;
   }
 </style>
