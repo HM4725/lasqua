@@ -35,13 +35,15 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: var(--base-color);
-    height: 100%;
+    min-height: 100%;
+    height: auto;
     line-height: 1.5;
   }
   .wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    height: auto;
   }
 </style>
