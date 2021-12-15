@@ -4,7 +4,7 @@
       <div class="details">
         <div class="title">{{title}}</div>
         <div class="id"><span>작가</span>{{id}}</div>
-        <pre class="content">{{content}}</pre>
+        <div class="content"><span>설명</span><pre>{{content}}</pre></div>
       </div>
       <div class="images">
         <template v-for="(image, i) in images.slice(1)" :key="i">
@@ -112,8 +112,19 @@ export default{
     padding-right: 2rem;
   }
   .details > .content {
+    display: flex;
+    flex-direction: row;
     padding-left: 1rem;
     margin-bottom: .5rem;
+  }
+  .details > .content > span {
+    color: var(--active-color);
+    padding-right: 2rem;
+  }
+  .details > .content > pre {
+    margin: 0;
+    font-family: inherit;
+    font-size: .8rem;
   }
   .images {
     padding: 0 3rem;
