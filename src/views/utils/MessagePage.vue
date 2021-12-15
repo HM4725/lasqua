@@ -12,9 +12,8 @@
 //   params: {
 //     message: "${msg}",
 //     redirect: "${path}"
-//     }
 //   }
-// )
+// })
 export default{
   data() {
     return {
