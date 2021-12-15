@@ -7,7 +7,7 @@
         <div class="content"><span>설명</span><pre>{{content}}</pre></div>
       </div>
       <div class="images">
-        <template v-for="(image, i) in images.slice(1)" :key="i">
+        <template v-for="(image, i) in images" :key="i">
           <img-component :src="image.link" :title="image.name"/>
         </template>
       </div>
@@ -60,7 +60,7 @@ export default{
         console.log(data)
         this.id = data.id
         this.title = data.title
-        this.images = data.images
+        this.images = data.images.sort((a, b) => a.orderNo - b.orderNo).slice(1)
         this.content = data.content
         this.regdate = data.regdate
         this.id === this.$store.getters.getUserId && (this.myPage = true)
