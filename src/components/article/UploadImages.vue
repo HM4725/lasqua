@@ -35,7 +35,7 @@ export default{
   },
   data() {
     return {
-      count: 1,
+      count: 0,
       images: [],
       addButton: {
         no: 0,
@@ -57,6 +57,7 @@ export default{
     // API
     push(images) {
       for(let i in images) {
+        this.count = images[i].orderNo
         this.images.push(images[i])
         this.$refs.images.pushAndMount(wrapImage(images[i]))
       }
@@ -80,7 +81,7 @@ export default{
           sameImage.link = response.data.link
         } else {
           const image = {
-            orderNo: this.count++,
+            orderNo: ++this.count,
             name: name,
             link: response.data.link
           }
