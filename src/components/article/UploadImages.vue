@@ -104,7 +104,6 @@ export default{
     _commitDelete() {
       while(this.deleted.length > 0) {
         let link = this.deleted.pop()
-        console.log(link)
         this.$api("DELETE", `/image?link=${link}`)
       }
     },
