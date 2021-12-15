@@ -8,9 +8,9 @@
       </template>
       <template v-slot:body>
         <div class="date-box">
-          <input-box id="date-box-year" placeholder="생년(4자리)" v-model="year" @keydown.enter.prevent="close" ref="year" focus/>
-          <input-box id="date-box-month" placeholder="월" v-model="month" @keydown.enter.prevent="close" ref="month"/>
-          <input-box id="date-box-day" placeholder="일" v-model="day" @keydown.enter.prevent="close" ref="day"/>
+          <input-box id="date-box-year" placeholder="생년(4자리)" @input="v=>year=v" @keydown.enter.prevent="close" ref="year" focus/>
+          <input-box id="date-box-month" placeholder="월" @input="v=>month=v" @keydown.enter.prevent="close" ref="month"/>
+          <input-box id="date-box-day" placeholder="일" @input="v=>day=v" @keydown.enter.prevent="close" ref="day"/>
         </div>
       </template>
     </modal-slot>

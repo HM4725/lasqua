@@ -1,6 +1,6 @@
 <template>
   <div class="textarea-box" :class="{filled: filled}">
-    <textarea v-bind="$attrs" :id="id" :placeholder="placeholder" v-model="value" :maxlength="maxlength" @keyup="typing"/>
+    <textarea v-bind="$attrs" :id="id" :placeholder="placeholder" :value="value" @input="updateInput" :maxlength="maxlength"/>
     <label v-if="placeholder" :for="id">{{placeholder}}</label>
     <div class="length">({{length}} / {{maxlength}})</div>
   </div>
@@ -21,7 +21,7 @@ export default{
     maxlength: {
       type: Number,
       default: 100
-    }
+    },
   },
   data() {
     return {
@@ -29,9 +29,14 @@ export default{
     }
   },
   methods: {
-    getValue() {
-      return this.value
-    }
+    updateInput(event) {
+      this.value = event.target.value
+      this.$emit('input', this.value)
+    },
+    typing(value) {
+      this.value = value
+      this.$emit('input', this.value)
+    },
   },
   computed: {
     filled() {

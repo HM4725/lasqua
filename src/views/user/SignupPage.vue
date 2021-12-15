@@ -4,17 +4,17 @@
       <div class="signup-info">
         <div class="necessary">
           <p class="f-title">필수 사항</p>
-          <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="username" v-model="id.val" @focus="clearBox(id)"/>
+          <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="username" @input="v=>{id.val=v}" @focus="clearBox(id)"/>
           <span class="message">{{id.msg}}</span>
-          <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="new-password" v-model="pw.val" @focus="clearBox(pw)"/>
+          <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="new-password" @input="v=>{pw.val=v}" @focus="clearBox(pw)"/>
           <span class="message">{{pw.msg}}</span>
-          <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="new-password" v-model="confirmPw.val" @focus="clearBox(confirmPw)"/>
+          <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="new-password" @input="v=>{confirmPw.val=v}" @focus="clearBox(confirmPw)"/>
           <span class="message">{{confirmPw.msg}}</span>
-          <input-box id="signup-name" type="text" placeholder="이름" v-model="name.val" @focus="clearBox(name)"/>
+          <input-box id="signup-name" type="text" placeholder="이름" @input="v=>{name.val=v}" @focus="clearBox(name)"/>
           <span class="message">{{name.msg}}</span>
-          <input-box id="signup-email" type="text" placeholder="이메일" v-model="email.val" @focus="clearBox(email)"/>
+          <input-box id="signup-email" type="text" placeholder="이메일" @input="v=>{email.val=v}" @focus="clearBox(email)"/>
           <span class="message">{{email.msg}}</span>
-          <input-box id="signup-phone" type="tel" placeholder="전화번호" v-model="tel.val"  @focus="clearBox(tel)"/>
+          <input-box id="signup-phone" type="tel" placeholder="전화번호" @input="v=>{tel.val=v}"  @focus="clearBox(tel)"/>
           <span class="message">{{tel.msg}}</span>
         </div>
         <div class="optional">
@@ -22,12 +22,12 @@
           <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
           <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
           <date-box id="signup-regdate" placeholder="생년월일" ref="birth"/>
-          <input-box id="signup-info" type="text" placeholder="간단한 소개" v-model="info.val"/>
-          <input-box id="signup-facebook" type="text" placeholder="페이스북 ID" v-model="facebook.val"/>
-          <input-box id="signup-instagram" type="text" placeholder="인스타그램 ID" v-model="instagram.val"/>
-          <input-box id="signup-twitter" type="text" placeholder="트위터 ID" v-model="twitter.val"/>
-          <input-box id="signup-etc_name" type="text" placeholder="기타 SNS ID" v-model="etcName.val"/>
-          <input-box id="signup-etc_link" type="text" placeholder="기타 SNS 링크" v-model="etcLink.val"/>
+          <input-box id="signup-info" type="text" placeholder="간단한 소개" @input="v=>{info.val=v}"/>
+          <input-box id="signup-facebook" type="text" placeholder="페이스북 ID" @input="v=>{facebook.val=v}"/>
+          <input-box id="signup-instagram" type="text" placeholder="인스타그램 ID" @input="v=>{instagram.val=v}"/>
+          <input-box id="signup-twitter" type="text" placeholder="트위터 ID" @input="v=>{twitter.val=v}"/>
+          <input-box id="signup-etc_name" type="text" placeholder="기타 SNS ID" @input="v=>{ectName.val=v}"/>
+          <input-box id="signup-etc_link" type="text" placeholder="기타 SNS 링크" @input="v=>{etcLink.val=v}"/>
         </div>
       </div>
       <div>

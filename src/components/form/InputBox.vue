@@ -1,6 +1,6 @@
 <template>
-  <div class="input-box" :class="{filled: filled, error: error}">
-    <input v-bind="$attrs" :type="type" :id="id" :placeholder="placeholder" v-model="value" @focus="enter" ref="input"/>
+  <div class="input-box" :class="{filled: filled}">
+    <input v-bind="$attrs" :type="type" :id="id" :placeholder="placeholder" :value="value" @input="updateInput" @focus="enter" ref="input"/>
     <label v-if="placeholder" :for="id">{{placeholder}}</label>
   </div>
 </template>
@@ -28,20 +28,18 @@ export default{
   },
   data() {
     return {
-      value: '',
-      error: false
+      value: ''
     }
   },
   methods: {
-    getValue() {
-      return this.value
+    updateInput(event) {
+      this.value = event.target.value
+      this.$emit('input', this.value)
     },
-    occurError() {
-      this.error = true;
-    },
-    enter() {
-      this.error = false;
-    },
+    typing(value) {
+      this.value = value
+      this.$emit('input', value)
+    }
   },
   computed: {
     filled() {
@@ -107,27 +105,5 @@ export default{
   .input-box > input:focus{
     outline: none;
     border-color: var(--active-color);
-  }
-  .input-box.error > input {
-    border-color: red;
-  }
-  .input-box.error > label {
-    color: red;
-  }
-  .input-box.error {
-    animation: shake .5s;
-  }
-  @keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -1px) rotate(-1deg); }
-    20% { transform: translate(-1px, 0px) rotate(1deg); }
-    30% { transform: translate(1px, 1px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 1px) rotate(-1deg); }
-    60% { transform: translate(-1px, 1px) rotate(0deg); }
-    70% { transform: translate(1px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 1px) rotate(0deg); }
-    100% { transform: translate(1px, -1px) rotate(-1deg); }
   }
 </style>
