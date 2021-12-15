@@ -6,7 +6,7 @@
     <section>
       <div class="profile"></div>
       <div class="projects">
-        <router-button link="upload" value="게시글 올리기"/>
+        <router-button link="/article/upload" value="게시글 올리기"/>
         <article-list ref="articles" rowlength="3" paging="scroll" use-link @request-push="loadArticles"/>
       </div>
     </section>

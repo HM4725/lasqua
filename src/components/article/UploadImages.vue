@@ -1,7 +1,7 @@
 <template>
   <div class="upload-images">
       <div class="images">
-        <article-list ref="images" rowlength="3" @clickArticle="removeImage">
+        <article-list ref="images" rowlength="3" @clickArticle="deleteImage">
           <file-slot ref="file" @upload="uploadImage">
             <thumb-nail :article="addButton"/>
           </file-slot>
@@ -49,10 +49,24 @@ export default{
       error: {
         occur: false,
         message: ''
-      }
+      },
+      deleted: []
     }
   },
   methods: {
+    // API
+    push(images) {
+      for(let i in images) {
+        this.images.push(images[i])
+        this.$refs.images.pushAndMount(wrapImage(images[i]))
+      }
+    },
+    getValues() {
+      this.images.length > 0 && (this.images[0].orderNo = 1)
+      this._commitDelete()
+      return this.images
+    },
+    // Event
     async uploadImage(formData) {
       try {
         const headers = {
@@ -62,9 +76,8 @@ export default{
         const name = formData.get("file").name
         const sameImage = this.images.find(v => v.name === name)
         if(sameImage) {
-          const tmp = sameImage.link
+          this.deleted.push(sameImage.link)
           sameImage.link = response.data.link
-          await this.$api("DELETE", `/image?link=${tmp}`)
         } else {
           const image = {
             orderNo: this.count++,
@@ -78,21 +91,21 @@ export default{
         console.error(error)
       }
     },
-    async removeImage(no) {
+    deleteImage(no) {
       if(no) {
-        try {
-          const idx = this.images.findIndex(v => v.orderNo === no)
-          await this.$api("DELETE", `/image?link=${this.images[idx].link}`)
-          this.images.splice(idx, 1)
-          this.$refs.images.remove(no)
-        } catch(error) {
-          console.error(error)
-        }
-      }      
+        const idx = this.images.findIndex(v => v.orderNo === no)
+        this.deleted.push(this.images[idx].link)
+        this.images.splice(idx, 1)
+        this.$refs.images.remove(no)
+      }
     },
-    getValues() {
-      this.images.length > 0 && (this.images[0].orderNo = 1)
-      return this.images
+    // Private
+    _commitDelete() {
+      while(this.deleted.length > 0) {
+        let link = this.deleted.pop()
+        console.log(link)
+        this.$api("DELETE", `/image?link=${link}`)
+      }
     },
   },
 }

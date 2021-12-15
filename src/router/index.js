@@ -19,6 +19,19 @@ const routes = [
     component: () => import('@/views/article/ViewPage.vue'),
   },
   {
+    path: '/article/upload',
+    name: 'article.upload',
+    component: () => import('@/views/article/UploadPage.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/article/modify',
+    name: 'article.modify',
+    component: () => import('@/views/article/ModifyPage.vue'),
+    props: true,
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/traveler',
     name: 'traveler',
     component: () => import('@/views/article/TravelerPage.vue'),
@@ -36,12 +49,6 @@ const routes = [
     name: 'artist',
     component: () => import('@/views/article/ArtistPage.vue'),
     props: { mypage: false },
-    meta: { requiresAuth: true }
-  },
-  {
-    path: '/upload',
-    name: 'upload',
-    component: () => import('@/views/article/UploadPage.vue'),
     meta: { requiresAuth: true }
   },
   {
