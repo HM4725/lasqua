@@ -53,7 +53,8 @@ export default{
         MOUNTSIZE: parseInt(this.rowlength),
         mounted: [],
         loaded: [],
-        itr: 0
+        itr: 0,
+        PRELOAD: 1
       },
     }
   },
@@ -63,7 +64,8 @@ export default{
         { gridTemplateColumns: `repeat(${this.rowlength}, minmax(0px, 1fr))` } : ""
     },
     isRightExist() {
-      const limit = this.MAXPAGE === 0 ? this.articles.loaded.length : this.articles.TOTALSIZE
+      const limit = this.articles.loaded.length < this.articles.MOUNTSIZE || this.MAXPAGE === 0 ? 
+        this.articles.loaded.length : this.articles.TOTALSIZE
       return this.articles.itr + this.articles.MOUNTSIZE < limit
     },
     isLeftExist() {
@@ -121,10 +123,12 @@ export default{
     // Button Event
     async shiftArticles() {
       if(this.isRightExist) {
-        if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
+        if((this.articles.itr + this.articles.MOUNTSIZE + this.articles.PRELOAD) % this.articles.BLOCKSIZE === 0) {
           await this.$emit('requestPush', ++this.page)
         }
-        this.mount(this.articles.itr + 1)
+        if(this.articles.itr + this.articles.MOUNTSIZE <= this.articles.loaded.length) {
+          this.mount(++this.articles.itr)
+        }
       }
     },
     unshiftArticles() {

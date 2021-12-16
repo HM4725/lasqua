@@ -20,7 +20,6 @@ export default{
   methods: {
     async loadArticles(page) {
       try {
-        console.log(page)
         const response = await this.$api("GET", `/articlelist?page=${page}`)
         const data = response.data
         if(!this.init) {
