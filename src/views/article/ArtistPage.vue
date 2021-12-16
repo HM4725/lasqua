@@ -52,7 +52,7 @@ export default {
   },
   beforeMount() {
     if(this.mypage) {
-      this.id = this.$store.getters.getUserId
+      this.id = this.$store.getters.userId
     } else {
       this.id = this.$route.query.id
       this.id || this.$router.replace('/error')

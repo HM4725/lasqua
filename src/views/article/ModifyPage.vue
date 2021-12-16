@@ -83,7 +83,7 @@ export default{
     },
   },
   beforeMount() {
-    if(this.id !== this.$store.getters.getUserId) {
+    if(!this.no || this.id !== this.$store.getters.userId) {
       this.$router.replace('/error')
     }
   },

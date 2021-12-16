@@ -19,8 +19,7 @@ const store = createStore({
     }
   },
   getters: {
-    isLoggedIn: (state) => state.user.id !== undefined,
-    getUserId: (state) => state.user.id
+    userId: (state) => state.user.id
   },
   actions: {
     login: async ({commit}, payload) => {
@@ -41,6 +40,25 @@ const store = createStore({
       } catch(error) {
         console.error(error)
         return "fail"
+      }
+    },
+    validateIdSession: async ({getters}) => {
+      if(!getters.userId) { return false }
+      try {
+        await api("GET", `/sessionvalid/${getters.userId}`)
+        return true
+      } catch(error) {
+        console.error(error)
+        return false
+      }
+    },
+    validatePassword: async ({getters}, payload) => {
+      try {
+        await api("POST", `/user/${getters.userId}/pw`, payload)
+        return true
+      } catch(error) {
+        console.error(error)
+        return false
       }
     }
   },

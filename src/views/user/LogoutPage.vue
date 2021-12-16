@@ -14,7 +14,7 @@ export default{
   },
   methods: {
     async logout() {
-      this.$store.getters.isLoggedIn &&
+      this.$store.getters.userId &&
         await this.$store.dispatch("logout")
       this.$router.go(-1)
     }

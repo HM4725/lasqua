@@ -83,9 +83,9 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.getters['isLoggedIn']) {
+    if (!(await store.dispatch('validateIdSession'))) {
       next({
         path: '/login',
         query: { redirect: to.fullPath }

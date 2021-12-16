@@ -63,7 +63,7 @@ export default{
         this.images = data.images.sort((a, b) => a.orderNo - b.orderNo).slice(1)
         this.content = data.content
         this.regdate = data.regdate
-        this.id === this.$store.getters.getUserId && (this.myPage = true)
+        this.id === this.$store.getters.userId && (this.myPage = true)
       } catch(error) {
         this.$router.push({name: 'message', params: {message: "잘못된 접근입니다.", redirect: "/"}})
       }
