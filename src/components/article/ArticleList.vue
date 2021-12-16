@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section class="article-list" ref="articleList">
     <div class="arrow-button" @click="unshiftArticles" v-if="paging==='button'">
       <before-icon class="arrow-icon" :class="{disabled: !isLeftExist}"/>
     </div>
@@ -77,13 +77,24 @@ export default{
   },
   methods: {
     // API
-    init(data) {
+    async init(data) {
       this.articles.TOTALSIZE = data.allArticleCount
       this.MAXPAGE = data.maxPage
       this.articles.BLOCKSIZE = data.articles.length
       this.push(data.articles)
       for(let i = 0; i < Math.min(this.articles.MOUNTSIZE, this.articles.BLOCKSIZE); i++) {
         Object.assign(this.articles.mounted[i], this.articles.loaded[i])
+      }
+      if(this.paging === 'scroll') {
+        try {
+          // TODO: Erase "this.articles.mounted.at(-1) &&" after add limited api 
+          while(window.innerHeight === document.documentElement.scrollHeight &&
+              this.articles.mounted.at(-1) && this.articles.mounted.at(-1).no) {
+            await this.mountArticlesRow()
+          }
+        } catch(error) {
+          console.error(error)
+        }
       }
     },
     push(articles) {
@@ -137,21 +148,24 @@ export default{
     },
     // Scroll Event
     async mountArticlesRow() {
-      if(this.isRightExist && this.articles.loaded.length < 6) {
-        if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
-          await this.$emit('requestPush', ++this.page)
+      if(window.scrollY + window.innerHeight === document.documentElement.scrollHeight) {
+        // TODO: Erase "this.articles.mounted.at(-1) &&" after add limited api 
+        if(this.articles.mounted.at(-1) && this.articles.mounted.at(-1).no && this.isRightExist) {
+          if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
+            await this.$emit('requestPush', ++this.page)
+          }
+          const articles = []
+          const unmountSize = this.articles.TOTALSIZE - (this.articles.itr + this.articles.MOUNTSIZE)
+          const vacantSize = Math.max(this.articles.MOUNTSIZE - unmountSize, 0)
+          for(let i = 0; i < this.articles.MOUNTSIZE - vacantSize; i++) {
+            articles.push(this.articles.loaded[this.articles.itr + this.articles.MOUNTSIZE + i])
+          }
+          for(let i = 0; i < vacantSize; i++) {
+            articles.push({})
+          }
+          this.articles.mounted.push(...articles)
+          this.articles.itr = this.articles.itr + this.articles.MOUNTSIZE
         }
-        const articles = []
-        const unmountSize = this.articles.TOTALSIZE - (this.articles.itr + this.articles.MOUNTSIZE)
-        const vacantSize = Math.max(this.articles.MOUNTSIZE - unmountSize, 0)
-        for(let i = 0; i < this.articles.MOUNTSIZE - vacantSize; i++) {
-          articles.push(this.articles.loaded[this.articles.itr + this.articles.MOUNTSIZE + i])
-        }
-        for(let i = 0; i < vacantSize; i++) {
-          articles.push({})
-        }
-        this.articles.mounted.push(...articles)
-        this.articles.itr = this.articles.itr + this.articles.MOUNTSIZE
       }
     },
     // Click Thumbnail Event
@@ -173,7 +187,7 @@ export default{
 </script>
 
 <style scoped>
-  .container {
+  .article-list {
     width: 100%;
     display: flex;
     flex-direction: row;
