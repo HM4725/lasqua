@@ -42,13 +42,13 @@ const store = createStore({
         return "fail"
       }
     },
-    validateIdSession: async ({getters}) => {
+    validateIdSession: async ({commit, getters}) => {
       if(!getters.userId) { return false }
       try {
         await api("GET", `/sessionvalid/${getters.userId}`)
         return true
       } catch(error) {
-        console.error(error)
+        commit('logout')
         return false
       }
     },
