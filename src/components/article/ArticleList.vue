@@ -87,9 +87,8 @@ export default{
       }
       if(this.paging === 'scroll') {
         try {
-          // TODO: Erase "this.articles.mounted.at(-1) &&" after add limited api 
           while(window.innerHeight === document.documentElement.scrollHeight &&
-              this.articles.mounted.at(-1) && this.articles.mounted.at(-1).no) {
+              this.articles.mounted.at(-1).no) {
             await this.mountArticlesRow()
           }
         } catch(error) {
@@ -136,7 +135,7 @@ export default{
         if((this.articles.itr + this.articles.MOUNTSIZE + this.articles.PRELOAD) % this.articles.BLOCKSIZE === 0) {
           await this.$emit('requestPush', ++this.page)
         }
-        if(this.articles.itr + this.articles.MOUNTSIZE <= this.articles.loaded.length) {
+        if(this.articles.itr + this.articles.MOUNTSIZE < this.articles.loaded.length) {
           this.mount(++this.articles.itr)
         }
       }
@@ -149,13 +148,12 @@ export default{
     // Scroll Event
     async mountArticlesRow() {
       if(window.scrollY + window.innerHeight === document.documentElement.scrollHeight) {
-        // TODO: Erase "this.articles.mounted.at(-1) &&" after add limited api 
-        if(this.articles.mounted.at(-1) && this.articles.mounted.at(-1).no && this.isRightExist) {
+        if(this.articles.mounted.at(-1).no && this.isRightExist) {
           if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
             await this.$emit('requestPush', ++this.page)
           }
           const articles = []
-          const unmountSize = this.articles.TOTALSIZE - (this.articles.itr + this.articles.MOUNTSIZE)
+          const unmountSize = this.articles.loaded.length - (this.articles.itr + this.articles.MOUNTSIZE)
           const vacantSize = Math.max(this.articles.MOUNTSIZE - unmountSize, 0)
           for(let i = 0; i < this.articles.MOUNTSIZE - vacantSize; i++) {
             articles.push(this.articles.loaded[this.articles.itr + this.articles.MOUNTSIZE + i])
