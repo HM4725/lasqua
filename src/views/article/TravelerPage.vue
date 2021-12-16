@@ -1,7 +1,7 @@
 <template>
   <div class="index-wrapper">
     <section class="artists">
-      <article-list rowlength="4" ref="artists" @request-push="loadArtists" use-link/>
+      <article-list rowlength="4" ref="artists" mode="artist" @request-push="loadArtists"/>
       <p class="f-title">ARTISTs</p>
     </section>
   </div>

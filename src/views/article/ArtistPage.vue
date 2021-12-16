@@ -1,25 +1,30 @@
 <template>
   <div class="artist-page">
-    <header>
-      Banner
+    <header class="banner">
     </header>
     <section>
-      <div class="profile"></div>
+      <div class="artist">
+        <artist-profile :artist="artist"/>
+        <div class="mypage" v-if="mypage">
+          <router-button link="/article/upload" value="게시글 올리기"/>
+        </div>
+      </div>
       <div class="projects">
-        <router-button link="/article/upload" value="게시글 올리기"/>
-        <article-list ref="articles" rowlength="3" paging="scroll" use-link @request-push="loadArticles"/>
+        <article-list ref="articles" rowlength="3" paging="scroll" mode="project" @request-push="loadArticles"/>
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import ArtistProfile from '@/components/article/ArtistProfile.vue'
 import RouterButton from '@/components/buttons/RouterButton.vue'
 import ArticleList from '@/components/article/ArticleList.vue'
 
 export default {
   name: 'ArtistPage',
   components: {
+    ArtistProfile,
     RouterButton,
     ArticleList
   },
@@ -29,10 +34,24 @@ export default {
   data() {
     return {
       id: '',
-      init: false
+      init: false,
+      artist: {
+        type: Object,
+        default() {
+          return {}
+        }
+      }
     }
   },
   methods: {
+    async loadArtist(id) {
+      try {
+        const response = await this.$api("GET", `/user/${id}`)
+        this.artist = response.data
+      } catch(error) {
+        this.artist = {}
+      }
+    },
     async loadArticles(page) {
       try {
         const response = await this.$api("GET", `/articlelist?page=${page}`)
@@ -51,12 +70,8 @@ export default {
     }
   },
   beforeMount() {
-    if(this.mypage) {
-      this.id = this.$store.getters.userId
-    } else {
-      this.id = this.$route.query.id
-      this.id || this.$router.replace('/error')
-    }
+    this.id = this.mypage ? this.$store.getters.userId : this.$route.params.id
+    this.loadArtist(this.id)
   }
 };
 </script>
@@ -66,16 +81,23 @@ export default {
     width: 100%;
     height: 100%;
   }
-  .artist-page > header{
-    height: 15%;
-  }
-  .artist-page > section {
-    min-height: 85%;
-    height: 200rem;
+  .artist-page > header.banner{
+    height: 20%;
+    background-color: #eeeeee
   }
   .artist-page > section {
     display: grid;
     grid-template-columns: 1fr 3fr;
+    min-height: 80%;
+  }
+  .artist {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    top: -10%;
+  }
+  .artist > .mypage {
+    margin-top: 2rem;
   }
   .projects {
     padding: 1rem;

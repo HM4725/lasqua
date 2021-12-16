@@ -1,5 +1,5 @@
 <template>
-  <div :class="{thumbnail: true, clickable: clickable}" @click="clickHandler">
+  <div :class="{thumbnail: true, clickable: clickable}" @click="goLink">
     <img-component :src="imgSrc" :title="title" class="thumbnail-img" @mount="activate" @unmount="deactivate"/>
   </div>
 </template>
@@ -11,13 +11,26 @@ export default{
   props: {
     article: {
       type: Object,
+      // {
+      //   no,
+      //   id,
+      //   title,
+      //   images: {
+      //     orderNo,
+      //     name,
+      //     link
+      //   },
+      //   content,
+      //   regdate
+      // }
       default() {
         return {}
       }
     },
-    useLink: {
-      type: Boolean,
-      default: false
+    mode: {
+      type: String,
+      default: 'img',
+      validator: v => ['project', 'artist', 'img'].indexOf(v) !== -1
     }
   },
   components: {
@@ -29,9 +42,13 @@ export default{
     }
   },
   methods: {
-    clickHandler() {
-      if(this.clickable && this.useLink && this.article.no ) {
-        this.$router.push(this.link)
+    goLink() {
+      if(this.clickable) {
+        if(this.mode === 'project' && this.article.no) {
+          this.$router.push(`/article/view?no=${this.article.no}`)
+        } else if (this.mode === 'artist' && this.article.id) {
+          this.$router.push(`/artist/${this.article.id}`)
+        }
       }
     },
     activate() {
@@ -43,15 +60,11 @@ export default{
   },
   computed: {
     title() {
-      return this.article.title ? this.article.title : '없음'
+      return this.article.title ? this.article.title : ''
     },
     imgSrc() {
       const image = this.article.images
       return image ? image.link : ''
-    },
-    link() {
-      const no = this.article.no
-      return no && this.useLink ? `/article/view?no=${no}` : ''
     }
   },
 }

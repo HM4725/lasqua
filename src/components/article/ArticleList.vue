@@ -5,7 +5,7 @@
     </div>
     <ul class="articles" :style="layoutStyle" ref="articles">
       <li v-for="(article, i) in articles.mounted" :key="i">
-        <thumb-nail :article="article" :use-link="useLink" @click="clickArticle(i)"/>
+        <thumb-nail :article="article" :mode="mode" @click="clickArticle(i)"/>
       </li>
       <slot></slot>
     </ul>
@@ -34,13 +34,12 @@ export default{
     paging: {
       type: String,
       default: 'button',
-      validator: function(value) {
-        return ['button', 'scroll'].indexOf(value) !== -1
-      }
+      validator: v => ['button', 'scroll'].indexOf(v) !== -1
     },
-    useLink: {
-      type: Boolean,
-      default: false
+    mode: {
+      type: String,
+      default: 'project',
+      validator: v => ['project', 'artist', 'img'].indexOf(v) !== -1
     }
   },
   data() {
@@ -138,7 +137,7 @@ export default{
     },
     // Scroll Event
     async mountArticlesRow() {
-      if(this.isRightExist) {
+      if(this.isRightExist && this.articles.loaded.length < 6) {
         if((this.articles.itr + this.articles.MOUNTSIZE) % this.articles.BLOCKSIZE === 0) {
           await this.$emit('requestPush', ++this.page)
         }
