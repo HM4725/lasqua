@@ -57,7 +57,6 @@ export default{
       try {
         const response = await this.$api("GET", `/article/${this.no}`)
         const data = response.data
-        console.log(data)
         this.id = data.id
         this.title = data.title
         this.images = data.images.sort((a, b) => a.orderNo - b.orderNo).slice(1)
