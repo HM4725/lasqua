@@ -1,12 +1,14 @@
 <template>
   <div class="artist-page">
     <header class="banner">
+      <img-component ratio="9/1"/>
     </header>
     <section>
       <div class="artist">
         <artist-profile :artist="artist"/>
         <div class="mypage" v-if="mypage">
           <router-button link="/article/upload" value="게시글 올리기"/>
+          <profile-modify-button @modify="modify" :info="artist.info" :profile="artist.image"/>
         </div>
       </div>
       <div class="projects">
@@ -17,16 +19,20 @@
 </template>
 
 <script>
+import ImgComponent from '@/components/utils/ImgComponent.vue'
 import ArtistProfile from '@/components/article/ArtistProfile.vue'
 import RouterButton from '@/components/buttons/RouterButton.vue'
 import ArticleList from '@/components/article/ArticleList.vue'
+import ProfileModifyButton from '@/components/buttons/ProfileModifyButton.vue'
 
 export default {
   name: 'ArtistPage',
   components: {
+    ImgComponent,
     ArtistProfile,
     RouterButton,
-    ArticleList
+    ArticleList,
+    ProfileModifyButton
   },
   props: {
     mypage: Boolean
@@ -35,12 +41,8 @@ export default {
     return {
       id: '',
       init: false,
-      artist: {
-        type: Object,
-        default() {
-          return {}
-        }
-      }
+      artist: {},
+      banner: ''
     }
   },
   methods: {
@@ -67,6 +69,18 @@ export default {
       } catch(error) {
         console.error(error)
       }
+    },
+    async modify(data) {
+      const payload = {id: this.id}
+      data.info && (payload.info = data.info)
+      data.profile && (payload.image = data.profile)
+      try {
+        await this.$api("PUT", "/user", payload)
+        this.artist.image = data.profile
+        this.artist.info = data.info
+      } catch(error) {
+        console.error(error)
+      }
     }
   },
   beforeMount() {
@@ -83,7 +97,8 @@ export default {
   }
   .artist-page > header.banner{
     height: 20%;
-    background-color: #eeeeee
+    background-color: #eeeeee;
+    overflow: hidden;
   }
   .artist-page > section {
     display: grid;
@@ -94,7 +109,7 @@ export default {
     width: 80%;
     margin: 0 auto;
     position: relative;
-    top: -10%;
+    top: -5rem;
   }
   .artist > .mypage {
     margin-top: 2rem;

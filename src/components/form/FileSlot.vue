@@ -1,8 +1,8 @@
 <template>
-  <label for="input-file">
+  <label :for="id">
     <slot></slot>
   </label>
-  <input type="file" id="input-file" ref="file" @change="upload"/>
+  <input type="file" :id="id" ref="file" @change="upload"/>
 </template>
 
 <script>
@@ -10,6 +10,12 @@ export default{
   emits: [
     'upload'
   ],
+  props: {
+    id: {
+      type: String,
+      default: 'input-file'
+    }
+  },
   methods: {
     getValue() {
       return this.$refs.file
@@ -27,7 +33,7 @@ export default{
 </script>
 
 <style scoped>
-  #input-file {
+  input[type=file] {
     display: none;
   }
 </style>

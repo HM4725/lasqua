@@ -47,9 +47,8 @@ export default{
     }
   },
   mounted() {
-    if(this.focus) {
-      this.$refs.input.focus()
-    }
+    this.focus && this.$refs.input.focus()
+    this.value = this.$attrs.value
   }
 }
 </script>
