@@ -34,7 +34,7 @@ export default{
   methods: {
     lazyLoading(src) {
       if(src) {
-        this.imgSrc = require('@/assets/svg/spinner-3x4.svg')
+        this.imgSrc = require('@/assets/svg/blank-3x4.svg')
         let image = new Image()
         image.src = src
         image.onload = () => {
