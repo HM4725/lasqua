@@ -34,6 +34,12 @@ export default {
     ArticleList,
     ProfileModifyButton
   },
+<<<<<<< HEAD
+=======
+  props: {
+    mypage: Boolean
+  },
+>>>>>>> 9b1d360e7331570ab7ab552388aae35f978add85
   data() {
     return {
       id: '',
@@ -85,7 +91,6 @@ export default {
   },
   beforeMount() {
     this.id = this.$store.getters.userId
-    console.log(this.id)
     this.loadArtist(this.id)
   }
 };
