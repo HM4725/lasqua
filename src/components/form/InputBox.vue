@@ -43,7 +43,7 @@ export default{
     }
   },
   beforeMount() {
-    this.value = this.$attrs.value
+    this.$attrs.value && (this.value = this.$attrs.value)
   },
   mounted() {
     this.focus && this.$refs.input.focus()
