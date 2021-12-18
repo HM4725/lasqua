@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import ImgComponent from '@/components/article/ImgComponent.vue'
+import ImgComponent from '@/components/utils/ImgComponent.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 
 export default{

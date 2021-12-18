@@ -1,15 +1,22 @@
 <template>
-  <img :src="imgSrc" :alt="title" :title="title" ref="image"/>
+  <img :style="{aspectRatio: ratio}" :src="imgSrc" :alt="title" :title="title" ref="image"/>
 </template>
 
 <script>
 export default{
   props: {
-    title: String,
+    title: {
+      type: String,
+      default: ''
+    },
     src: {
       type: String,
       default: ''
-    }
+    },
+    ratio: {
+      type: String,
+      default: '3/4'
+    }  
   },
   data() {
     return {

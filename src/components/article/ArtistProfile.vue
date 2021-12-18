@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ImgComponent from './ImgComponent.vue'
+import ImgComponent from '../utils/ImgComponent.vue'
 
 export default{
   props: {
