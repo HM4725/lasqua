@@ -40,15 +40,13 @@ const routes = [
   {
     path: '/mypage',
     name: 'mypage',
-    component: () => import('@/views/article/ArtistPage.vue'),
-    props: { mypage: true },
+    component: () => import('@/views/user/MyPage.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/artist/:id',
     name: 'artist',
     component: () => import('@/views/article/ArtistPage.vue'),
-    props: { mypage: false },
     meta: { requiresAuth: true }
   },
   {

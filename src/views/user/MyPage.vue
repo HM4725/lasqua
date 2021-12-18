@@ -6,6 +6,10 @@
     <section>
       <div class="artist">
         <artist-profile :artist="artist"/>
+        <div class="mypage">
+          <router-button link="/article/upload" value="게시글 올리기"/>
+          <profile-modify-button @modify="modify" :info="artist.info" :profile="artist.profileImage" :banner="artist.bannerImage"/>
+        </div>
       </div>
       <div class="projects">
         <article-list ref="articles" rowlength="3" paging="scroll" mode="project" @request-push="loadArticles"/>
@@ -17,14 +21,18 @@
 <script>
 import ImgComponent from '@/components/utils/ImgComponent.vue'
 import ArtistProfile from '@/components/article/ArtistProfile.vue'
+import RouterButton from '@/components/buttons/RouterButton.vue'
 import ArticleList from '@/components/article/ArticleList.vue'
+import ProfileModifyButton from '@/components/buttons/ProfileModifyButton.vue'
 
 export default {
   name: 'ArtistPage',
   components: {
     ImgComponent,
     ArtistProfile,
-    ArticleList
+    RouterButton,
+    ArticleList,
+    ProfileModifyButton
   },
   data() {
     return {
@@ -59,10 +67,25 @@ export default {
       } catch(error) {
         console.error(error)
       }
+    },
+    async modify(payload) {
+      if(Object.keys(payload).length > 0) {
+        payload.id = this.id
+        console.log(payload)
+        try {
+          await this.$api("PUT", "/user", payload)
+          payload.bannerImage && (this.artist.bannerImage = payload.bannerImage)
+          payload.profileImage && (this.artist.profileImage = payload.profileImage)
+          payload.info && (this.artist.info = payload.info)
+        } catch(error) {
+          console.error(error)
+        }
+      }
     }
   },
   beforeMount() {
-    this.id = this.$route.params.id
+    this.id = this.$store.getters.userId
+    console.log(this.id)
     this.loadArtist(this.id)
   }
 };
@@ -88,6 +111,9 @@ export default {
     position: relative;
     top: -7vw;
     height: fit-content;
+  }
+  .artist > .mypage {
+    margin-top: 2rem;
   }
   .projects {
     padding: 1rem;
