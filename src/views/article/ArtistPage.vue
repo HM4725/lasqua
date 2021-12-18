@@ -56,7 +56,7 @@ export default {
     },
     async loadArticles(page) {
       try {
-        const response = await this.$api("GET", `/articlelist?page=${page}`)
+        const response = await this.$api("GET", `/articles/${this.id}?page=${page}`)
         const data = response.data
         if(page === data.page) {
           if(!this.init) {
