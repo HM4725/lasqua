@@ -1,7 +1,7 @@
 <template>
-  <div class="modal-component" v-if="showModal">
+  <div class="modal-component">
     <transition name="modal">
-      <div class="modal-mask">
+      <div class="modal-mask" v-if="showModal">
         <div class="modal-wrapper">
           <div class="modal-container">
 
@@ -93,15 +93,15 @@ export default{
     display: flex;
     flex-direction: row-reverse;
   }
-  .modal-enter {
+  .modal-enter-from {
     opacity: 0;
   }
   .modal-leave-active {
     opacity: 0;
   }
-  .modal-enter .modal-container,
+  .modal-enter-from .modal-container,
   .modal-leave-active .modal-container {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+    -webkit-transform: scale(1.01);
+    transform: scale(1.01);
   }
 </style>
