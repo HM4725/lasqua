@@ -1,13 +1,13 @@
 <template>
   <div class="upload-wrapper">
     <header class="title">
-      <input-box class="info-box" type="text" id="upload-title" placeholder="프로젝트 제목" @input="v=>title=v" maxlength="20" ref="title" focus/>
+      <input-box class="info-box" type="text" id="upload-title" placeholder="프로젝트 제목" :value="title" @input="v=>title=v" maxlength="20" focus/>
     </header>
     <section class="images">
       <upload-images ref="images"/>
     </section>
     <section class="content">
-      <textarea-box class="content-box" type="text" id="upload-content" placeholder="프로젝트 설명글" @input="v=>content=v" ref="content"/>
+      <textarea-box class="content-box" type="text" id="upload-content" placeholder="프로젝트 설명글" :value="content" @input="v=>content=v"/>
     </section>
     <footer class="submit">
       <default-button value="수정하기" @click="modify"/>
@@ -29,13 +29,9 @@ export default{
     InputBox
   },
   props: {
-    no: {
+    data: {
       type: String,
-      default: ""
-    },
-    id: {
-      type: String,
-      default: ""
+      default: '{"myPage": false}'
     }
   },
   data() {
@@ -64,31 +60,16 @@ export default{
         console.error(error)
       }
     },
-    // Private
-    async loadArticle() {
-      try {
-        const response = await this.$api("GET", `/article/${this.no}`)
-        const data = response.data
-        if(data.id === this.id) {
-          this.images = data.images.sort((a, b) => a.orderNo - b.orderNo)
-          this.$refs.title.typing(data.title)
-          this.$refs.images.push(this.images)
-          this.$refs.content.typing(data.content)
-        } else {
-          this.$router.replace('/error')
-        }
-      } catch(error) {
-        console.error(error)
-      }
-    },
   },
-  beforeMount() {
-    if(!this.no || this.id !== this.$store.getters.userId) {
-      this.$router.replace('/error')
-    }
+  created() {
+    const target = JSON.parse(this.data)
+    !target.myPage && this.$router.replace("/error")
+    this.title = target.title
+    this.images = target.images
+    this.content = target.content
   },
   mounted() {
-    this.loadArticle()
+    this.$refs.images.push(this.images)
   }
 }
 </script>

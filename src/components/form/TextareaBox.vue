@@ -32,11 +32,7 @@ export default{
     updateInput(event) {
       this.value = event.target.value
       this.$emit('input', this.value)
-    },
-    typing(value) {
-      this.value = value
-      this.$emit('input', this.value)
-    },
+    }
   },
   computed: {
     filled() {
@@ -45,6 +41,9 @@ export default{
     length() {
       return this.value.length
     }
+  },
+  beforeMount() {
+    this.value = this.$attrs.value
   }
 }
 </script>

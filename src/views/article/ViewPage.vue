@@ -50,7 +50,7 @@ export default{
       }
     },
     modifyArticle() {
-      this.$router.push({name: 'article.modify', params: { no: this.no, id: this.id }})
+      this.$router.push({name: 'article.modify', params: {data: JSON.stringify(this.$data)}})
     },
     // Load
     async loadArticle() {

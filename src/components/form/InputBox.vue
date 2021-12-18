@@ -35,10 +35,6 @@ export default{
     updateInput(event) {
       this.value = event.target.value
       this.$emit('input', this.value)
-    },
-    typing(value) {
-      this.value = value
-      this.$emit('input', value)
     }
   },
   computed: {
@@ -46,9 +42,11 @@ export default{
       return this.value.length !== 0
     }
   },
+  beforeMount() {
+    this.value = this.$attrs.value
+  },
   mounted() {
     this.focus && this.$refs.input.focus()
-    this.value = this.$attrs.value
   }
 }
 </script>
