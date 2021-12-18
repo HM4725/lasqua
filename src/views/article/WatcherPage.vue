@@ -18,9 +18,9 @@ export default{
     }
   },
   methods: {
-    async loadArticles(page) {
+    async loadArticles() {
       try {
-        const response = await this.$api("GET", `/articlelist?page=${page}`)
+        const response = await this.$api("GET", `/articlelist`)
         const data = response.data
         if(!this.init) {
           this.$refs.articles.init(data)

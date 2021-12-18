@@ -42,17 +42,15 @@ export default{
     }
   },
   methods: {
-    async loadArtists(page) {
+    async loadArtists() {
       try {
-        const response = await this.$api("GET", `/userlist?page=${page}`)
+        const response = await this.$api("GET", `/userlist`)
         const data = getArticlelistFrom(response.data)
-        if(page === data.page) {
-          if(!this.init) {
-            this.$refs.artists.init(data)
-            this.init = true
-          } else {
-            this.$refs.artists.push(data.articles)
-          }
+        if(!this.init) {
+          this.$refs.artists.init(data)
+          this.init = true
+        } else {
+          this.$refs.artists.push(data.articles)
         }
       } catch(error) {
         console.error(error)
