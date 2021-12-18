@@ -2,7 +2,6 @@
   <div class="index-wrapper">
     <section class="artists">
       <article-list rowlength="4" ref="artists" mode="artist" @request-push="loadArtists"/>
-      <p class="f-title">ARTISTs</p>
     </section>
   </div>
 </template>
