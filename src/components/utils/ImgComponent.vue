@@ -15,7 +15,7 @@ export default{
     },
     ratio: {
       type: String,
-      default: '3/4'
+      default: 'unset'
     }  
   },
   data() {
@@ -57,7 +57,6 @@ export default{
 <style scoped>
 img {
   display: block;
-  aspect-ratio: 3 / 4;
   width: 100%;
   object-fit: cover;
 }

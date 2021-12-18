@@ -1,6 +1,6 @@
 <template>
   <div :class="{thumbnail: true, clickable: clickable}" @click="goLink">
-    <img-component :src="imgSrc" :title="title" class="thumbnail-img" @mount="activate" @unmount="deactivate"/>
+    <img-component :src="imgSrc" :title="title" class="thumbnail-img" ratio="3/4" @mount="activate" @unmount="deactivate"/>
   </div>
 </template>
 
