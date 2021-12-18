@@ -24,8 +24,10 @@ export default{
   },
   methods: {
     search() {
-      this.$router.push({name: 'search', query: {keyword: this.keyword}})
-      this.$emit('search')
+      if(this.keyword) {
+        this.$router.push({name: 'search', query: {keyword: this.keyword}})
+        this.$emit('search')
+      }
     },
     clear() {
       this.keyword = ''

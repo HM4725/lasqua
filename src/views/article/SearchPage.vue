@@ -50,6 +50,7 @@ export default{
   },
   created() {
     this.keyword = this.$route.query.keyword
+    this.keyword || this.$router.replace('/error')
   }
 }
 </script>
