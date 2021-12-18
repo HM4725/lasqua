@@ -34,12 +34,6 @@ export default {
     ArticleList,
     ProfileModifyButton
   },
-<<<<<<< HEAD
-=======
-  props: {
-    mypage: Boolean
-  },
->>>>>>> 9b1d360e7331570ab7ab552388aae35f978add85
   data() {
     return {
       id: '',
