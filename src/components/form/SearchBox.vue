@@ -1,8 +1,8 @@
 <template>
   <div class="search-box">
-    <form>
+    <form @submit.prevent="search">
         <input class="search-input" type="text" v-model="keyword" placeholder="Search..."/>
-        <default-button class="search-button" @click="search" type="submit" value="검색"/>
+        <default-button class="search-button" type="submit" value="검색"/>
     </form>
   </div>
 </template>
@@ -11,6 +11,9 @@
 import DefaultButton from '../buttons/DefaultButton.vue'
 
 export default{
+  emits: [
+    'search'
+  ],
   components: {
     DefaultButton
   },
@@ -20,10 +23,9 @@ export default{
     }
   },
   methods: {
-    search(e) {
-      alert(this.keyword)
-      this.clear()
-      e.preventDefault()
+    search() {
+      this.$router.push({name: 'search', query: {keyword: this.keyword}})
+      this.$emit('search')
     },
     clear() {
       this.keyword = ''

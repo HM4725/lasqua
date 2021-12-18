@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper" :class="{open: isOpen}" @click="clickOutside">
     <div class="sidebar">
       <header class="sidebar-header">
-        <search-box ref="search"/>
+        <search-box ref="search" @search="close"/>
       </header>
       <nav class="sidebar-nav">
         <router-button class="nav-button" @click="close" v-for="(cate, i) in categories" :key="i" :link="`/${cate}`" :value="cate" after/>

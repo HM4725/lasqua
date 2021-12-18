@@ -78,21 +78,32 @@ export default{
   methods: {
     // API
     async init(data) {
-      this.articles.TOTALSIZE = data.allArticleCount
+      const mounted = []
+      this.page = 1
       this.MAXPAGE = data.maxPage
+      this.articles.TOTALSIZE = data.allArticleCount
       this.articles.BLOCKSIZE = data.articles.length
-      this.push(data.articles)
-      for(let i = 0; i < Math.min(this.articles.MOUNTSIZE, this.articles.BLOCKSIZE); i++) {
-        Object.assign(this.articles.mounted[i], this.articles.loaded[i])
-      }
-      if(this.paging === 'scroll') {
-        try {
-          while(window.innerHeight === document.documentElement.scrollHeight &&
-              this.articles.mounted.at(-1).no) {
-            await this.mountArticlesRow()
+      this.articles.loaded = []
+      if(this.articles.BLOCKSIZE > 0) {
+        this.push(data.articles)
+        let i = 0
+        let mountImage
+        while(i < this.articles.MOUNTSIZE) {
+          mountImage = i < this.articles.BLOCKSIZE ? this.articles.loaded[i] : {}
+          mounted.push(mountImage)
+          i++
+        }
+        this.articles.mounted = mounted
+        
+        if(this.paging === 'scroll') {
+          try {
+            while(window.innerHeight === document.documentElement.scrollHeight &&
+                this.articles.mounted.at(-1).no) {
+              await this.mountArticlesRow()
+            }
+          } catch(error) {
+            console.error(error)
           }
-        } catch(error) {
-          console.error(error)
         }
       }
     },
@@ -175,7 +186,7 @@ export default{
     for(let i = 0; i < this.articles.MOUNTSIZE; i++) {
       this.articles.mounted.push({})
     }
-    this.$emit('requestPush', ++this.page)
+    this.$emit('requestPush', 1)
     this.paging === 'scroll' && window.addEventListener('scroll', this.mountArticlesRow)
   },
   beforeUnmount() {

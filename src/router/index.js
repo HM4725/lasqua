@@ -52,6 +52,11 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/article/SearchPage.vue'),
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('@/views/user/LoginPage.vue')
