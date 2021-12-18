@@ -59,6 +59,7 @@ export default {
         const response = await this.$api("GET", `/articles/${this.id}?page=${page}`)
         const data = response.data
         if(page === data.page) {
+          data.articles.sort((a, b) => b.no - a.no)
           if(!this.init) {
             this.$refs.articles.init(data)
             this.init = true
