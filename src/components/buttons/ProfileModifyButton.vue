@@ -53,11 +53,11 @@ export default{
       type: String,
       default: ''
     },
-    info: {
+    profile: {
       type: String,
       default: ''
     },
-    profile: {
+    info: {
       type: String,
       default: ''
     }
@@ -66,8 +66,8 @@ export default{
     return {
       modified: {
         banner: '',
-        info: '',
-        profile: ''
+        profile: '',
+        info: ''
       }
     }
   },
@@ -79,7 +79,11 @@ export default{
       this.$refs.profileModal.show()
     },
     modify() {
-      this.$emit('modify', this.modified)
+      const payload = {}
+      this.banner !== this.modified.banner && (payload.bannerImage = this.modified.banner)
+      this.profile !== this.modified.profile && (payload.profileImage = this.modified.profile)
+      this.info !== this.modified.info && (payload.info = this.modified.info)
+      this.$emit('modify', payload)
       this.$refs.profileModal.close()
     },
     async cancle() {
@@ -101,16 +105,24 @@ export default{
       }
     },
     async uploadBanner(formData) {
-      const banner = await this.upload(formData)
-      const prev = this.modified.banner
-      this.modified.banner = banner
-      prev !== this.banner && this.$api("DELETE", `/image?link=${prev}`)
+      try {
+        const banner = await this.upload(formData)
+        const prev = this.modified.banner
+        this.modified.banner = banner
+        prev !== this.banner && this.$api("DELETE", `/image?link=${prev}`)
+      } catch(error) {
+        console.error(error)
+      }
     },
     async uploadProfile(formData) {
-      const profile = await this.upload(formData)
-      const prev = this.modified.profile
-      this.modified.profile = profile
-      prev !== this.profile && this.$api("DELETE", `/image?link=${prev}`)
+      try {
+        const profile = await this.upload(formData)
+        const prev = this.modified.profile
+        this.modified.profile = profile
+        prev !== this.profile && this.$api("DELETE", `/image?link=${prev}`)
+      } catch(error) {
+        console.error(error)
+      }
     },
   }
 }

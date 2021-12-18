@@ -20,7 +20,7 @@ function getArticlelistFrom(userlist) {
       images: {
         orderNo: 0,
         name: user.id,
-        link: user.image || require('@/assets/img/default-profile.png')
+        link: user.profileImage || require('@/assets/img/default-profile.png')
       }
     })
   }

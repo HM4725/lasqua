@@ -1,7 +1,7 @@
 <template>
   <div class="artist-card">
     <div class="image">
-      <img-component :src="artist.image" :title="artist.id" ratio="3/4" class="artist-img"/>
+      <img-component :src="artist.profileImage" :title="artist.id" ratio="3/4" class="artist-img"/>
     </div>
     <div class="id">{{artist.id}}</div>
     <div class="info">{{artist.info}}</div>

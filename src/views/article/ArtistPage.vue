@@ -1,14 +1,14 @@
 <template>
   <div class="artist-page">
     <header class="banner">
-      <img-component ratio="9/1"/>
+      <img-component :src="artist.bannerImage" ratio="20/3"/>
     </header>
     <section>
       <div class="artist">
         <artist-profile :artist="artist"/>
         <div class="mypage" v-if="mypage">
           <router-button link="/article/upload" value="게시글 올리기"/>
-          <profile-modify-button @modify="modify" :info="artist.info" :profile="artist.image"/>
+          <profile-modify-button @modify="modify" :info="artist.info" :profile="artist.profileImage" :banner="artist.bannerImage"/>
         </div>
       </div>
       <div class="projects">
@@ -70,16 +70,18 @@ export default {
         console.error(error)
       }
     },
-    async modify(data) {
-      const payload = {id: this.id}
-      data.info && (payload.info = data.info)
-      data.profile && (payload.image = data.profile)
-      try {
-        await this.$api("PUT", "/user", payload)
-        this.artist.image = data.profile
-        this.artist.info = data.info
-      } catch(error) {
-        console.error(error)
+    async modify(payload) {
+      if(Object.keys(payload).length > 0) {
+        payload.id = this.id
+        console.log(payload)
+        try {
+          await this.$api("PUT", "/user", payload)
+          payload.bannerImage && (this.artist.bannerImage = payload.bannerImage)
+          payload.profileImage && (this.artist.profileImage = payload.profileImage)
+          payload.info && (this.artist.info = payload.info)
+        } catch(error) {
+          console.error(error)
+        }
       }
     }
   },
@@ -96,20 +98,20 @@ export default {
     height: 100%;
   }
   .artist-page > header.banner{
-    height: 20%;
     background-color: #eeeeee;
     overflow: hidden;
   }
   .artist-page > section {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    min-height: 80%;
+    min-height: 60%;
   }
   .artist {
     width: 80%;
     margin: 0 auto;
     position: relative;
-    top: -5rem;
+    top: -7vw;
+    height: fit-content;
   }
   .artist > .mypage {
     margin-top: 2rem;

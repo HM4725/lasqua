@@ -43,6 +43,7 @@ export default{
         }
         image.onerror = () => {
           src !== '' && console.error(`NOT FOUND: ${src}`)
+          this.imgSrc = require('@/assets/svg/blank-3x4.svg')
           this.$emit("error")
         }
       } else {
