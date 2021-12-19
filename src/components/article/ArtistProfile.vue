@@ -49,5 +49,6 @@ export default{
   }
   .artist-card > .info {
     text-align: left;
+    word-break: keep-all;
   }
 </style>

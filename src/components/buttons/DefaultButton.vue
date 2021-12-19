@@ -40,6 +40,7 @@ export default {
   font-weight: 400;
   justify-content: center;
   line-height: 1.25;
+  word-break: keep-all;
   margin: 0;
   min-height: 3rem;
   padding: -webkit-calc(.875rem - 1px) -webkit-calc(1.5rem - 1px);

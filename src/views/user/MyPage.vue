@@ -6,9 +6,9 @@
     <section>
       <div class="artist">
         <artist-profile :artist="artist"/>
-        <div class="mypage">
-          <router-button link="/article/upload" value="게시글 올리기"/>
-          <profile-modify-button @modify="modify" :info="artist.info" :profile="artist.profileImage" :banner="artist.bannerImage"/>
+        <div class="buttons">
+          <router-button class="button" link="/article/upload" value="게시글 올리기"/>
+          <profile-modify-button class="button" @modify="modify" :info="artist.info" :profile="artist.profileImage" :banner="artist.bannerImage"/>
         </div>
       </div>
       <div class="projects">
@@ -111,8 +111,13 @@ export default {
     top: -7vw;
     height: fit-content;
   }
-  .artist > .mypage {
-    margin-top: 2rem;
+  .artist > .buttons {
+    width: 60%;
+    margin: .5rem auto 0 auto;
+  }
+  .artist > .buttons > .button {
+    margin-top: 1rem;
+    width: 100%;
   }
   .projects {
     padding: 1rem;

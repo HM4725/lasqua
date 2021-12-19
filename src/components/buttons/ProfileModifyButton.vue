@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <default-button value="프로필 수정" @click="open"/>
+  <div class="profile-modify-button">
+    <default-button class="main-button" value="프로필 수정" @click="open"/>
     <modal-slot ref="profileModal">
       <template v-slot:header>
         프로필 수정
@@ -129,6 +129,12 @@ export default{
 </script>
 
 <style scoped>
+  .profile-modify-button {
+    width: fit-content;
+  }
+  .main-button {
+    width: 100%;
+  }
   .image {
     border: 1px solid var(--base-color);
     cursor: pointer;
