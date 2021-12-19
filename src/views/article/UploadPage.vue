@@ -10,7 +10,8 @@
       <textarea-box class="content-box" type="text" id="details" placeholder="프로젝트 설명글" @input="v=>content=v"/>
     </section>
     <footer class="submit">
-      <default-button value="업로드" @click="upload"/>
+      <default-button class="button" value="완료" @click="upload"/>
+      <default-button class="button" value="취소" @click="cancle"/>
     </footer>
   </div>
 </template>
@@ -36,11 +37,15 @@ export default{
   },
   methods: {
     // Event
+    cancle() {
+      this.$refs.images.rollback()
+      this.$router.go(-1)
+    },
     async upload() {
       try {
         const data = {
           title: this.title,
-          images: this.$refs.images.getValues(),
+          images: this.$refs.images.commit(),
           content: this.content
         }
         if(data.title != '' && data.images.length > 0 && data.content != '') {
@@ -76,5 +81,8 @@ export default{
     display: flex;
     flex-direction: row-reverse;
     padding-right: 3rem;
+  }
+  .upload-wrapper > .submit > .button {
+    margin-left: 1rem;
   }
 </style>

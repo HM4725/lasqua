@@ -33,6 +33,14 @@ export default{
     ThumbNail,
     FileSlot
   },
+  props: {
+    uploaded: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   data() {
     return {
       count: 0,
@@ -50,19 +58,40 @@ export default{
         occur: false,
         message: ''
       },
-      deleted: []
+      deleted: [],
+      flags: {
+        commit: false
+      }
     }
   },
   methods: {
-    // API
-    push(images) {
-      for(let i in images) {
-        this.count = images[i].orderNo
-        this.images.push(images[i])
-        this.$refs.images.pushAndMount(wrapImage(images[i]))
+    // API - must call once
+    rollback() {
+      if(!this.flags.commit) {
+        let i = 0
+        while(i < this.deleted.length) {
+          // deleted is uploaded
+          if(this.uploaded.findIndex(img => img.link === this.deleted[i]) !== -1) {
+            this.deleted.splice(i, 1)
+          // deleted is not uploaded
+          } else {
+            i++
+          }
+        }
+        i = 0
+        while(i < this.images.length) {
+          // image is uploaded
+          if(this.uploaded.findIndex(img => img.link === this.images[i].link) !== -1) {
+            i++
+          // image is not uploaded
+          } else {
+            this.deleted.push(this.images.splice(i, 1)[0].link)
+          }
+        }
+        this._commitDelete()
       }
     },
-    getValues() {
+    commit() {
       this.images.length > 0 && (this.images[0].orderNo = 1)
       this._commitDelete()
       return this.images
@@ -105,9 +134,21 @@ export default{
       while(this.deleted.length > 0) {
         let link = this.deleted.pop()
         this.$api("DELETE", `/image?link=${link}`)
+        console.log(`[DELETE] ${link}`)
       }
+      this.flags.commit = true
     },
   },
+  mounted() {
+    for(let i in this.uploaded) {
+      this.count = this.uploaded[i].orderNo
+      this.images.push(this.uploaded[i])
+      this.$refs.images.pushAndMount(wrapImage(this.uploaded[i]))
+    }
+  },
+  beforeUnmount() {
+    this.flags.commit || this.rollback()
+  }
 }
 </script>
 
