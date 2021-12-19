@@ -92,8 +92,10 @@ export default{
       }
     },
     commit() {
-      this.images.length > 0 && (this.images[0].orderNo = 1)
-      this._commitDelete()
+      if(this.images.length > 0) {
+        this.images[0].orderNo = 1
+        this._commitDelete()
+      }
       return this.images
     },
     // Event
@@ -123,6 +125,7 @@ export default{
     },
     deleteImage(no) {
       if(no) {
+        console.log(no)
         const idx = this.images.findIndex(v => v.orderNo === no)
         this.deleted.push(this.images[idx].link)
         this.images.splice(idx, 1)
@@ -142,7 +145,7 @@ export default{
   mounted() {
     for(let i in this.uploaded) {
       this.count = this.uploaded[i].orderNo
-      this.images.push(this.uploaded[i])
+      this.images.push({...this.uploaded[i]})
       this.$refs.images.pushAndMount(wrapImage(this.uploaded[i]))
     }
   },
