@@ -36,6 +36,8 @@ export default{
   },
   data() {
     return {
+      no: '',
+      id: '',
       title: '',
       images: [],
       content: '',
@@ -53,6 +55,7 @@ export default{
           content: this.content
         }
         if(data.title != '' && data.images.length > 0 && data.content != '') {
+          console.log(data)
           await this.$api("PUT", "/article", data)
           this.$router.push(`/article/view?no=${this.no}`)
         }
@@ -63,7 +66,9 @@ export default{
   },
   created() {
     const target = JSON.parse(this.data)
-    !target.myPage && this.$router.replace("/error")
+    target.id !== this.$store.getters.userId && this.$router.replace("/error")
+    this.no = target.no
+    this.id = target.id
     this.title = target.title
     this.images = target.images
     this.content = target.content
