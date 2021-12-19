@@ -47,7 +47,6 @@ const routes = [
     path: '/artist/:id',
     name: 'artist',
     component: () => import('@/views/article/ArtistPage.vue'),
-    meta: { requiresAuth: true }
   },
   {
     path: '/search',
