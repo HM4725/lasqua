@@ -125,7 +125,6 @@ export default{
     },
     deleteImage(no) {
       if(no) {
-        console.log(no)
         const idx = this.images.findIndex(v => v.orderNo === no)
         this.deleted.push(this.images[idx].link)
         this.images.splice(idx, 1)
@@ -137,7 +136,6 @@ export default{
       while(this.deleted.length > 0) {
         let link = this.deleted.pop()
         this.$api("DELETE", `/image?link=${link}`)
-        console.log(`[DELETE] ${link}`)
       }
       this.flags.commit = true
     },
