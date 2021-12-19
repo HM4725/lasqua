@@ -60,7 +60,6 @@ export default{
           content: this.content
         }
         if(data.title != '' && data.images.length > 0 && data.content != '') {
-          console.log(data)
           await this.$api("PUT", "/article", data)
           this.$router.push(`/article/view?no=${this.no}`)
         }
