@@ -70,6 +70,7 @@ export default{
           this.$refs.articles.push(data.articles)
         }
       } catch(error) {
+        this.$refs.articles.flush()
         error.response.status === 404 && (this.notfound.articles = true)
       }
     },
@@ -85,6 +86,7 @@ export default{
           this.$refs.artists.push(data.articles)
         }
       } catch(error) {
+        this.$refs.artists.flush()
         error.response.status === 404 && (this.notfound.artists = true)
       }
     }
@@ -115,5 +117,8 @@ export default{
   }
   .title {
     margin-bottom: .5rem;
+  }
+  div.projects {
+    margin-bottom: 2rem;
   }
 </style>

@@ -77,6 +77,18 @@ export default{
   },
   methods: {
     // API
+    flush() {
+      this.page = 1
+      this.MAXPAGE = 1
+      this.articles.TOTALSIZE = 0
+      this.articles.BLOCKSIZE = 0
+      this.articles.mounted = []
+      for(let i = 0; i < this.articles.MOUNTSIZE; i++) {
+        this.articles.mounted.push({})
+      }
+      this.articles.loaded = []
+      this.articles.itr = 0
+    },
     async init(data) {
       const mounted = []
       this.page = 1
