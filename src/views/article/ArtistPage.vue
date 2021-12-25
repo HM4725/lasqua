@@ -74,7 +74,6 @@ export default {
     height: 100%;
   }
   .artist-page > header.banner{
-    background-color: #eeeeee;
     overflow: hidden;
   }
   .artist-page > section {
