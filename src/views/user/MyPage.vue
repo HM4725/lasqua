@@ -8,7 +8,7 @@
         <artist-profile :artist="artist"/>
         <div class="buttons">
           <router-button class="button" link="/article/upload" value="게시글 올리기"/>
-          <profile-modify-button class="button" @modify="modify" :info="artist.info" :profile="artist.profileImage" :banner="artist.bannerImage"/>
+          <profile-modify-button class="button" @modify="modify" :artist="artist"/>
         </div>
       </div>
       <div class="projects">

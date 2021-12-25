@@ -12,14 +12,22 @@
             <img-component :src="modified.banner" class="image" ratio="9/1"/>
           </file-slot>
         </div>
-        <div class="profile">
-          <span>프로필 이미지</span>
-          <file-slot id="profile" @upload="uploadProfile">
-            <img-component :src="modified.profile" class="image" ratio="3/4"/>
-          </file-slot>
+        <div class="middle">
+          <div class="profile">
+            <span>프로필 이미지</span>
+            <file-slot id="profile" @upload="uploadProfile">
+              <img-component :src="modified.profile" class="image" ratio="3/4"/>
+            </file-slot>
+          </div>
+          <div class="sns">
+            <span>SNS</span>
+            <input-box id="modify-facebook" :value="modified.facebook" placeholder="facebook" @input="v=>{modified.facebook=v}"/>
+            <input-box id="modify-instagram" :value="modified.instagram" placeholder="instagram" @input="v=>{modified.instagram=v}"/>
+            <input-box id="modify-twitter" :value="modified.twitter" placeholder="twitter" @input="v=>{modified.twitter=v}"/>            
+          </div>
         </div>
         <div class="info">
-          <input-box id="profile-modify-info" :value="modified.info" placeholder="자기소개" @input="v=>{modified.info=v}"/>
+          <input-box id="modify-info" :value="modified.info" placeholder="자기소개" @input="v=>{modified.info=v}"/>
         </div>
       </template>
       <template v-slot:footer>
@@ -49,17 +57,9 @@ export default{
     ImgComponent
   },
   props: {
-    banner: {
-      type: String,
-      default: ''
-    },
-    profile: {
-      type: String,
-      default: ''
-    },
-    info: {
-      type: String,
-      default: ''
+    artist: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -67,29 +67,38 @@ export default{
       modified: {
         banner: '',
         profile: '',
+        facebook: '',
+        instagram: '',
+        twitter: '',
         info: ''
       }
     }
   },
   methods: {
     open() {
-      this.modified.banner = this.banner
-      this.modified.info = this.info
-      this.modified.profile = this.profile
+      this.modified.banner = this.artist.bannerImage
+      this.modified.profile = this.artist.profileImage
+      this.modified.facebook = this.artist.facebook
+      this.modified.instagram = this.artist.instagram
+      this.modified.twitter = this.artist.twitter
+      this.modified.info = this.artist.info
       this.$refs.profileModal.show()
     },
     modify() {
       const payload = {}
-      this.banner !== this.modified.banner && (payload.bannerImage = this.modified.banner)
-      this.profile !== this.modified.profile && (payload.profileImage = this.modified.profile)
-      this.info !== this.modified.info && (payload.info = this.modified.info)
+      this.artist.bannerImage !== this.modified.banner && (payload.bannerImage = this.modified.banner)
+      this.artist.profileImage !== this.modified.profile && (payload.profileImage = this.modified.profile)
+      this.artist.facebook !== this.modified.facebook && (payload.facebook = this.modified.facebook)
+      this.artist.instagram !== this.modified.instagram && (payload.instagram = this.modified.instagram)
+      this.artist.twitter !== this.modified.twitter && (payload.twitter = this.modified.twitter)
+      this.artist.info !== this.modified.info && (payload.info = this.modified.info)
       this.$emit('modify', payload)
       this.$refs.profileModal.close()
     },
     async cancle() {
-      this.modified.banner !== this.banner &&
+      this.modified.banner !== this.artist.bannerImage &&
         this.$api("DELETE", `/image?link=${this.modified.banner}`)
-      this.modified.profile !== this.profile &&
+      this.modified.profile !== this.artist.profileImage &&
         this.$api("DELETE", `/image?link=${this.modified.profile}`)
       this.$refs.profileModal.close()
     },
@@ -150,6 +159,17 @@ export default{
   }
   .banner > span {
     padding-left: .5rem;
+  }
+  .middle {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  .middle > div {
+    flex: 1;
+  }
+  .middle > .sns {
+    margin-left: 1rem;
   }
   .profile {
     margin-bottom: .5rem;
