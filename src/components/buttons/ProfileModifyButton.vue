@@ -7,14 +7,16 @@
       </template>
       <template v-slot:body>
         <div class="banner">
-          <span>배너</span><span class="delete-image"><a @click="modified.banner=''">[삭제]</a></span>
+          <span>배너</span>
+          <span class="delete-image"><a @click="modified.banner=null">[삭제]</a></span>
           <file-slot id="banner" @upload="uploadBanner">
             <img-component :src="modified.banner" class="image" ratio="9/1"/>
           </file-slot>
         </div>
         <div class="middle">
           <div class="profile">
-            <span>프로필</span><span class="delete-image"><a @click="modified.profile=''">[삭제]</a></span>
+            <span>프로필</span>
+            <span class="delete-image"><a @click="modified.profile=null">[삭제]</a></span>
             <file-slot id="profile" @upload="uploadProfile">
               <img-component :src="modified.profile" class="image" ratio="3/4"/>
             </file-slot>
