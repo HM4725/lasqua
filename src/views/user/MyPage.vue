@@ -73,12 +73,12 @@ export default {
         payload.id = this.id
         try {
           await this.$api("PUT", "/user", payload)
-          payload.bannerImage && (this.artist.bannerImage = payload.bannerImage)
-          payload.profileImage && (this.artist.profileImage = payload.profileImage)
-          payload.facebook && (this.artist.facebook = payload.facebook)
-          payload.instagram && (this.artist.instagram = payload.instagram)
-          payload.twitter && (this.artist.twitter = payload.twitter)
-          payload.info && (this.artist.info = payload.info)
+          payload.bannerImage !== undefined && (this.artist.bannerImage = payload.bannerImage)
+          payload.profileImage !== undefined && (this.artist.profileImage = payload.profileImage)
+          payload.facebook !== undefined && (this.artist.facebook = payload.facebook)
+          payload.instagram !== undefined && (this.artist.instagram = payload.instagram)
+          payload.twitter !== undefined && (this.artist.twitter = payload.twitter)
+          payload.info !== undefined && (this.artist.info = payload.info)
         } catch(error) {
           console.error(error)
         }
