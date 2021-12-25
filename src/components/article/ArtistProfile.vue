@@ -5,11 +5,23 @@
     </div>
     <div class="id">{{artist.id}}</div>
     <div class="info">{{artist.info}}</div>
+    <ul class="sns" v-if="useSns">
+      <li v-if="artist.facebook">
+        <sns-link-button type="facebook" :link="artist.facebook"/>
+      </li>
+      <li v-if="artist.facebook">
+        <sns-link-button type="instagram" :link="artist.instagram"/>
+      </li>
+      <li v-if="artist.twitter">
+        <sns-link-button type="twitter" :link="artist.twitter"/>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import ImgComponent from '../utils/ImgComponent.vue'
+import SnsLinkButton from '../buttons/SnsLinkButton.vue'
 
 export default{
   props: {
@@ -21,11 +33,12 @@ export default{
     }
   },
   components: {
-    ImgComponent
+    ImgComponent,
+    SnsLinkButton
   },
-  data() {
-    return {
-      
+  computed: {
+    useSns() {
+      return this.artist.facebook || this.artist.instagram || this.artist.twitter
     }
   }
 }
@@ -50,5 +63,14 @@ export default{
   .artist-card > .info {
     text-align: left;
     word-break: keep-all;
+    padding-bottom: 1rem;
+  }
+  .artist-card > ul.sns {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .artist-card > ul.sns > li {
+    margin-right: 8px;
   }
 </style>

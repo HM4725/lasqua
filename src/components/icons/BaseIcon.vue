@@ -18,7 +18,7 @@ export default{
 <style>
   .icon {
     fill: var(--base-color);
-    transition: fill .25s ease-in-out;
+    transition: fill .15s ease-out;
     cursor: pointer;
     display: block;
   }
@@ -36,7 +36,7 @@ export default{
   }
   .icon > * {
     stroke: var(--base-color);
-    transition: stroke .25s ease-in-out;
+    transition: stroke .15s ease-out;
   }
   .icon:hover > * {
     stroke: var(--active-color);

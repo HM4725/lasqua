@@ -48,7 +48,7 @@ export default {
   padding: calc(.875rem - 1px) calc(1.5rem - 1px);
   position: relative;
   text-decoration: none;
-  transition: all .25s ease-in-out;
+  transition: all .15s ease-in-out;
   -webkit-user-select: none;
   user-select: none;
   touch-action: manipulation;
