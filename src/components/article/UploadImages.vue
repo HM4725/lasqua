@@ -54,10 +54,6 @@ export default{
           link: require('@/assets/svg/addbutton-3x4.svg')
         }
       },
-      error: {
-        occur: false,
-        message: ''
-      },
       deleted: [],
       flags: {
         commit: false
@@ -159,29 +155,7 @@ export default{
     flex-direction: row;
     align-items: stretch;
   }
-  .arrow-button {
-    display: flex;
-    padding: 0 1rem;
-    cursor: pointer;
-    align-items: center;
-  }
-  .arrow-button:hover > .arrow-icon {
-    fill: var(--active-color);
-  }
-  .arrow-button:active {
-    background-color: var(--active-bg-color);
-  }
-  .arrow-button:active > .arrow-icon {
-    fill: var(--active-color);
-  }
   .images {
     width: 100%;
-  }
-  .delete-image {
-    position: relative;
-  }
-  .error-message {
-    color: red;
-    margin-top: 5px;
   }
 </style>
