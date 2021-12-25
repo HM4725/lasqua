@@ -19,6 +19,9 @@ export default {
     appStart() {
       return this.$route.path !== "/"
     }
+  },
+  beforeMount() {
+    this.$store.dispatch("validateIdSession")
   }
 }
 </script>
