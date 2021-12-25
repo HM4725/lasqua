@@ -71,11 +71,13 @@ export default {
     async modify(payload) {
       if(Object.keys(payload).length > 0) {
         payload.id = this.id
-        console.log(payload)
         try {
           await this.$api("PUT", "/user", payload)
           payload.bannerImage && (this.artist.bannerImage = payload.bannerImage)
           payload.profileImage && (this.artist.profileImage = payload.profileImage)
+          payload.facebook && (this.artist.facebook = payload.facebook)
+          payload.instagram && (this.artist.instagram = payload.instagram)
+          payload.twitter && (this.artist.twitter = payload.twitter)
           payload.info && (this.artist.info = payload.info)
         } catch(error) {
           console.error(error)
