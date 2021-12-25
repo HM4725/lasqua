@@ -7,14 +7,14 @@
       </template>
       <template v-slot:body>
         <div class="banner">
-          <span>배너 이미지</span>
+          <span>배너</span>
           <file-slot id="banner" @upload="uploadBanner">
             <img-component :src="modified.banner" class="image" ratio="9/1"/>
           </file-slot>
         </div>
         <div class="middle">
           <div class="profile">
-            <span>프로필 이미지</span>
+            <span>프로필</span>
             <file-slot id="profile" @upload="uploadProfile">
               <img-component :src="modified.profile" class="image" ratio="3/4"/>
             </file-slot>
@@ -118,7 +118,7 @@ export default{
         const banner = await this.upload(formData)
         const prev = this.modified.banner
         this.modified.banner = banner
-        prev !== this.banner && this.$api("DELETE", `/image?link=${prev}`)
+        prev !== this.artist.bannerImage && this.$api("DELETE", `/image?link=${prev}`)
       } catch(error) {
         console.error(error)
       }
@@ -128,7 +128,7 @@ export default{
         const profile = await this.upload(formData)
         const prev = this.modified.profile
         this.modified.profile = profile
-        prev !== this.profile && this.$api("DELETE", `/image?link=${prev}`)
+        prev !== this.artist.profileImage && this.$api("DELETE", `/image?link=${prev}`)
       } catch(error) {
         console.error(error)
       }
@@ -138,6 +138,9 @@ export default{
 </script>
 
 <style scoped>
+  span {
+    padding-left: .5rem;
+  }
   .profile-modify-button {
     width: fit-content;
   }
@@ -157,26 +160,17 @@ export default{
     margin-bottom: .5rem;
     text-align: left;
   }
-  .banner > span {
-    padding-left: .5rem;
-  }
   .middle {
-    width: 100%;
     display: flex;
     flex-direction: row;
+    margin-bottom: .5rem;
+    text-align: left;
   }
   .middle > div {
     flex: 1;
   }
   .middle > .sns {
     margin-left: 1rem;
-  }
-  .profile {
-    margin-bottom: .5rem;
-    text-align: left;
-  }
-  .profile > span {
-    margin-left: .5rem;
   }
   .footer-button {
     margin-left: .5rem;
