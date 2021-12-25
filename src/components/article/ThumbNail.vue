@@ -76,6 +76,9 @@ export default{
     border-radius: .25rem;
     transition: all .25s ease-in-out;
   }
+  .thumbnail * {
+    pointer-events: none;
+  }
   .thumbnail > .thumbnail-img {
     border-radius: calc(0.25rem - 1px);
     transition: all .25s ease-in-out;
