@@ -1,9 +1,9 @@
 <template>
   <div class="profile-modify-button">
-    <default-button class="main-button" value="프로필 수정" @click="open"/>
+    <default-button class="main-button" value="프로필 편집" @click="open"/>
     <modal-slot ref="profileModal">
       <template v-slot:header>
-        프로필 수정
+        프로필 편집
       </template>
       <template v-slot:body>
         <div class="banner">

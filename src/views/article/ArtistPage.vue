@@ -90,5 +90,6 @@ export default {
   }
   .projects {
     padding: 1rem;
+    height: fit-content;
   }
 </style>

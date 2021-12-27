@@ -6,12 +6,12 @@
     <section>
       <div class="artist">
         <artist-profile :artist="artist"/>
-        <div class="buttons">
-          <router-button class="button" link="/article/upload" value="게시글 올리기"/>
-          <profile-modify-button class="button" @modify="modify" :artist="artist"/>
-        </div>
+        <profile-modify-button class="profile-modify-button" @modify="modify" :artist="artist"/>
       </div>
       <div class="projects">
+        <div class="buttons">
+          <router-button class="button" link="/article/upload" value="게시글 올리기"/>
+        </div>
         <article-list ref="articles" rowlength="3" paging="scroll" mode="project" @request-push="loadArticles"/>
       </div>
     </section>
@@ -112,15 +112,18 @@ export default {
     top: -7vw;
     height: fit-content;
   }
-  .artist > .buttons {
-    width: 60%;
-    margin: .5rem auto 0 auto;
-  }
-  .artist > .buttons > .button {
-    margin-top: 1rem;
+  .artist > .profile-modify-button {
     width: 100%;
+    margin-top: 1rem;
   }
   .projects {
     padding: 1rem;
+    height: fit-content;
+  }
+  .projects > .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 1rem;
   }
 </style>
