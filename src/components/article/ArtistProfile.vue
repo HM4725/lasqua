@@ -1,7 +1,7 @@
 <template>
   <div class="artist-card">
     <div class="image">
-      <img-component :src="artist.profileImage" :title="artist.id" ratio="3/4" class="artist-img"/>
+      <img-component :src="profileImage" :title="artist.id" ratio="3/4" class="artist-img"/>
     </div>
     <div class="id">{{artist.id}}</div>
     <div class="info">{{artist.info}}</div>
@@ -39,6 +39,9 @@ export default{
   computed: {
     useSns() {
       return this.artist.facebook || this.artist.instagram || this.artist.twitter
+    },
+    profileImage() {
+      return this.artist.profileImage || require('@/assets/img/default-profile.png')
     }
   }
 }
@@ -62,7 +65,7 @@ export default{
   }
   .artist-card > .info {
     text-align: left;
-    word-break: keep-all;
+    word-break: break-word;
     padding-bottom: 1rem;
   }
   .artist-card > ul.sns {

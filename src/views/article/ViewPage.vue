@@ -1,6 +1,6 @@
 <template>
   <div class="project-page">
-    <article>
+    <article class="project">
       <div class="details">
         <div class="title">{{title}}</div>
         <div class="id"><span>작가</span>{{id}}</div>
@@ -12,6 +12,7 @@
         </template>
       </div>
     </article>
+    <artist-details v-if="id" class="artist" :uid="id"/>
     <footer v-if="myPage">
       <default-button value="수정하기" @click="modifyArticle"/>
       <default-button value="삭제하기" @click="deleteArticle"/>
@@ -22,11 +23,13 @@
 <script>
 import ImgComponent from '@/components/utils/ImgComponent.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
+import ArtistDetails from '@/components/article/ArtistDetails.vue'
 
 export default{
   components: {
     ImgComponent,
-    DefaultButton
+    DefaultButton,
+    ArtistDetails
   },
   data() {
     return {
@@ -66,7 +69,7 @@ export default{
       } catch(error) {
         this.$router.push({name: 'message', params: {message: "잘못된 접근입니다.", redirect: "/"}})
       }
-    }
+    },
   },
   created() {
     this.no = this.$route.query.no
@@ -84,8 +87,15 @@ export default{
     flex-direction: column;
     justify-content: space-between;
   }
-  .project-page > article {
+  .project-page > article.project {
     width: 100%;
+    margin-bottom: 1rem;
+    border-bottom: solid 1px var(--active-bg-color);
+  }
+  .project-page > section.artist {
+    margin-bottom: 1rem;
+    border-bottom: solid 1px var(--active-bg-color);
+    padding-bottom: 1rem;
   }
   .project-page > footer {
     text-align: right;
