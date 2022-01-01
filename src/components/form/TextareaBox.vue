@@ -51,11 +51,11 @@ export default{
 <style scoped>
   .textarea-box {
     position: relative;
-    height: 13rem;
+    margin-bottom: 1rem;
   }
   .textarea-box textarea {
     width: 100%;
-    height: 10rem;
+    height: 8rem;
     resize: none;
     transition: all .25s;
     margin-top: .5rem;
@@ -98,7 +98,7 @@ export default{
   .textarea-box .length {
     position: relative;
     top: 0;
-    float: right;
     margin-right: 1rem;
+    text-align: right;
   }
 </style>
