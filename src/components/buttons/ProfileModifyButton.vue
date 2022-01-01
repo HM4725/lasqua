@@ -22,19 +22,19 @@
             </file-slot>
           </div>
           <div class="sns">
-            <span>SNS</span>
+            <span>SNS 링크</span>
             <input-box id="modify-facebook" :value="modified.facebook" placeholder="facebook" @input="v=>{modified.facebook=v}"/>
             <input-box id="modify-instagram" :value="modified.instagram" placeholder="instagram" @input="v=>{modified.instagram=v}"/>
             <input-box id="modify-twitter" :value="modified.twitter" placeholder="twitter" @input="v=>{modified.twitter=v}"/>            
           </div>
         </div>
         <div class="info">
-          <input-box id="modify-info" :value="modified.info" placeholder="자기소개" @input="v=>{modified.info=v}"/>
+          <textarea-box id="modify-info" :value="modified.info" placeholder="자기소개" @input="v=>{modified.info=v}"/>
         </div>
       </template>
       <template v-slot:footer>
-        <default-button value="취소" class="footer-button" @click="cancle"/>
         <default-button value="변경" class="footer-button" @click="modify"/>
+        <default-button value="취소" class="footer-button" @click="cancle"/>
       </template>
     </modal-slot>
   </div>
@@ -44,6 +44,7 @@
 import DefaultButton from './DefaultButton.vue'
 import ModalSlot from '../utils/ModalSlot.vue'
 import InputBox from '../form/InputBox.vue'
+import TextareaBox from '../form/TextareaBox.vue'
 import FileSlot from '../form/FileSlot.vue'
 import ImgComponent from '../utils/ImgComponent.vue'
 
@@ -55,6 +56,7 @@ export default{
     DefaultButton,
     ModalSlot,
     InputBox,
+    TextareaBox,
     FileSlot,
     ImgComponent
   },
