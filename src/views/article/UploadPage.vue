@@ -81,6 +81,7 @@ export default{
     display: flex;
     flex-direction: row-reverse;
     padding-right: 3rem;
+    margin-bottom: 2rem;
   }
   .upload-wrapper > .submit > .button {
     margin-left: 1rem;
