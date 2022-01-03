@@ -49,7 +49,7 @@ export default{
       this.error = false;
       const info = {id: this.id, pw: this.pw}
       const result = await this.$store.dispatch("login", info)
-      if(result === "success") {
+      if(result) {
         this.$router.push('/')
       } else {
         this.error = true

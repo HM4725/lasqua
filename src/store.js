@@ -26,20 +26,20 @@ const store = createStore({
       try {
         await api("POST", "/login", payload)
         commit('login', payload)
-        return "success"
+        return true
       } catch(error) {
         console.error(error)
-        return "fail"
+        return false
       }
     },
     logout: async ({commit}) => {
       try {
         await api("POST", "/logout")
         commit('logout')
-        return "success"
+        return true
       } catch(error) {
         console.error(error)
-        return "fail"
+        return false
       }
     },
     validateIdSession: async ({commit, getters}) => {

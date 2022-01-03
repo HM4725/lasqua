@@ -22,12 +22,6 @@
           <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
           <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
           <date-box id="signup-regdate" placeholder="생년월일" ref="birth"/>
-          <input-box id="signup-info" type="text" placeholder="간단한 소개" @input="v=>{info.val=v}"/>
-          <input-box id="signup-facebook" type="text" placeholder="페이스북 ID" @input="v=>{facebook.val=v}"/>
-          <input-box id="signup-instagram" type="text" placeholder="인스타그램 ID" @input="v=>{instagram.val=v}"/>
-          <input-box id="signup-twitter" type="text" placeholder="트위터 ID" @input="v=>{twitter.val=v}"/>
-          <input-box id="signup-etc_name" type="text" placeholder="기타 SNS ID" @input="v=>{ectName.val=v}"/>
-          <input-box id="signup-etc_link" type="text" placeholder="기타 SNS 링크" @input="v=>{etcLink.val=v}"/>
         </div>
       </div>
       <div>
@@ -95,42 +89,18 @@ export default{
       },
       gender: {
         options: {M: '남자', F: '여자', N: '그 외'},
-        checked: '',
+        checked: 'N',
         required: false
       },
       company: {
         options: {Y: '기업회원', N: '일반회원'},
-        checked: '',
+        checked: 'N',
         required: false
       },
       // birth: {
       //   val: '',
       //   required: false
       // },
-      info: {
-        val: '',
-        required: false
-      },
-      facebook: {
-        val: '',
-        required: false
-      },
-      instagram: {
-        val: '',
-        required: false
-      },
-      twitter: {
-        val: '',
-        required: false
-      },
-      etcName: {
-        val: '',
-        required: false
-      },
-      etcLink: {
-        val: '',
-        required: false
-      }
     }
   },
   methods: {
@@ -201,22 +171,19 @@ export default{
         phone: data.tel.val,
         company: this.$refs.company.getValue(),
         gender: this.$refs.gender.getValue(),
-        birth: this.$refs.birth.getValue(),
-        info: data.info.val,
-        facebook: data.facebook.val,
-        instagram: data.instagram.val,
-        twitter: data.twitter.val,
-        etc_name: data.etcName.val,
-        etc_link: data.etcLink.val
+        birth: this.$refs.birth.getValue()
       }
       try {
         await this.$api("POST", "/signup", newUser)
-        this.$router.push({name: 'message', params: {message: "회원가입 성공", redirect: "/login"}})
+        const result = await this.$store.dispatch("login", {id: data.id.val, pw: data.pw.val})
+        if(result) {
+          this.$router.push('/mypage')
+        } else {
+          console.error('fail')
+        }
       } catch(e) {
         if(e.response) {
           const response = e.response.data
-          // Company validation
-          // Gender validation
           if('Required fields missing' in response) {
             throw this.checkVacantFields(data)
           } else {
