@@ -26,6 +26,7 @@ export default{
   
 <style scoped>
   .tooltip {
+    width: 100%;
     position: relative;
     display: inline-block;
   }
@@ -38,9 +39,13 @@ export default{
     text-align: center;
     border-radius: 6px;
     padding: 8px;
-    position: relative;
-    top: 1rem;
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    width: 180px;
+    margin-left: -90px;
     z-index: 1;
+    word-break: keep-all;
     transition: all .25s ease-in-out;
   }
   .tooltip > .tooltip-text::after {
