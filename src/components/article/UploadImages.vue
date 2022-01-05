@@ -1,7 +1,7 @@
 <template>
   <div class="upload-images">
       <div class="images">
-        <article-list ref="images" rowlength="3" mode="img" @clickArticle="deleteImage">
+        <article-list ref="images" rowlength="3" mode="img" @removeArticle="deleteImage">
           <file-slot ref="file" @upload="uploadImage">
             <thumb-nail :article="addButton" mode="img"/>
           </file-slot>

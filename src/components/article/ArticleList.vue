@@ -5,7 +5,8 @@
     </div>
     <ul class="articles" :style="layoutStyle" ref="articles">
       <li v-for="(article, i) in articles.mounted" :key="i">
-        <thumb-nail :article="article" :mode="mode" @click="clickArticle(i)"/>
+        <thumb-nail :article="article" :mode="mode" 
+          @click="removeArticle(i)" @error="removeArticle(i)"/>
       </li>
       <slot></slot>
     </ul>
@@ -150,7 +151,7 @@ export default{
     remove(no) {
       const idx = this.articles.loaded.findIndex(article => article.no === no)
       idx !== -1 && this.articles.loaded.splice(idx, 1)
-      this.mount(this.articles.itr)
+      this.mount(this.articles.itr - 1)
     },
     // Button Event
     async shiftArticles() {
@@ -190,8 +191,8 @@ export default{
       }
     },
     // Click Thumbnail Event
-    clickArticle(i) {
-      this.$emit("clickArticle", this.articles.mounted[i].no)
+    removeArticle(i) {
+      this.$emit("removeArticle", this.articles.mounted[i].no)
     }
   },
   beforeMount() {

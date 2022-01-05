@@ -1,6 +1,7 @@
 <template>
   <div :class="{thumbnail: true, clickable: clickable}" @click="goLink">
-    <img-component :src="imgSrc" :title="title" class="thumbnail-img" ratio="3/4" @mount="activate" @unmount="deactivate"/>
+    <img-component :src="imgSrc" :title="title" class="thumbnail-img" ratio="3/4"
+      @mount="activate" @unmount="deactivate" @error="error"/>
   </div>
 </template>
 
@@ -56,6 +57,10 @@ export default{
     },
     deactivate() {
       this.clickable = false
+    },
+    error() {
+      this.deactivate()
+      this.$emit('error')
     }
   },
   computed: {
