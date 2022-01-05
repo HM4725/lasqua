@@ -59,8 +59,11 @@ export default {
   border-color: var(--active-color);
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   color: var(--active-color);
+  transform: translateY(-1px);
 }
-.button:hover {
+.button:focus {
+  outline: 0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   transform: translateY(-1px);
 }
 .button:active {

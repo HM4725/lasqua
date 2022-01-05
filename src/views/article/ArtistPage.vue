@@ -4,7 +4,7 @@
       <img-component :src="artist.bannerImage" ratio="20/3"/>
     </header>
     <section>
-      <div class="artist">
+      <div class="artist" v-if="artist.id">
         <artist-profile :artist="artist"/>
       </div>
       <div class="projects">
@@ -61,7 +61,7 @@ export default {
       }
     }
   },
-  beforeMount() {
+  created() {
     this.id = this.$route.params.id
     this.loadArtist(this.id)
   }

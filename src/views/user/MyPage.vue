@@ -4,9 +4,9 @@
       <img-component :src="artist.bannerImage" ratio="20/3"/>
     </header>
     <section>
-      <div class="artist">
+      <div class="artist" v-if="artist.id" >
         <artist-profile :artist="artist"/>
-        <profile-modify-button class="profile-modify-button" @modify="modify" :artist="artist"/>
+        <profile-modify-button class="profile-modify-button" @modify="modify" :artist="artist" :focus="!artist.profileImage"/>
       </div>
       <div class="projects">
         <div class="buttons">
@@ -38,8 +38,7 @@ export default {
     return {
       id: '',
       init: false,
-      artist: {},
-      banner: ''
+      artist: {}
     }
   },
   methods: {
@@ -85,7 +84,7 @@ export default {
       }
     }
   },
-  beforeMount() {
+  created() {
     this.id = this.$store.getters.userId
     this.loadArtist(this.id)
   }
@@ -125,5 +124,11 @@ export default {
     flex-direction: row;
     justify-content: flex-end;
     margin: 1rem;
+  }
+  .tooltip > .tooltip-text {
+    display: none;
+  }
+  .tooltip:focus > .tooltip-text  {
+    display: block;
   }
 </style>

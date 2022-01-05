@@ -1,6 +1,9 @@
 <template>
   <div class="profile-modify-button">
-    <default-button class="main-button" value="프로필 편집" @click="open"/>
+    <tooltip-slot v-if="focus" text="클릭하여 프로필을 편집하세요." :focus="focus" hover>
+      <default-button class="main-button" value="프로필 편집" @click="open" ref="button"/>
+    </tooltip-slot>
+    <default-button v-else class="main-button" value="프로필 편집" @click="open" ref="button"/>
     <modal-slot ref="profileModal">
       <template v-slot:header>
         프로필 편집
@@ -18,7 +21,7 @@
             <span>프로필</span>
             <span class="delete-image"><a @click="modified.profile=null">[삭제]</a></span>
             <file-slot id="profile" @upload="uploadProfile">
-              <img-component :src="modified.profile" class="image" ratio="3/4"/>
+              <img-component :src="profileImage" class="image" ratio="3/4"/>
             </file-slot>
           </div>
           <div class="sns">
@@ -47,6 +50,7 @@ import InputBox from '../form/InputBox.vue'
 import TextareaBox from '../form/TextareaBox.vue'
 import FileSlot from '../form/FileSlot.vue'
 import ImgComponent from '../utils/ImgComponent.vue'
+import TooltipSlot from '../utils/TooltipSlot.vue'
 
 export default{
   emits: [
@@ -58,12 +62,16 @@ export default{
     InputBox,
     TextareaBox,
     FileSlot,
-    ImgComponent
+    ImgComponent,
+    TooltipSlot
   },
   props: {
     artist: {
       type: Object,
       required: true
+    },
+    focus: {
+      type: Boolean
     }
   },
   data() {
@@ -76,6 +84,11 @@ export default{
         twitter: '',
         info: ''
       }
+    }
+  },
+  computed: {
+    profileImage() {
+      return this.modified.profile || require('@/assets/img/default-profile.png')
     }
   },
   methods: {
@@ -137,7 +150,7 @@ export default{
         console.error(error)
       }
     },
-  }
+  },
 }
 </script>
 
