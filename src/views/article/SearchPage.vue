@@ -70,7 +70,6 @@ export default{
           this.$refs.articles.push(data.articles)
         }
       } catch(error) {
-        this.$refs.articles.flush()
         error.response.status === 404 && (this.notfound.articles = true)
       }
     },
@@ -86,21 +85,7 @@ export default{
           this.$refs.artists.push(data.articles)
         }
       } catch(error) {
-        this.$refs.artists.flush()
         error.response.status === 404 && (this.notfound.artists = true)
-      }
-    }
-  },
-  watch: {
-    '$route.query': {
-      handler(query) {
-        this.keyword = query.keyword
-        if(this.keyword) {
-          this.init.articles = false
-          this.loadArticles(1)
-          this.init.artists = false
-          this.loadArtists(1)
-        }
       }
     }
   },

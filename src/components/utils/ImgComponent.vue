@@ -42,9 +42,11 @@ export default{
           this.$emit("mount")
         }
         image.onerror = () => {
-          src !== '' && console.error(`NOT FOUND: ${src}`)
+          if(src !== '') {
+            console.error(`NOT FOUND: ${src}`)
+            this.$emit("error")
+          }
           this.imgSrc = require('@/assets/svg/blank-3x4.svg')
-          this.$emit("error")
         }
       } else {
         this.imgSrc = require('@/assets/svg/blank-3x4.svg')
