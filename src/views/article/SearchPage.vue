@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ArticleList from '@/components/article/ArticleList.vue'
+import ArticleList from '@/components/article/articlelist/ArticleList.vue'
 
 function getArticlelistFrom(userlist) {
   const users = []

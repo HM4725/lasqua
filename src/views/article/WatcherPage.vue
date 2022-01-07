@@ -1,36 +1,30 @@
 <template>
   <div class="watcher-page">
-    <article-list rowlength="4" ref="articles" mode="project" @request-push="loadArticles"/>
+    <article-list ref="articles" :rowlength="4" paging="button"
+      @request="handleRequest" @clicked="handleClick"/>
   </div>
 </template>
 
 <script>
-import ArticleList from '@/components/article/ArticleList.vue'
+import ArticleList from '@/components/article/articlelist/MainList.vue'
 
 export default{
   name: "WatcherPage",
   components: {
     ArticleList
   },
-  data() {
-    return {
-      init: false
-    }
-  },
   methods: {
-    async loadArticles() {
+    async handleRequest(payload) {
       try {
         const response = await this.$api("GET", `/articlelist`)
         const data = response.data
-        if(!this.init) {
-          this.$refs.articles.init(data)
-          this.init = true
-        } else {
-          this.$refs.articles.push(data.articles)
-        }
+        this.$refs.articles.inject(data, payload.way)
       } catch(error) {
         console.error(error)
       }
+    },
+    handleClick(no) {
+      this.$router.push(`/article/view?no=${no}`)
     }
   }
 }

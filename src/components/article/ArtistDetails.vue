@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import ArticleList from './ArticleList.vue'
+import ArticleList from './articlelist/ArticleList.vue'
 import ImgComponent from '../utils/ImgComponent.vue'
 import SnsLinkButton from '../buttons/SnsLinkButton.vue'
 

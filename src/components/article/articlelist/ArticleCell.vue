@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ImgComponent from '../utils/ImgComponent.vue'
+import ImgComponent from '../../utils/ImgComponent.vue'
 
 export default{
   props: {
@@ -50,6 +50,7 @@ export default{
         } else if (this.mode === 'artist' && this.article.id) {
           this.$router.push(`/artist/${this.article.id}`)
         }
+        this.$emit('clicked', this.article.no)
       }
     },
     activate() {

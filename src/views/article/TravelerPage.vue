@@ -1,20 +1,19 @@
 <template>
-  <div class="index-wrapper">
-    <section class="artists">
-      <article-list rowlength="4" ref="artists" mode="artist" @request-push="loadArtists"/>
-    </section>
+  <div class="traveler-page">
+    <article-list ref="artists" :rowlength="4" paging="button"
+      @request="handleRequest" @clicked="handleClick"/>
   </div>
 </template>
 
 <script>
-import ArticleList from '@/components/article/ArticleList.vue'
+import ArticleList from '@/components/article/articlelist/MainList.vue'
 
 function getArticlelistFrom(userlist) {
   const users = []
   for(let i in userlist.users) {
     let user = userlist.users[i]
     users.push({
-      no: 0,
+      no: user.id,
       id: user.id,
       title: user.id,
       images: {
@@ -36,41 +35,25 @@ export default{
   components: {
     ArticleList
   },
-  data() {
-    return {
-      init: false
-    }
-  },
   methods: {
-    async loadArtists() {
+    async handleRequest(payload) {
       try {
-        const response = await this.$api("GET", `/userlist`)
+        const response = await this.$api("GET", '/userlist')
         const data = getArticlelistFrom(response.data)
-        if(!this.init) {
-          this.$refs.artists.init(data)
-          this.init = true
-        } else {
-          this.$refs.artists.push(data.articles)
-        }
+        this.$refs.artists.inject(data, payload.way)
       } catch(error) {
         console.error(error)
       }
+    },
+    handleClick(id) {
+      this.$router.push(`/artist/${id}`)
     }
   }
 }
 </script>
 
 <style scoped>
-  .index-wrapper {
+  .traveler-page {
     width: 100%;
-  }
-  .index-wrapper > section {
-    width: 100%;
-  }
-  .index-wrapper > section:first-child {
-    padding-bottom: 3rem;
-  }
-  section > p {
-    margin-top: 10px;
   }
 </style>

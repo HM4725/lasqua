@@ -12,6 +12,9 @@ export default {
         data: data,
         headers: headers
       })
+    },
+    $isMobile() {
+      return window.innerWidth < 768
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <section class="article-list" ref="articleList">
-    <div class="arrow-button" @click="unshiftArticles" v-if="paging==='button'">
+    <div class="arrow-button" @click="unshiftArticles" v-if="pagination==='button'">
       <before-icon class="arrow-icon" :class="{disabled: !isLeftExist}"/>
     </div>
     <ul class="articles" :style="layoutStyle" ref="articles">
@@ -10,14 +10,14 @@
       </li>
       <slot></slot>
     </ul>
-    <div class="arrow-button" @click="shiftArticles" v-if="paging==='button'">
+    <div class="arrow-button" @click="shiftArticles" v-if="pagination==='button'">
       <after-icon class="arrow-icon" :class="{disabled: !isRightExist}"/>
     </div>
   </section>
 </template>
 
 <script>
-import ThumbNail from './ThumbNail.vue'
+import ThumbNail from './ArticleCell.vue'
 import BeforeIcon from '@/components/icons/BeforeIcon.vue'
 import AfterIcon from '@/components/icons/AfterIcon.vue'
 
@@ -60,7 +60,7 @@ export default{
   },
   computed: {
     layoutStyle() {
-      return this.paging === 'scroll' ?
+      return this.pagination === 'scroll' ?
         { gridTemplateColumns: `repeat(${this.rowlength}, minmax(0px, 1fr))` } : ""
     },
     isRightExist() {
@@ -74,6 +74,9 @@ export default{
     hitTheRight() {
       return this.articles.mounted.at(-1).no && 
         this.articles.mounted.at(-1).no === this.articles.loaded.at(-1).no
+    },
+    pagination() {
+      return this.paging;
     }
   },
   methods: {
@@ -108,11 +111,14 @@ export default{
         }
         this.articles.mounted = mounted
         
-        if(this.paging === 'scroll') {
+        if(this.pagination === 'scroll') {
           try {
-            while(window.innerHeight === document.documentElement.scrollHeight &&
-                this.articles.mounted.at(-1).no) {
-              await this.mountArticlesRow()
+            while(window.innerHeight === document.documentElement.scrollHeight) {
+              if(this.isRightExist) {
+                await this.mountArticlesRow()
+              } else {
+                break
+              }
             }
           } catch(error) {
             console.error(error)
@@ -200,10 +206,10 @@ export default{
       this.articles.mounted.push({})
     }
     this.$emit('requestPush', 1)
-    this.paging === 'scroll' && window.addEventListener('scroll', this.mountArticlesRow)
+    this.pagination === 'scroll' && window.addEventListener('scroll', this.mountArticlesRow)
   },
   beforeUnmount() {
-    this.paging === 'scroll' && window.removeEventListener('scroll', this.mountArticlesRow)
+    this.pagination === 'scroll' && window.removeEventListener('scroll', this.mountArticlesRow)
   }
 }
 </script>

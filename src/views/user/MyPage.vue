@@ -6,7 +6,8 @@
     <section>
       <div class="artist" v-if="artist.id" >
         <artist-profile :artist="artist"/>
-        <profile-modify-button class="profile-modify-button" @modify="modify" :artist="artist" :focus="!artist.profileImage"/>
+        <profile-modify-button class="button" @modify="modify" :artist="artist" :focus="!artist.profileImage"/>
+        <router-button class="button" link="/mypage/modify" value="개인정보 수정"/>
       </div>
       <div class="projects">
         <div class="buttons">
@@ -22,7 +23,7 @@
 import ImgComponent from '@/components/utils/ImgComponent.vue'
 import ArtistProfile from '@/components/article/ArtistProfile.vue'
 import RouterButton from '@/components/buttons/RouterButton.vue'
-import ArticleList from '@/components/article/ArticleList.vue'
+import ArticleList from '@/components/article/articlelist/ArticleList.vue'
 import ProfileModifyButton from '@/components/buttons/ProfileModifyButton.vue'
 
 export default {
@@ -111,7 +112,7 @@ export default {
     top: -7vw;
     height: fit-content;
   }
-  .artist > .profile-modify-button {
+  .artist > .button {
     width: 100%;
     margin-top: 1rem;
   }

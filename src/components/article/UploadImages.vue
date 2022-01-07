@@ -3,7 +3,7 @@
       <div class="images">
         <article-list ref="images" rowlength="3" mode="img" @removeArticle="deleteImage">
           <file-slot ref="file" @upload="uploadImage">
-            <thumb-nail :article="addButton" mode="img"/>
+            <article-cell :article="addButton" mode="img"/>
           </file-slot>
         </article-list>
       </div>
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import ArticleList from './ArticleList.vue'
-import ThumbNail from './ThumbNail.vue'
+import ArticleList from './articlelist/ArticleList.vue'
+import ArticleCell from './articlelist/ArticleCell.vue'
 import FileSlot from '../form/FileSlot.vue'
 
 function wrapImage(image) {
@@ -30,7 +30,7 @@ function wrapImage(image) {
 export default{
   components: {
     ArticleList,
-    ThumbNail,
+    ArticleCell,
     FileSlot
   },
   props: {

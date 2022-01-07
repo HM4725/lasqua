@@ -17,7 +17,7 @@
 <script>
 import ImgComponent from '@/components/utils/ImgComponent.vue'
 import ArtistProfile from '@/components/article/ArtistProfile.vue'
-import ArticleList from '@/components/article/ArticleList.vue'
+import ArticleList from '@/components/article/articlelist/ArticleList.vue'
 
 export default {
   name: 'ArtistPage',
