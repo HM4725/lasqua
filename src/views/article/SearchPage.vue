@@ -61,7 +61,7 @@ export default{
         const response = await this.$api("GET", 
           `/search/articles?key=${this.keyword}&page=${payload.page}`)
         const data = response.data
-        this.$refs.projects.inject(data, payload.way)
+        data.page === payload.page && this.$refs.projects.inject(data, payload.way)
       } catch(error) {
         this.$refs.projects.inject({articles: []})
         error.response.status === 404 && (this.notfound.projects = true)
@@ -75,7 +75,7 @@ export default{
         const response = await this.$api("GET", 
           `/search/users?key=${this.keyword}&page=${payload.page}`)
         const data = getArticlelistFrom(response.data)
-        this.$refs.artists.inject(data, payload.way)
+        data.page === payload.page && this.$refs.artists.inject(data, payload.way)
       } catch(error) {
         this.$refs.artists.inject({articles: []})
         error.response.status === 404 && (this.notfound.artists = true)

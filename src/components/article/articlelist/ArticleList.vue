@@ -42,7 +42,6 @@ export default{
         loaded: [],
         itr: 0
       },
-      PRELOAD: 1,
       pagination: ''
     }
   },
@@ -68,7 +67,7 @@ export default{
       if(reqWay === 'prev') {
         this.isLeftExist && this.injectToChild(way)
       } else { // 'next'
-        if(this.articles.itr + this.articles.MOUNTSIZE + this.requestSize + this.PRELOAD
+        if(this.articles.itr + this.articles.MOUNTSIZE + this.requestSize
             <= this.articles.loaded.length) {
           this.injectToChild(way)
         } else {

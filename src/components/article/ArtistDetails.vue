@@ -60,8 +60,10 @@ export default{
       try {
         const response = await this.$api("GET", `/articles/${this.uid}?page=${payload.page}`)
         const data = response.data
-        data.articles.sort((a, b) => b.no - a.no)
-        this.$refs.articles.inject(data, payload.way)
+        if(data.page === payload.page) {
+          data.articles.sort((a, b) => b.no - a.no)
+          this.$refs.articles.inject(data, payload.way)
+        }
       } catch(error) {
         console.error(error)
       }
