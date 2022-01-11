@@ -73,8 +73,7 @@ export default{
     handleClick(no) {
       const idx = this.images.findIndex(image => image.orderNo === no)
       if(idx !== -1) {
-        const image = this.images.splice(idx, 1)
-        this.deleted.push(image.link)
+        this.deleted.push(this.images.splice(idx, 1)[0].link)
       }
     },
     // Parent API
