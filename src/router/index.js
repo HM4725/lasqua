@@ -38,12 +38,6 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/mypage',
-    name: 'mypage',
-    component: () => import('@/views/user/MyPage.vue'),
-    meta: { requiresAuth: true }
-  },
-  {
     path: '/artist/:id',
     name: 'artist',
     component: () => import('@/views/article/ArtistPage.vue'),
@@ -72,6 +66,11 @@ const routes = [
     path: '/message',
     name: 'message',
     component: () => import('@/views/utils/MessagePage.vue')
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('@/views/utils/TestPage.vue')
   },
   {
     path: '/:catchAll(.*)',

@@ -1,6 +1,6 @@
 <template>
-  <span v-if="isLoggedIn">
-    <profile-icon @click="$router.push('/mypage')"/>
+  <span v-if="loginUser">
+    <profile-icon @click="$router.push(`/artist/${loginUser}`)"/>
   </span>
 </template>
 
@@ -11,7 +11,7 @@ export default{
     ProfileIcon
   },
   computed: {
-    isLoggedIn() {
+    loginUser() {
       return this.$store.getters.userId
     }
   }

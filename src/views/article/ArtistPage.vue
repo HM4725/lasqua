@@ -4,10 +4,16 @@
       <img-component :src="artist.bannerImage" ratio="20/3"/>
     </header>
     <section>
-      <div class="artist" v-if="artist.id">
+      <div class="artist" v-if="artist.id" >
         <artist-profile :artist="artist"/>
+        <profile-modify-button v-if="mypage" class="button" @modify="modify"
+          :artist="artist" :focus="!artist.profileImage"/>
+        <router-button v-if="mypage" class="button" link="/mypage/modify" value="개인정보 수정"/>
       </div>
       <div class="projects">
+        <div v-if="mypage" class="buttons">
+          <router-button class="button" link="/article/upload" value="게시글 올리기"/>
+        </div>
         <article-list ref="articles" :rowlength="3" paging="scroll"
           @request="handleRequest" @clicked="handleClick"/>
       </div>
@@ -18,21 +24,24 @@
 <script>
 import ImgComponent from '@/components/utils/ImgComponent.vue'
 import ArtistProfile from '@/components/article/ArtistProfile.vue'
+import RouterButton from '@/components/buttons/RouterButton.vue'
 import ArticleList from '@/components/article/articlelist/ArticleList.vue'
+import ProfileModifyButton from '@/components/buttons/ProfileModifyButton.vue'
 
 export default {
   name: 'ArtistPage',
   components: {
     ImgComponent,
     ArtistProfile,
-    ArticleList
+    RouterButton,
+    ArticleList,
+    ProfileModifyButton
   },
   data() {
     return {
       id: '',
-      init: false,
       artist: {},
-      banner: ''
+      mypage: false
     }
   },
   methods: {
@@ -42,6 +51,22 @@ export default {
         this.artist = response.data
       } catch(error) {
         this.artist = {}
+      }
+    },
+    async modify(payload) {
+      if(Object.keys(payload).length > 0) {
+        payload.id = this.id
+        try {
+          await this.$api("PUT", "/user", payload)
+          payload.bannerImage !== undefined && (this.artist.bannerImage = payload.bannerImage)
+          payload.profileImage !== undefined && (this.artist.profileImage = payload.profileImage)
+          payload.facebook !== undefined && (this.artist.facebook = payload.facebook)
+          payload.instagram !== undefined && (this.artist.instagram = payload.instagram)
+          payload.twitter !== undefined && (this.artist.twitter = payload.twitter)
+          payload.info !== undefined && (this.artist.info = payload.info)
+        } catch(error) {
+          console.error(error)
+        }
       }
     },
     async handleRequest(payload) {
@@ -60,6 +85,7 @@ export default {
   },
   created() {
     this.id = this.$route.params.id
+    this.id === this.$store.getters.userId && (this.mypage = true)
     this.loadArtist(this.id)
   }
 };
@@ -85,8 +111,24 @@ export default {
     top: -7vw;
     height: fit-content;
   }
+  .artist > .button {
+    width: 100%;
+    margin-top: 1rem;
+  }
   .projects {
     padding: 1rem;
     height: fit-content;
+  }
+  .projects > .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 1rem;
+  }
+  .tooltip > .tooltip-text {
+    display: none;
+  }
+  .tooltip:focus > .tooltip-text  {
+    display: block;
   }
 </style>
