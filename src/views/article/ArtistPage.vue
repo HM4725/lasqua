@@ -8,7 +8,8 @@
         <artist-profile :artist="artist"/>
       </div>
       <div class="projects">
-        <article-list ref="articles" rowlength="3" paging="scroll" mode="project" @request-push="loadArticles"/>
+        <article-list ref="articles" :rowlength="3" paging="scroll"
+          @request="handleRequest" @clicked="handleClick"/>
       </div>
     </section>
   </div>
@@ -43,22 +44,18 @@ export default {
         this.artist = {}
       }
     },
-    async loadArticles(page) {
+    async handleRequest(payload) {
       try {
-        const response = await this.$api("GET", `/articles/${this.id}?page=${page}`)
+        const response = await this.$api("GET", `/articles/${this.id}?page=${payload.page}`)
         const data = response.data
-        if(page === data.page) {
-          data.articles.sort((a, b) => b.no - a.no)
-          if(!this.init) {
-            this.$refs.articles.init(data)
-            this.init = true
-          } else {
-            this.$refs.articles.push(data.articles)
-          }
-        }
+        data.articles.sort((a, b) => b.no - a.no)
+        this.$refs.articles.inject(data, payload.way)
       } catch(error) {
         console.error(error)
       }
+    },
+    handleClick(no) {
+      this.$router.push(`/article/view?no=${no}`)
     }
   },
   created() {

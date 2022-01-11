@@ -1,5 +1,5 @@
 <template>
-  <div :class="{thumbnail: true, clickable: clickable}" @click="goLink">
+  <div :class="{thumbnail: true, clickable: clickable}" @click="handleClick">
     <img-component :src="imgSrc" :title="title" class="thumbnail-img" ratio="3/4"
       @mount="activate" @unmount="deactivate" @error="error"/>
   </div>
@@ -12,26 +12,9 @@ export default{
   props: {
     article: {
       type: Object,
-      // {
-      //   no,
-      //   id,
-      //   title,
-      //   images: {
-      //     orderNo,
-      //     name,
-      //     link
-      //   },
-      //   content,
-      //   regdate
-      // }
       default() {
         return {}
       }
-    },
-    mode: {
-      type: String,
-      default: 'img',
-      validator: v => ['project', 'artist', 'img'].indexOf(v) !== -1
     }
   },
   components: {
@@ -43,15 +26,8 @@ export default{
     }
   },
   methods: {
-    goLink() {
-      if(this.clickable) {
-        if(this.mode === 'project' && this.article.no) {
-          this.$router.push(`/article/view?no=${this.article.no}`)
-        } else if (this.mode === 'artist' && this.article.id) {
-          this.$router.push(`/artist/${this.article.id}`)
-        }
-        this.$emit('clicked', this.article.no)
-      }
+    handleClick() {
+      this.clickable && this.$emit('clicked', this.article.no)
     },
     activate() {
       this.clickable = true
@@ -78,6 +54,7 @@ export default{
 
 <style scoped>
   .thumbnail {
+    min-width: 100px;
     border: 1px solid var(--active-bg-color);
     border-radius: .25rem;
     transition: all .25s ease-in-out;

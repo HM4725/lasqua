@@ -22,7 +22,8 @@
     </div>
     <div class="projects">
       <label>작가의 다른 작품 더보기</label>
-      <article-list ref="articles" rowlength="4" mode="project" @request-push="loadArticles"/>
+      <article-list ref="articles" :rowlength="4" paging="button"
+        @request="handleRequest" @clicked="handleClick"/>
     </div>
   </section>
 </template>
@@ -55,22 +56,18 @@ export default{
         this.artist = {}
       }
     },
-    async loadArticles(page) {
+    async handleRequest(payload) {
       try {
-        const response = await this.$api("GET", `/articles/${this.uid}?page=${page}`)
+        const response = await this.$api("GET", `/articles/${this.uid}?page=${payload.page}`)
         const data = response.data
-        if(page === data.page) {
-          data.articles.sort((a, b) => b.no - a.no)
-          if(!this.init) {
-            this.$refs.articles.init(data)
-            this.init = true
-          } else {
-            this.$refs.articles.push(data.articles)
-          }
-        }
+        data.articles.sort((a, b) => b.no - a.no)
+        this.$refs.articles.inject(data, payload.way)
       } catch(error) {
         console.error(error)
       }
+    },
+    handleClick(no) {
+      this.$router.push(`/article/view?no=${no}`)
     }
   },
   computed: {
