@@ -16,8 +16,8 @@
 
 <script>
 import ArticleRow from './ArticleRow.vue'
-import BeforeIcon from '@/components/icons/BeforeIcon.vue'
-import AfterIcon from '@/components/icons/AfterIcon.vue'
+import BeforeIcon from '../../icons/BeforeIcon.vue'
+import AfterIcon from '../../icons/AfterIcon.vue'
 
 export default{
   emits: [
