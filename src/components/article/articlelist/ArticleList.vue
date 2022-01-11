@@ -67,8 +67,7 @@ export default{
       if(reqWay === 'prev') {
         this.isLeftExist && this.injectToChild(way)
       } else { // 'next'
-        if(this.articles.itr + this.articles.MOUNTSIZE + this.requestSize
-            <= this.articles.loaded.length) {
+        if(this.articles.itr + this.articles.MOUNTSIZE < this.articles.loaded.length) {
           this.injectToChild(way)
         } else {
           this.isRightExist && this.$emit('request', {way: reqWay, page: ++this.page})
