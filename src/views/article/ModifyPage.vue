@@ -4,7 +4,7 @@
       <input-box class="info-box" type="text" id="upload-title" placeholder="프로젝트 제목" :value="title" @input="v=>title=v" maxlength="20" focus/>
     </header>
     <section class="images">
-      <upload-images ref="images" :uploaded="images"/>
+      <upload-images ref="images" :uploaded="images" :rowlength="3"/>
     </section>
     <section class="content">
       <textarea-box class="content-box" type="text" id="modify-content" placeholder="프로젝트 설명글" :value="content" @input="v=>content=v"/>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import UploadImages from '@/components/article/UploadImages.vue'
+import UploadImages from '@/components/article/upload/UploadImages.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 import TextareaBox from '@/components/form/TextareaBox.vue'
 import InputBox from '@/components/form/InputBox.vue'

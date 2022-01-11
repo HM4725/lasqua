@@ -1,8 +1,10 @@
 <template>
-  <label :for="id">
-    <slot></slot>
-  </label>
-  <input type="file" :id="id" ref="file" @change="upload"/>
+  <div>
+    <label :for="id">
+      <slot></slot>
+    </label>
+    <input type="file" :id="id" @change="upload"/>
+  </div>
 </template>
 
 <script>
@@ -17,9 +19,6 @@ export default{
     }
   },
   methods: {
-    getValue() {
-      return this.$refs.file
-    },
     upload(e) {
       if(e.target.files[0]) {
         const formData = new FormData()

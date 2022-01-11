@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import UploadImages from '@/components/article/UploadImages.vue'
+import UploadImages from '@/components/article/upload/UploadImages.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 import TextareaBox from '@/components/form/TextareaBox.vue'
 import InputBox from '@/components/form/InputBox.vue'
