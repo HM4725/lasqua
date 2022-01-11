@@ -54,7 +54,6 @@ export default{
 
 <style scoped>
   .thumbnail {
-    min-width: 100px;
     border: 1px solid var(--active-bg-color);
     border-radius: .25rem;
     transition: all .25s ease-in-out;
