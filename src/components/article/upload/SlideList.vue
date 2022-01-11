@@ -118,7 +118,10 @@ export default{
       const idx = this.images.findIndex(image => image.no === no)
       if(idx !== -1) {
         if(this.length <= this.rowlength) {
-          this.images[idx] = {}
+          for(let i = idx; i < this.length - 1; i++) {
+            this.images[i] = this.images[i + 1]
+          }
+          this.images[this.length - 1] = {}
         } else {
           this._freezeSlide()
           this.images.splice(idx, 1)
