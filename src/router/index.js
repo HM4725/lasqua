@@ -63,7 +63,7 @@ const routes = [
     component: () => import('@/views/user/SignupPage.vue')
   },
   {
-    path: '/notice/list',
+    path: '/notice',
     name: 'notice.list',
     component: () => import('@/views/notice/ListPage.vue')
   },
