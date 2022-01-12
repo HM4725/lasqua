@@ -47,7 +47,7 @@ export default{
     async deleteArticle() {
       try {
         await this.$api("DELETE", `/article/${this.no}?id=${this.id}`)
-        this.$router.push({name: 'message', params: {message: "게시물 삭제 완료", redirect: "/"}})
+          this.$router.push(`/artist/${this.$store.getters.userId}`)
       } catch(error) {
         console.error(error)
       }
