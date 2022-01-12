@@ -123,7 +123,7 @@ export default{
           }
           this.images[this.length - 1] = {}
         } else {
-          this.itr + this.rowlength === this.image.length && this.itr--
+          this.itr + this.rowlength === this.images.length && this.itr--
           this._freezeSlide()
           this.images.splice(idx, 1)
           this.slideStyle.ulWidth = 100 / this.rowlength * (this.images.length)
