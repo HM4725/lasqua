@@ -78,7 +78,7 @@ export default{
         data.page === payload.page && this.$refs.artists.inject(data, payload.way)
       } catch(error) {
         this.$refs.artists.inject({articles: []})
-        error.response.status === 404 && (this.notfound.artists = true)
+        this.notfound.artists = true
       }
     },
     handleClickArtist(id) {
