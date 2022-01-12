@@ -69,12 +69,14 @@ export default {
         }
       }
     },
-    async handleRequest(payload) {
+    async handleRequest(page) {
       try {
-        const response = await this.$api("GET", `/articles/${this.id}?page=${payload.page}`)
+        const response = await this.$api("GET", `/articles/${this.id}?page=${page}`)
         const data = response.data
-        data.articles.sort((a, b) => b.no - a.no)
-        this.$refs.articles.inject(data, payload.way)
+        if(data.page === page) {
+          data.articles.sort((a, b) => b.no - a.no)
+          this.$refs.articles.inject(data)
+        }
       } catch(error) {
         console.error(error)
       }

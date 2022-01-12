@@ -56,13 +56,13 @@ export default{
         this.artist = {}
       }
     },
-    async handleRequest(payload) {
+    async handleRequest(page) {
       try {
-        const response = await this.$api("GET", `/articles/${this.uid}?page=${payload.page}`)
+        const response = await this.$api("GET", `/articles/${this.uid}?page=${page}`)
         const data = response.data
-        if(data.page === payload.page) {
+        if(data.page === page) {
           data.articles.sort((a, b) => b.no - a.no)
-          this.$refs.articles.inject(data, payload.way)
+          this.$refs.articles.inject(data)
         }
       } catch(error) {
         console.error(error)

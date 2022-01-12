@@ -46,79 +46,57 @@ export default{
     }
   },
   computed: {
-    isLeftExist() {
-      return this.articles.itr > 0
-    },
     isRightExist() {
-      if(this.articles.loaded.length > 0 && this.articles.loaded.at(-1).no !== undefined) {
-        return this.articles.itr + this.articles.MOUNTSIZE < this.articles.TOTALSIZE
-      } else {
-        return false
-      }
+      return this.articles.loaded.length < this.articles.TOTALSIZE
     },
     requestSize() {
-      return this.pagination === 'scroll' ? this.articles.MOUNTSIZE : 1
+      return this.pagination === 'button' ? this.articles.BLOCKSIZE : this.articles.MOUNTSIZE
     }
   },
   methods: {
     // Child API
-    handleRequest(way) {
-      const reqWay = this.pagination === 'scroll' ? 'next' : way
-      if(reqWay === 'prev') {
-        this.isLeftExist && this.injectToChild(way)
-      } else { // 'next'
-        if(this.articles.itr + this.articles.MOUNTSIZE < this.articles.loaded.length) {
-          this.isRightExist && this.injectToChild(way)
+    handleRequest() {
+      if(this.pagination === 'button') {
+        this.isRightExist && this.$emit('request', ++this.page)
+      } else { // scroll
+        if(this.articles.itr + this.articles.MOUNTSIZE > this.articles.loaded.length) {
+          if(this.isRightExist) {
+            this.$emit('request', ++this.page)
+          } else {
+            this.injectToChild()
+          }
         } else {
-          this.isRightExist && this.$emit('request', {way: reqWay, page: ++this.page})
+          this.injectToChild()
         }
       }
     },    
-    injectToChild(way) {
-      if(!this.init) {
-        const size = this.pagination === 'button' ?
-          this.articles.MOUNTSIZE + 1 : this.articles.MOUNTSIZE
-        this.$refs.list.inject(this.articles.loaded.slice(0, size))
-        this.init = true
-      } else {
-        if(way === 'prev') {
-            const itr = this.articles.itr
-            this.$refs.list.inject(this.articles.loaded.slice(itr - this.requestSize, itr), way)
-            this.articles.itr -= this.requestSize
-        } else { // way === 'next'
-            const itr = this.articles.itr + this.articles.MOUNTSIZE
-            this.$refs.list.inject(this.articles.loaded.slice(itr, itr + this.requestSize), way)
-            this.articles.itr += this.requestSize
-        }
-      }
+    injectToChild() {
+      const articles = this.articles.loaded.slice(this.articles.itr, 
+        this.articles.itr + this.requestSize)
+      this.$refs.list.inject(articles)
+      articles.length > 0 && (this.articles.itr += this.requestSize)
     },
     handleClick(no) {
       this.$emit('clicked', no)
     },
     // Parent API
-    inject(data, way) {
+    inject(data) {
       if(!this.init) {
         this.MAXPAGE = data.maxPage
         this.articles.TOTALSIZE = data.allArticleCount
         this.articles.BLOCKSIZE = data.articles.length
-        const size = this.pagination === 'button' ?
-          this.articles.MOUNTSIZE + 1 : this.articles.MOUNTSIZE
-        this.articles.loaded.push(...data.articles)
-        for(let i = this.articles.BLOCKSIZE; i < size; i++) {
-            this.articles.loaded.push({})
-        }
-      } else {
-        this.articles.loaded.push(...data.articles)
+        this.init = true
       }
-      this.injectToChild(way)
+      this.articles.loaded.push(...data.articles)
+      this.injectToChild()
     }
   },
   created() {
     this.pagination = this.$isMobile() ? 'scroll': this.paging;
-    this.articles.MOUNTSIZE = this.$isMobile() ? 2 : this.rowlength;
+    this.articles.MOUNTSIZE = this.$isMobile() ? 3 : this.rowlength;
   },
   beforeMount() {
-    this.$emit('request', {page: this.page})
+    this.$emit('request', this.page)
   }
 }
 </script>

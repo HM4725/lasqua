@@ -14,11 +14,11 @@ export default{
     ArticleList
   },
   methods: {
-    async handleRequest(payload) {
+    async handleRequest() {
       try {
         const response = await this.$api("GET", `/articlelist`)
         const data = response.data
-        this.$refs.articles.inject(data, payload.way)
+        this.$refs.articles.inject(data)
       } catch(error) {
         console.error(error)
       }

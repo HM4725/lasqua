@@ -36,11 +36,11 @@ export default{
     ArticleList
   },
   methods: {
-    async handleRequest(payload) {
+    async handleRequest() {
       try {
         const response = await this.$api("GET", '/userlist')
         const data = getArticlelistFrom(response.data)
-        this.$refs.artists.inject(data, payload.way)
+        this.$refs.artists.inject(data)
       } catch(error) {
         console.error(error)
       }

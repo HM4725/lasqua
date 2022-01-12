@@ -56,26 +56,26 @@ export default{
     }
   },
   methods: {
-    async handleRequestProject(payload) {
+    async handleRequestProject(page) {
       try {
         const response = await this.$api("GET", 
-          `/search/articles?key=${this.keyword}&page=${payload.page}`)
+          `/search/articles?key=${this.keyword}&page=${page}`)
         const data = response.data
-        data.page === payload.page && this.$refs.projects.inject(data, payload.way)
+        data.page === page && this.$refs.projects.inject(data)
       } catch(error) {
         this.$refs.projects.inject({articles: []})
-        error.response.status === 404 && (this.notfound.projects = true)
+        this.notfound.projects = true
       }
     },
     handleClickProject(no) {
       this.$router.push(`/article/view?no=${no}`)
     },
-    async handleRequestArtist(payload) {
+    async handleRequestArtist(page) {
       try {
         const response = await this.$api("GET", 
-          `/search/users?key=${this.keyword}&page=${payload.page}`)
+          `/search/users?key=${this.keyword}&page=${page}`)
         const data = getArticlelistFrom(response.data)
-        data.page === payload.page && this.$refs.artists.inject(data, payload.way)
+        data.page === page && this.$refs.artists.inject(data)
       } catch(error) {
         this.$refs.artists.inject({articles: []})
         this.notfound.artists = true

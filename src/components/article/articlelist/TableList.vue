@@ -20,25 +20,33 @@ export default{
   },
   data() {
     return {
+      init: false,
       rows: [],
-      INTERVAL: 1
+      INTERVAL: 1,
+      isRightExist: true
     }
   },
   methods: {
     // Child API
     addRow() {
-      const delta = (window.scrollY + window.innerHeight) - document.documentElement.scrollHeight
-      Math.abs(delta) < this.INTERVAL && this.$emit('request')
+      if(this.isRightExist) {
+        const delta = (window.scrollY + window.innerHeight) - document.documentElement.scrollHeight
+        Math.abs(delta) < this.INTERVAL && this.$emit('request')
+      }
     },
     handleClick(no) {
       this.$emit('clicked', no)
     },
     // Parent API
     inject(articles) {
-      for(let i = articles.length; i < this.rowlength; i++) {
-        articles.push({})
+      articles.length === 0 && (this.isRightExist = false)
+      if(this.isRightExist || !this.init) {
+        for(let i = articles.length; i < this.rowlength; i++) {
+          articles.push({})
+        }
+        this.rows.push(articles)
       }
-      this.rows.push(articles)
+      this.init = true
     }
   },
   mounted() {
