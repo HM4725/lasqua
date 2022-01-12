@@ -149,6 +149,9 @@ export default{
     }
     this._activateSlide()
   },
+  updated() {
+    console.log('SlideList:', this.$data)
+  }
 }
 </script>
 
