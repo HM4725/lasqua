@@ -63,6 +63,21 @@ const routes = [
     component: () => import('@/views/user/SignupPage.vue')
   },
   {
+    path: '/notice/list',
+    name: 'notice.list',
+    component: () => import('@/views/notice/ListPage.vue')
+  },
+  {
+    path: '/notice/view',
+    name: 'notice.view',
+    component: () => import('@/views/notice/ViewPage.vue')
+  },
+  {
+    path: '/notice/write',
+    name: 'notice.write',
+    component: () => import('@/views/notice/WritePage.vue')
+  },
+  {
     path: '/message',
     name: 'message',
     component: () => import('@/views/utils/MessagePage.vue')
