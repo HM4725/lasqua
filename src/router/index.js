@@ -68,6 +68,11 @@ const routes = [
     component: () => import('@/views/utils/MessagePage.vue')
   },
   {
+    path: '/test',
+    name: 'test',
+    component: () => import('@/views/utils/TestPage.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     name: 'error',
     component: () => import('@/views/utils/ErrorPage.vue')
