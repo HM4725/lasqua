@@ -47,7 +47,8 @@ export default{
   },
   computed: {
     isRightExist() {
-      return this.articles.loaded.length < this.articles.TOTALSIZE
+      return this.articles.BLOCKSIZE > this.articles.MOUNTSIZE &&
+        this.articles.loaded.length < this.articles.TOTALSIZE
     },
     requestSize() {
       return this.pagination === 'button' ? this.articles.BLOCKSIZE : this.articles.MOUNTSIZE
