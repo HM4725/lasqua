@@ -6,12 +6,12 @@
     <section>
       <div class="artist" v-if="artist.id" >
         <artist-profile :artist="artist"/>
-        <profile-modify-button v-if="mypage" class="button" @modify="modify"
+        <profile-modify-button v-if="myPage" class="button" @modify="modify"
           :artist="artist" :focus="!artist.profileImage"/>
-        <router-button v-if="mypage" class="button" link="/mypage/modify" value="개인정보 수정"/>
+        <router-button v-if="myPage" class="button" link="/myinfo" value="개인정보 수정"/>
       </div>
       <div class="projects">
-        <div v-if="mypage" class="buttons">
+        <div v-if="myPage" class="buttons">
           <router-button class="button" link="/article/upload" value="게시글 올리기"/>
         </div>
         <article-list ref="articles" :rowlength="3" paging="scroll"
@@ -41,7 +41,7 @@ export default {
     return {
       id: '',
       artist: {},
-      mypage: false
+      myPage: false
     }
   },
   methods: {
@@ -85,7 +85,7 @@ export default {
   },
   created() {
     this.id = this.$route.params.id
-    this.id === this.$store.getters.userId && (this.mypage = true)
+    this.id === this.$store.getters.userId && (this.myPage = true)
     this.loadArtist(this.id)
   }
 };
