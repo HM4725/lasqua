@@ -50,7 +50,7 @@ export default{
         }
         if(data.title != '' && data.images.length > 0 && data.content != '') {
           await this.$api("POST", "/article", data)
-          this.$router.push({name: 'message', params: {message: "업로드 성공", redirect: "/mypage"}})
+          this.$router.push(`/artist/${this.$store.getters.userId}`)
         }
       } catch(error) {
         console.error(error)
