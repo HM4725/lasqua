@@ -5,7 +5,7 @@
     </div>
     <div class="main">
       <article>
-        <ul :class="{slide: slideStyle.slide}" 
+        <ul class="slide" 
           :style="{width: `${slideStyle.ulWidth}%`, transform: `translateX(-${slideStyle.left}%)`}">
           <li v-for="(image, i) in images" :key="`cell_${i}`" :style="{width: `${slideStyle.liWidth}%`}">
             <article-cell :article="image" @clicked="handleClickArticle"/>
@@ -50,8 +50,7 @@ export default{
       slideStyle: {
         ulWidth: '',
         liWidth: '',
-        left: '',
-        slide: false
+        left: ''
       },
       addButton: {
         no: 0,
@@ -124,20 +123,12 @@ export default{
           this.images[this.length - 1] = {}
         } else {
           this.itr + this.rowlength === this.images.length && this.itr--
-          // this._freezeSlide()
           this.images.splice(idx, 1)
           this.slideStyle.ulWidth = 100 / this.rowlength * (this.images.length)
           this.slideStyle.left = 100 * this.itr / this.images.length
-          // this._activateSlide()
         }
         this.length--
       }
-    },
-    _activateSlide() {
-      this.slideStyle.slide = true
-    },
-    _freezeSlide() {
-      this.slideStyle.slide = false
     },
   },
   created() {
@@ -147,10 +138,6 @@ export default{
     for(let i = 0; i < this.rowlength; i++) {
       this.images.push({})
     }
-    this._activateSlide()
-  },
-  updated() {
-    console.log('SlideList:', this.$data)
   }
 }
 </script>
@@ -186,13 +173,11 @@ export default{
     overflow: hidden;
     padding-top: 2px;
   }
-  ul {
-    display: flex;
-  }
   ul.slide {
+    display: flex;
     transition: transform .25s ease-in-out;
   }
-  ul > li {
+  ul.slide > li {
     padding-right: 1.5rem;
   }
   .add-button {
