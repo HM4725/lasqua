@@ -66,7 +66,6 @@ export default{
           this.images.push(image)
           this.$refs.images.push(wrapImage(image))
         }
-        console.log(this.count + 'upload')
       } catch(error) {
         console.error(error)
       }
