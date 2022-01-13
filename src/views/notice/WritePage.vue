@@ -31,7 +31,6 @@ export default{
   methods: {
     submit(e) {
       e.preventDefault()
-      this.content = this.$refs.editor.getValue()
       console.log('submit')
     },
     cancel() {
