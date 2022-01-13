@@ -143,6 +143,9 @@ export default{
 </script>
 
 <style scoped>
+  ul, li {
+    all: unset;
+  }
   section {
     width: 100%;
     display: flex;

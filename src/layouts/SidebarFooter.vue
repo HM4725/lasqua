@@ -32,6 +32,9 @@ export default{
 </script>
 
 <style scoped>
+  ul, li {
+    all: unset;
+  }
   .sidebar-footer-list li {
     float: left;
     margin-right: .2rem;

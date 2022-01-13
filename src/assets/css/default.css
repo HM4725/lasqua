@@ -28,9 +28,6 @@ a:hover {
 a:active {
   color: var(--active-color);
 }
-ul, li {
-  all: unset;
-}
 button, input, optgroup, select, textarea {
   margin: 0;
   font-family: inherit;

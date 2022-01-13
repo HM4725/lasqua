@@ -87,6 +87,9 @@ export default{
 </script>
 
 <style scoped>
+  ul, li {
+    all: unset;
+  }
   .artist-details {
     width: 100%;
   }
