@@ -37,7 +37,7 @@ export default{
     },
     error() {
       this.deactivate()
-      this.$emit('error')
+      this.$emit('error', this.article.no)
     }
   },
   computed: {

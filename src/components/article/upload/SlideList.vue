@@ -8,7 +8,7 @@
         <ul class="slide" 
           :style="{width: `${slideStyle.ulWidth}%`, transform: `translateX(-${slideStyle.left}%)`}">
           <li v-for="(image, i) in images" :key="`cell_${i}`" :style="{width: `${slideStyle.liWidth}%`}">
-            <article-cell :article="image" @clicked="handleClickArticle"/>
+            <article-cell :article="image" @clicked="handleClickArticle" @error="handleClickArticle"/>
           </li>
         </ul>
       </article>
