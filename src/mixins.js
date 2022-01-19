@@ -15,6 +15,10 @@ export default {
     },
     $isMobile() {
       return window.innerWidth < 768
+    },
+    $handleWrongAccess(redirect) {
+      alert('잘못된 접근입니다.')
+      this.$router.push(redirect)
     }
   }
 }

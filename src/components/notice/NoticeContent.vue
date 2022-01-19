@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="readonly">
     <ckeditor disabled :editor="editor" v-model="editorData" :config="editorConfig"/>
   </article>
 </template>
@@ -35,17 +35,17 @@ export default{
 </script>
 
 <style>
-  .ck-content {
+  article.readonly .ck-content {
     width: 100%;
     min-height:500px;
   }
-  .ck.ck-toolbar {
+  article.readonly .ck.ck-toolbar {
     display: none !important;
   }
-  .ck.ck-widget__selection-handle {
+  article.readonly .ck.ck-widget__selection-handle {
     display: none !important;
   }
-  .ck.ck-editor__editable.ck-blurred .ck-widget.ck-widget_selected {
+  article.readonly .ck.ck-editor__editable.ck-blurred .ck-widget.ck-widget_selected {
     outline: none;
   }
 </style>

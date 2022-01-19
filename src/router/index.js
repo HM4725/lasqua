@@ -78,6 +78,12 @@ const routes = [
     component: () => import('@/views/notice/WritePage.vue')
   },
   {
+    path: '/notice/modify',
+    name: 'notice.modify',
+    component: () => import('@/views/notice/ModifyPage.vue'),
+    props: true
+  },
+  {
     path: '/message',
     name: 'message',
     component: () => import('@/views/utils/MessagePage.vue')

@@ -8,6 +8,9 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 
 export default{
   name: 'CKEditor',
+  props: {
+    content: String
+  },
   components: {
     ckeditor: CKEditor.component
   },
@@ -23,6 +26,9 @@ export default{
     write() {
       this.$emit('write', this.editorData)
     }
+  },
+  beforeMount() {
+    this.content && (this.editorData = this.content)
   }
 }
 </script>
