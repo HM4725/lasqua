@@ -104,10 +104,7 @@ export default{
     border: 1px solid var(--base-color);
   }
   th.field-no {
-    width: 10%;
-  }
-  th.field-title {
-    width: 90%;
+    width: 3rem;
   }
   footer > span {
     transition: color .25s ease-out;

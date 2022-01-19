@@ -34,10 +34,4 @@ export default{
   td {
     border: 1px solid var(--base-color);
   }
-  tr > td.record-no {
-    width: 10%;
-  }
-  tr > td.record-title {
-    width: 100%;
-  }
 </style>
