@@ -13,9 +13,15 @@
         </tbody>
     </table>
     <footer>
-      <span v-for="(index, i) in page.index" :key="`index_${i}`"
-          class="wide-click" @click="pagingNotice(index)">
+      <span :class="{disabled: !isLeftExist}" @click="moveLeft">
+        prev
+      </span>
+      <span v-for="(index, i) in page.indices" :key="`index_${i}`"
+          :class="{pos: index === page.index}" @click="pagingNotice(index)">
         {{index + 1}}
+      </span>
+      <span :class="{disabled: !isRightExist}" @click="moveRight">
+        next
       </span>
     </footer>
   </section>
@@ -37,11 +43,33 @@ export default{
       },
       page: {
         size: 10,
-        index: []
+        indices: [],
+        index: 0
       }
     }
   },
+  computed: {
+    isLeftExist() {
+      return this.page.index > 0
+    },
+    isRightExist() {
+      return this.page.index < this.page.indices.length - 1
+    }
+  },
   methods: {
+    // Event
+    moveLeft() {
+      this.isLeftExist && this.pagingNotice(this.page.index - 1)
+    },
+    moveRight() {
+      this.isRightExist && this.pagingNotice(this.page.index + 1)
+    },
+    pagingNotice(page) {
+      const itr = page * this.page.size
+      this.notices.mounted = this.notices.loaded.slice(itr, itr + this.page.size)
+      this.page.index = page
+    },
+    // Load API
     async loadNotices() {
       try {
         const response = await this.$api("GET", `/noticelist`)
@@ -49,15 +77,11 @@ export default{
         data.notices.sort((a, b) => b.no - a.no)
         this.notices.loaded = data.notices
         const pageNum = Math.ceil(this.notices.loaded.length / this.page.size)
-        this.page.index = [...Array(pageNum).keys()]
+        this.page.indices = [...Array(pageNum).keys()]
         this.pagingNotice(0)
       } catch(error) {
         console.error(error)
       }
-    },
-    pagingNotice(page) {
-      const itr = page * this.page.size
-      this.notices.mounted = this.notices.loaded.slice(itr, itr + this.page.size)
     }
   },
   created() {
@@ -88,8 +112,29 @@ export default{
   footer > span {
     transition: color .25s ease-out;
     cursor: pointer;
+    padding: .5rem;
+  }
+  footer > span:active {
+    background-color: var(--active-bg-color);
   }
   footer > span:hover, footer > span:active{
     color: var(--active-color)
+  }
+  footer > span:first-child {
+    margin-right: 1rem;
+  }
+  footer > span:last-child {
+    margin-left: 1rem;
+  }
+  footer > span.pos {
+    font-weight: bold;
+  }
+  footer > span.disabled {
+    color: var(--disabled-color);
+    cursor: default;
+  }
+  footer > span.disabled:active {
+    color: var(--disabled-color);
+    background: none;
   }
 </style>
