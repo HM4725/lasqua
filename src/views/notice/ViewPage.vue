@@ -4,6 +4,7 @@
     <div>{{regdate}}</div>
     <notice-content :content="content"/>
     <footer>
+      <default-button class="button" value="목록" @click="backToList"/>
       <default-button class="button" value="수정하기" @click="modifyNotice"/>
       <default-button class="button" value="삭제하기" @click="deleteNotice"/>
     </footer>
@@ -15,7 +16,7 @@ import NoticeContent from '@/components/notice/NoticeContent.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 
 export default{
-  name: 'notice.viewPage',
+  name: 'notice.view.page',
   components: {
     NoticeContent,
     DefaultButton
@@ -30,16 +31,24 @@ export default{
   },
   methods: {
     // Event API
+    backToList() {
+      this.$router.push('/notice')
+    },
     modifyNotice() {
       this.$router.push({name: 'notice.modify', params: {data: JSON.stringify(this.$data)}})
     },
-    deleteNotice() {
-      console.log('delete')
+    async deleteNotice() {
+      try {
+        await this.$api('DELETE', `/notice/${this.no}`)
+        this.$router.push('/notice')
+      } catch(error) {
+        console.error(error)
+      }
     },
     // Load Method
     async loadNotice(no) {
       try {
-        const response = await this.$api("GET", `/notice?no=${no}`)
+        const response = await this.$api('GET', `/notice?no=${no}`)
         const data = response.data
         this.title = data.title
         this.content = data.content
