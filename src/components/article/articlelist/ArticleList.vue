@@ -10,7 +10,9 @@
 <script>
 import TableList from './TableList.vue'
 import SlideList from './SlideList.vue'
+
 export default{
+  name: 'components.article.list.main',
   emits: [
     'request',
     'clicked'

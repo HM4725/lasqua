@@ -29,6 +29,7 @@ import AfterIcon from '../../icons/AfterIcon.vue'
 import FileSlot from '../../form/FileSlot.vue'
 
 export default{
+  name: 'components.article.upload.slide',
   emits: [
     'upload',
     'clicked'

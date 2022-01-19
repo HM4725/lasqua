@@ -14,6 +14,7 @@ import TwitterIcon from '../icons/TwitterIcon.vue'
 import SnsEtcIcon from '../icons/SnsEtcIcon.vue'
 
 export default{
+  name: 'components.buttons.sns.link',
   components: {
     FacebookIcon,
     InstagramIcon,

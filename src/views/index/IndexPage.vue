@@ -16,6 +16,7 @@ import IndexButton from '@/components/buttons/IndexButton.vue'
 import XIcon from '@/components/icons/XIcon.vue'
 
 export default {
+  name: 'index.page',
   components: {
     IndexButton,
     XIcon

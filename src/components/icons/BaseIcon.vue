@@ -6,6 +6,7 @@
 
 <script>
 export default{
+  name: 'components.icons.base',
   props: {
     size: {
       type: Number,

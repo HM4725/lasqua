@@ -7,7 +7,7 @@
 
 <script>
 export default{
-  name: 'table.record',
+  name: 'components.notice.record',
   props: {
     no: Number,
     title: String

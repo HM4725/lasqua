@@ -11,6 +11,7 @@
 import DefaultButton from '../buttons/DefaultButton.vue'
 
 export default{
+  name: 'components.form.search',
   emits: [
     'search'
   ],

@@ -12,6 +12,7 @@
 
 <script>
 export default{
+  name: 'components.form.radio',
   props: {
     id: {
       type: String,

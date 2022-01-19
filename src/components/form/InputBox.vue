@@ -7,6 +7,7 @@
 
 <script>
 export default{
+  name: 'components.form.input',
   inheritAttrs: false,
   props: {
     id: {

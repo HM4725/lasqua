@@ -53,6 +53,7 @@ import ImgComponent from '../utils/ImgComponent.vue'
 import TooltipSlot from '../utils/TooltipSlot.vue'
 
 export default{
+  name: 'components.buttons.profile.modify',
   emits: [
     'modify'
   ],

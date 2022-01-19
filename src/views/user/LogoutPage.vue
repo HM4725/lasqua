@@ -6,7 +6,7 @@
 
 <script>
 export default{
-  name: "user/LogoutPage",
+  name: "user.logout.page",
   data() {
     return {
       msg: '로그아웃 중입니다.'

@@ -9,6 +9,7 @@
 import AfterIcon from '../icons/AfterIcon.vue'
 
 export default {
+  name: 'components.buttons.default',
   components: {
     AfterIcon
   },

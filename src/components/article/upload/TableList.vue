@@ -9,6 +9,7 @@
 import ArticleRow from '../articlelist/ArticleRow.vue'
 
 export default{
+  name: 'components.article.upload.table',
   emits: [
     'request',
     'clicked'

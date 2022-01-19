@@ -6,6 +6,7 @@
 import RouterButton from './RouterButton.vue'
 
 export default{
+  name: 'components.buttons.index',
   components: {
     RouterButton
   },

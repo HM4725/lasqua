@@ -7,7 +7,9 @@
 
 <script>
 import ArticleRow from './ArticleRow.vue'
+
 export default{
+  name: 'components.article.list.table',
   emits: [
     'request',
     'clicked'

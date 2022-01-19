@@ -6,7 +6,7 @@
 
 <script>
 export default{
-  name: 'testPage'
+  name: 'utils.test.page'
 }
 </script>
 

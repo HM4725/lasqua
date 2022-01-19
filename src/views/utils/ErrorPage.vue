@@ -6,7 +6,7 @@
 
 <script>
 export default{
-  
+  name: 'utils.error.page'
 }
 </script>
 

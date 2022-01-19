@@ -32,6 +32,7 @@ function getArticlelistFrom(userlist) {
 }
 
 export default{
+  name: 'article.traveler.page',
   components: {
     ArticleList
   },

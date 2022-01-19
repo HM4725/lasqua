@@ -10,7 +10,7 @@ import HeaderLayout from './layouts/HeaderLayout.vue'
 import MainLayout from './layouts/MainLayout.vue'
 
 export default {
-  name: "laSquaApp",
+  name: "lasqua.app",
   components: {
     HeaderLayout,
     MainLayout

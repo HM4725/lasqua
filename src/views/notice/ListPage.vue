@@ -12,7 +12,7 @@ import RouterButton from '@/components/buttons/RouterButton.vue'
 import NoticeTable from '@/components/notice/NoticeTable.vue'
 
 export default{
-  name: 'notice.listPage',
+  name: 'notice.list.page',
   components: {
     RouterButton,
     NoticeTable

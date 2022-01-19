@@ -9,6 +9,7 @@
 
 <script>
 export default{
+  name: 'components.form.file.slot',
   emits: [
     'upload'
   ],

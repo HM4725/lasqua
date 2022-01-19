@@ -34,6 +34,7 @@
 import DefaultButton from '../buttons/DefaultButton.vue'
 
 export default{
+  name: 'components.utils.modal.slot',
   components: {
     DefaultButton
   },

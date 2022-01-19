@@ -21,7 +21,7 @@ import HamburgerIcon from '@/components/icons/HamburgerIcon.vue'
 import HeaderRightIcons from './HeaderRightIcons.vue'
 
 export default {
-  name: "HeaderLayout",
+  name: "layout.header",
   components: {
     SidebarLayout,
     HamburgerIcon,

@@ -20,6 +20,7 @@ function wrapImage(image) {
 }
 
 export default{
+  name: 'components.article.upload.main',
   components: {
     // TableList,
     SlideList

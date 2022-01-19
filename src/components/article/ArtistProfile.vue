@@ -24,6 +24,7 @@ import ImgComponent from '../utils/ImgComponent.vue'
 import SnsLinkButton from '../buttons/SnsLinkButton.vue'
 
 export default{
+  name: 'components.article.artist.profile',
   props: {
     artist: {
       type: Object,

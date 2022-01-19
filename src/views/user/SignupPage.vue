@@ -38,7 +38,7 @@ import DateBox from '@/components/form/DateBox.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 
 export default{
-  name: "user/SignupPage",
+  name: "user.signup.page",
   components: {
     InputBox,
     RadioBox,

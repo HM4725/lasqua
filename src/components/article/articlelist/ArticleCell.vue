@@ -9,6 +9,7 @@
 import ImgComponent from '../../utils/ImgComponent.vue'
 
 export default{
+  name: 'components.article.list.cell',
   props: {
     article: {
       type: Object,

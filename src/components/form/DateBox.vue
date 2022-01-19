@@ -20,7 +20,9 @@
 <script>
 import ModalSlot from '../utils/ModalSlot.vue'
 import InputBox from './InputBox.vue'
+
 export default{
+  name: 'components.form.date',
   components: {
     ModalSlot,
     InputBox

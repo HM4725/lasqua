@@ -9,6 +9,7 @@
 import BaseIcon from './BaseIcon.vue'
 
 export default{
+  name: 'components.icons.sns.twitter',
   components: {
     BaseIcon
   },

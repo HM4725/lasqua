@@ -42,7 +42,7 @@ function getArticlelistFrom(userlist) {
 }
 
 export default{
-  name: "WatcherPage",
+  name: 'article.search.page',
   components: {
     ArticleList
   },

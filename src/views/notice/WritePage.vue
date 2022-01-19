@@ -16,7 +16,7 @@ import Ckeditor from '@/components/form/CKEditor.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 
 export default{
-  name: 'notice.writePage',
+  name: 'notice.write.page',
   components: {
     InputBox,
     Ckeditor,

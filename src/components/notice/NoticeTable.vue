@@ -31,7 +31,7 @@
 import NoticeRecord from './NoticeRecord.vue'
 
 export default{
-  name: 'notice.table',
+  name: 'components.notice.table',
   components: {
     NoticeRecord
   },

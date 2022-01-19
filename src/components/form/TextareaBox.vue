@@ -8,6 +8,7 @@
 
 <script>
 export default{
+  name: 'components.form.textarea',
   inheritAttrs: false,
   props: {
     id: {

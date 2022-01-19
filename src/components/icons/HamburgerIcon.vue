@@ -10,6 +10,7 @@
 import BaseIcon from './BaseIcon.vue'
 
 export default{
+  name: 'components.icons.hamburger',
   components: {
     BaseIcon
   },

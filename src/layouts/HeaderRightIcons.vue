@@ -6,7 +6,9 @@
 
 <script>
 import ProfileIcon from '@/components/icons/ProfileIcon.vue'
+
 export default{
+  name: "layout.header.right.icons",
   components: {
     ProfileIcon
   },

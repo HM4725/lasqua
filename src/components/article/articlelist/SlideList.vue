@@ -21,7 +21,9 @@
 import ArticleCell from './ArticleCell.vue'
 import BeforeIcon from '../../icons/BeforeIcon.vue'
 import AfterIcon from '../../icons/AfterIcon.vue'
+
 export default{
+  name: 'components.article.list.slide',
   emits: [
     'request',
     'clicked'

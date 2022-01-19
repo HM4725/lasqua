@@ -4,6 +4,7 @@
 
 <script>
 export default{
+  name: 'components.utils.img',
   props: {
     title: {
       type: String,

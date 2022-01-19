@@ -6,6 +6,7 @@
 import DefaultButton from './DefaultButton.vue'
 
 export default{
+  name: 'components.buttons.router',
   components: {
     DefaultButton
   },

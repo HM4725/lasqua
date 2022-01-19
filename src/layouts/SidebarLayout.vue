@@ -5,7 +5,8 @@
         <search-box ref="search" @search="close"/>
       </header>
       <nav class="sidebar-nav">
-        <router-button class="nav-button" @click="close" v-for="(cate, i) in categories" :key="`nav_${i}`" :link="`/${cate}`" :value="cate" after/>
+        <router-button class="nav-button" v-for="(cate, i) in categories" 
+          :value="cate" @click="close" :key="`nav_${i}`" :link="`/${cate}`" after/>
       </nav>
       <footer class="sidebar-footer">
         <sidebar-footer/>
@@ -22,7 +23,7 @@ import SidebarFooter from './SidebarFooter.vue'
 const CATEGORIES = ['watcher', 'traveler', 'notice']
 
 export default{
-  name: "SidebarLayout",
+  name: "layout.sidebar",
   components: {
     SearchBox,
     RouterButton,

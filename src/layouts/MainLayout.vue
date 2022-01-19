@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "MainLayout"
+  name: "layout.main",
 }
 </script>
 

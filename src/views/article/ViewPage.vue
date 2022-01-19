@@ -26,6 +26,7 @@ import DefaultButton from '@/components/buttons/DefaultButton.vue'
 import ArtistDetails from '@/components/article/ArtistDetails.vue'
 
 export default{
+  name: 'article.view.page',
   components: {
     ImgComponent,
     DefaultButton,

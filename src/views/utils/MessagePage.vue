@@ -15,6 +15,7 @@
 //   }
 // })
 export default{
+  name: 'utils.message.page',
   data() {
     return {
       message: '',

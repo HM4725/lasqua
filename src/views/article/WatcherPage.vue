@@ -9,7 +9,7 @@
 import ArticleList from '@/components/article/articlelist/ArticleList.vue'
 
 export default{
-  name: "WatcherPage",
+  name: "article.watcher.page",
   components: {
     ArticleList
   },

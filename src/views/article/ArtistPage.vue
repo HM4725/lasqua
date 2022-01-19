@@ -29,7 +29,7 @@ import ArticleList from '@/components/article/articlelist/ArticleList.vue'
 import ProfileModifyButton from '@/components/buttons/ProfileModifyButton.vue'
 
 export default {
-  name: 'ArtistPage',
+  name: 'article.artist.page',
   components: {
     ImgComponent,
     ArtistProfile,

@@ -18,6 +18,7 @@
 
 <script>
 export default{
+  name: "layout.sidebar.footer",
   computed: {
     isLoggedIn() {
       return this.$store.getters.userId

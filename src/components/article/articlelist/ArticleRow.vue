@@ -10,6 +10,7 @@
 import ArticleCell from './ArticleCell.vue'
 
 export default{
+  name: 'components.article.list.table.row',
   emits: [
     'mount',
     'clicked'

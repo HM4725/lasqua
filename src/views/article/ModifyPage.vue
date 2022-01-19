@@ -23,6 +23,7 @@ import TextareaBox from '@/components/form/TextareaBox.vue'
 import InputBox from '@/components/form/InputBox.vue'
 
 export default{
+  name: 'article.modify.page',
   components: {
     UploadImages,
     DefaultButton,

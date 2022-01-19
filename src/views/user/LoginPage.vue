@@ -32,7 +32,7 @@ import DefaultButton from '@/components/buttons/DefaultButton.vue'
 import InputBox from '@/components/form/InputBox.vue'
 
 export default{
-  name: 'user/LoginPage',
+  name: 'user.login.page',
   components: {
     DefaultButton,
     InputBox

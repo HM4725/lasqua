@@ -7,6 +7,7 @@
 
 <script>
 export default{
+  name: 'components.utils.tooltip.slot',
   props: {
     text: String,
     focus: Boolean,
