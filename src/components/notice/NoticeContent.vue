@@ -42,4 +42,10 @@ export default{
   .ck.ck-toolbar {
     display: none !important;
   }
+  .ck.ck-widget__selection-handle {
+    display: none !important;
+  }
+  .ck.ck-editor__editable.ck-blurred .ck-widget.ck-widget_selected {
+    outline: none;
+  }
 </style>
