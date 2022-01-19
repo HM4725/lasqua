@@ -1,43 +1,51 @@
 <template>
-  <div class="view-page">
-    <ckeditor disabled :editor="editor" v-model="editorData" :config="editorConfig" />
-  </div>
+  <article class="view-page">
+    <div>{{title}}</div>
+    <div>{{regdate}}</div>
+    <notice-content :content="content"/>
+  </article>
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import CKEditor from '@ckeditor/ckeditor5-vue'
+import NoticeContent from '@/components/notice/NoticeContent.vue'
 
 export default{
   name: 'notice.viewPage',
   components: {
-    ckeditor: CKEditor.component
+    NoticeContent
   },
   data() {
     return {
-      editor: ClassicEditor,
-      editorData: "",
-      editorConfig: {
-        toolbar: {items: [],},
-        table: {
-          contentToolbar: []
-        }
+      no: 0,
+      title: '',
+      content: '',
+      regdate: ''
+    }
+  },
+  methods: {
+    async loadNotice(no) {
+      try {
+        const response = await this.$api("GET", `/notice?no=${no}`)
+        const data = response.data
+        this.title = data.title
+        this.content = data.content
+        this.regdate = data.regdate
+      } catch(error) {
+        console.error(error)
       }
     }
   },
+  created() {
+    this.no = this.$route.query.no
+    this.loadNotice(this.no)
+  }
 }
 </script>
 
-<style>
-  div.view-page {
+<style scoped>
+  article.view-page {
     width: 100%;
     padding: 1.5rem;
-  }
-  .ck-content {
-    width: 100%;
-    min-height:500px;
-  }
-  .ck.ck-toolbar {
-    display: none !important;
+    text-align: left;
   }
 </style>
