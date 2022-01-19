@@ -29,12 +29,17 @@ export default{
     }
   },
   methods: {
-    submit(e) {
-      e.preventDefault()
-      console.log('submit')
+    async submit() {
+      try {
+        const payload = {title: this.title, content: this.content}
+        await this.$api('POST', '/notice', payload)
+        this.$router.push('/notice')
+      } catch(error) {
+        console.error(error)
+      }
     },
     cancel() {
-      console.log('cancel')
+      this.$router.push('/notice')
     }
   }
 }
