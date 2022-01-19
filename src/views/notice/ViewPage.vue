@@ -1,7 +1,10 @@
 <template>
   <article class="view-page">
-    <div>{{title}}</div>
-    <div>{{regdate}}</div>
+    <h1>{{title}}</h1>
+    <dl>
+      <dt>등록일</dt>
+      <dd>{{regdate}}</dd>
+    </dl>
     <notice-content :content="content"/>
     <footer>
       <default-button class="button" value="목록" @click="backToList"/>
