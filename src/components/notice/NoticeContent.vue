@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <article>
     <ckeditor disabled :editor="editor" v-model="editorData" :config="editorConfig"/>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -19,17 +19,17 @@ export default{
   data() {
     return {
       editor: ClassicEditor,
-      editorData: "",
+      editorData: '',
       editorConfig: {
         toolbar: {items: [],},
-        table: {
-          contentToolbar: []
-        }
+        removePlugins: ['TableContentToolbar'],
       }
     }
   },
-  created() {
-    this.editorData = this.content
+  watch: {
+    content(val) {
+      this.editorData = val
+    }
   }
 }
 </script>
