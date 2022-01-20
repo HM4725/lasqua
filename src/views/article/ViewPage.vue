@@ -1,7 +1,7 @@
 <template>
   <div class="project-page">
     <article class="project">
-      <div class="details">
+      <div class="info">
         <h1 class="title">{{title}}</h1>
         <dl><dt>작가</dt><dd>{{id}}</dd></dl>
         <dl><dt>설명</dt><dd>{{content}}</dd></dl>
@@ -104,7 +104,7 @@ export default{
   .project-page > footer > button {
     margin-left: 1rem;
   }
-  .details {
+  .info {
     text-align: left;
   }
   .images {
@@ -117,6 +117,9 @@ export default{
   @media (max-width: 767px) {
     .project-page {
       padding: 0;
+    }
+    .info {
+      padding: 0 var(--mobile-padding-size);
     }
     .images {
       padding: 0;

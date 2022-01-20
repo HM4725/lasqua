@@ -94,6 +94,7 @@ export default{
   @media (max-width: 767px) {
     .login {
       width: 100%;
+      padding: var(--mobile-padding-size);
     }
     .login-wrapper {
       padding: 1rem;

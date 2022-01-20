@@ -85,7 +85,7 @@ export default{
   }
   @media (max-width: 767px) {
     article.view-page {
-      padding: 0;
+      padding: var(--mobile-padding-size);
     }
   }
 </style>

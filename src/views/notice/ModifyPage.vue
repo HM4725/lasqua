@@ -78,7 +78,7 @@ export default{
   }
   @media (max-width: 767px) {
     form.modify-page {
-      padding: 0;
+      padding: var(--mobile-padding-size);
     }
   }
 </style>

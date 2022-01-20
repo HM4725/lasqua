@@ -248,6 +248,7 @@ export default{
   @media (max-width: 767px) {
     .signup {
       width: 100%;
+      padding: var(--mobile-padding-size);
     }
     .signup-info {
       flex-direction: column;

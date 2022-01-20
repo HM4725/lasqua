@@ -106,4 +106,9 @@ export default{
   .modify-wrapper > .submit > .button {
     margin-left: 1rem;
   }
+  @media (max-width: 767px) {
+    .modify-wrapper {
+      padding: var(--mobile-padding-size);
+    }
+  }
 </style>

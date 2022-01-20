@@ -135,4 +135,9 @@ export default {
   .tooltip:focus > .tooltip-text  {
     display: block;
   }
+  @media (max-width: 767px) {
+    .artist-page {
+      padding: 0;
+    }
+  }
 </style>
