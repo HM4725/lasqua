@@ -29,6 +29,7 @@ const store = createStore({
         await api('POST', '/login', payload)
         const response = await api('GET', `/user/${payload.id}/info`)
         const info = response.data
+        console.log(info)
         // add fields which you want
         payload.role = info.role
         commit('login', payload)
