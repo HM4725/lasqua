@@ -5,8 +5,8 @@
         <img-component :src="profileImage" :title="artist.id" ratio="3/4" class="artist-img"/>
       </div>
       <div class="information">
-        <div class="id"><span>작가</span>{{artist.id}}</div>
-        <div class="info"><span>소개</span>{{artist.info}}</div>
+        <dl><dt>작가</dt><dd>{{artist.id}}</dd></dl>
+        <dl><dt>소개</dt><dd>{{artist.info}}</dd></dl>
         <ul class="sns" v-if="useSns">
           <li v-if="artist.facebook">
             <sns-link-button type="facebook" :link="artist.facebook"/>
@@ -107,9 +107,6 @@ export default{
     width: 80%;
     text-align: left;
     padding-left: 3rem;
-  }
-  .artist-details > .artist > .information > * {
-    margin-bottom: .5rem;
   }
   .artist-details > .projects {
     text-align: right;

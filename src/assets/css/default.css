@@ -38,6 +38,10 @@ button, input, optgroup, select, textarea {
 dl, dt, dd {
   all: unset;
 }
+dl {
+  display: block;
+  margin-bottom: 1em;
+}
 dt {
   color: var(--disabled-color);
 }
