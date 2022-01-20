@@ -138,7 +138,6 @@ export default{
     },
     async handleRequestArtist(page) {
       try {
-        console.log(getArticlelistFrom)
         const response = await this.$api("GET", 
           `/search/users?key=${this.keyword}&page=${page}`)
         const data = getArticlelistFrom(response.data)
@@ -149,7 +148,6 @@ export default{
       }
     },
     handleClickArtist(id) {
-      console.log(id)
       this.$router.push(`/artist/${id}`)
     },
     // Mobile API
