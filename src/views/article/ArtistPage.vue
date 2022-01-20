@@ -7,7 +7,7 @@
       <div class="artist" v-if="artist.id" >
         <artist-profile :artist="artist"/>
         <profile-modify-button v-if="myPage" class="button" @modify="modify"
-          :artist="artist" :focus="!artist.profileImage"/>
+          :artist="artist" :focus="signup"/>
         <router-button v-if="myPage" class="button" link="/myinfo" value="개인정보 수정"/>
       </div>
       <div class="projects">
@@ -41,7 +41,8 @@ export default {
     return {
       id: '',
       artist: {},
-      myPage: false
+      myPage: false,
+      signup: false
     }
   },
   methods: {
@@ -89,6 +90,7 @@ export default {
     this.id = this.$route.params.id
     this.id === this.$store.getters.userId && (this.myPage = true)
     this.loadArtist(this.id)
+    this.$route.query.signup && (this.signup = true)
   }
 };
 </script>
