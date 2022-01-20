@@ -135,4 +135,10 @@ export default{
     color: var(--disabled-color);
     background: none;
   }
+  @media (max-width: 767px) {
+    section.table-wrapper {
+      padding: 0;
+      border: none;
+    }
+  }
 </style>

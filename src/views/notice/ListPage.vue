@@ -36,5 +36,11 @@ export default{
   }
   section.notice-list-page > div.buttons {
     text-align: right;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 767px) {
+    section.notice-list-page {
+      padding: 10px;
+    }
   }
 </style>
