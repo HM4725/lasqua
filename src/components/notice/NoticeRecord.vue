@@ -26,12 +26,10 @@ export default{
     transition: all .25s ease-out;
     line-height: 2.5;
     cursor: pointer;
+    border-bottom: 1px solid var(--base-color);
   }
   tr:hover, tr:active {
     background: var(--active-bg-color);
     color: var(--active-color);
-  }
-  td {
-    border: 1px solid var(--base-color);
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="table-wrapper">
     <table>
         <thead>
         <tr>
@@ -91,17 +91,18 @@ export default{
 </script>
 
 <style scoped>
-  table {
-    width: 100%;
+  section.table-wrapper {
     border: 1px solid var(--base-color);
+    padding: 1rem 2rem;
+  }
+  section.table-wrapper > table {
+    width: 100%;
     border-collapse: collapse;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
   }
   thead > tr {
     line-height: 2.5;
-  }
-  th {
-    border: 1px solid var(--base-color);
+    border-bottom: 1px solid var(--base-color);
   }
   th.field-no {
     width: 3rem;

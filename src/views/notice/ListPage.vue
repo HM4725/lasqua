@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="notice-list-page">
     <h1>공지사항</h1>
     <div class="buttons" v-if="isAdmin">
       <router-button link="/notice/write" value="공지사항 작성"/>
@@ -30,11 +30,11 @@ export default{
 </script>
 
 <style scoped>
-  section {
+  section.notice-list-page {
     width: 100%;
-    padding: 3rem;
+    padding: 1rem 3rem;
   }
-  section > div.buttons {
+  section.notice-list-page > div.buttons {
     text-align: right;
   }
 </style>
