@@ -1,34 +1,34 @@
 <template>
-  <div>
-    <form class="signup" @submit.prevent="submit" method="POST">
-      <div class="signup-info">
-        <div class="necessary">
-          <p class="f-title">필수 사항</p>
-          <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="username" @input="v=>{id.val=v}" @focus="clearBox(id)"/>
-          <span class="message">{{id.msg}}</span>
-          <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="new-password" @input="v=>{pw.val=v}" @focus="clearBox(pw)"/>
-          <span class="message">{{pw.msg}}</span>
-          <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="new-password" @input="v=>{confirmPw.val=v}" @focus="clearBox(confirmPw)"/>
-          <span class="message">{{confirmPw.msg}}</span>
-          <input-box id="signup-name" type="text" placeholder="이름" @input="v=>{name.val=v}" @focus="clearBox(name)"/>
-          <span class="message">{{name.msg}}</span>
-          <input-box id="signup-email" type="text" placeholder="이메일" @input="v=>{email.val=v}" @focus="clearBox(email)"/>
-          <span class="message">{{email.msg}}</span>
-          <input-box id="signup-phone" type="tel" placeholder="전화번호" @input="v=>{tel.val=v}"  @focus="clearBox(tel)"/>
-          <span class="message">{{tel.msg}}</span>
-        </div>
-        <div class="optional">
-          <p class="f-title">선택 사항</p>
-          <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
-          <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
-          <date-box id="signup-regdate" placeholder="생년월일" ref="birth"/>
-        </div>
+  <form class="signup" @submit.prevent="submit" method="POST">
+    <h1>회원가입</h1>
+    <div class="signup-info">
+      <div class="necessary">
+        <p class="f-title">필수 사항</p>
+        <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="username" @input="v=>{id.val=v}" @focus="clearBox(id)"/>
+        <span class="message">{{id.msg}}</span>
+        <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="new-password" @input="v=>{pw.val=v}" @focus="clearBox(pw)"/>
+        <span class="message">{{pw.msg}}</span>
+        <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="new-password" @input="v=>{confirmPw.val=v}" @focus="clearBox(confirmPw)"/>
+        <span class="message">{{confirmPw.msg}}</span>
+        <input-box id="signup-name" type="text" placeholder="이름" @input="v=>{name.val=v}" @focus="clearBox(name)"/>
+        <span class="message">{{name.msg}}</span>
+        <input-box id="signup-email" type="text" placeholder="이메일" @input="v=>{email.val=v}" @focus="clearBox(email)"/>
+        <span class="message">{{email.msg}}</span>
+        <input-box id="signup-phone" type="tel" placeholder="전화번호" @input="v=>{tel.val=v}"  @focus="clearBox(tel)"/>
+        <span class="message">{{tel.msg}}</span>
       </div>
-      <div>
-        <default-button type="submit" value="회원가입"/>
+      <div class="optional">
+        <p class="f-title">선택 사항</p>
+        <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
+        <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
+        <date-box id="signup-regdate" placeholder="생년월일" ref="birth"/>
       </div>
-    </form>
-  </div>
+    </div>
+    <footer>
+      <default-button class="button" type="button" value="취소" @click.prevent="cancel"/>
+      <default-button class="button" type="submit" value="가입"/>
+    </footer>
+  </form>
 </template>
 
 <script>
@@ -211,6 +211,9 @@ export default{
         }
       }
     },
+    cancel() {
+      this.$router.go(-1)
+    }
   }
 }
 </script>
@@ -219,10 +222,11 @@ export default{
   .signup {
     display: flex;
     flex-direction: column;
+    margin: auto;
   }
   .signup-info {
     display: flex;
-    flex-direction :row;
+    flex-direction: row;
     width: 30rem;
   }
   .signup-info > div {
@@ -232,7 +236,22 @@ export default{
   .signup-info > div > * {
     margin: .5rem 0;
   }
+  .signup > footer {
+    margin: 1rem;
+  }
+  .signup > footer > .button {
+    margin: 0 .75rem;
+  }
   .message {
     color: red;
+  }
+  @media (max-width: 767px) {
+    .signup {
+      width: 100%;
+    }
+    .signup-info {
+      flex-direction: column;
+      width: 100%;
+    }
   }
 </style>

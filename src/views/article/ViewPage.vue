@@ -3,8 +3,8 @@
     <article class="project">
       <div class="details">
         <div class="title">{{title}}</div>
-        <div class="id"><span>작가</span>{{id}}</div>
-        <div class="content"><span>설명</span><pre>{{content}}</pre></div>
+        <dl><dt>작가</dt><dd>{{id}}</dd></dl>
+        <dl><dt>설명</dt><dd>{{content}}</dd></dl>
       </div>
       <div class="images">
         <template v-for="(image, i) in images.slice(1)" :key="i">
@@ -113,34 +113,19 @@ export default{
     margin-bottom: 1rem;
     border-bottom: solid 1px var(--active-bg-color)
   }
-  .details > .id {
-    padding-left: 1rem;
-    margin-bottom: .5rem;
-  }
-  .details > .id > span {
-    color: var(--active-color);
-    padding-right: 2rem;
-  }
-  .details > .content {
-    display: flex;
-    flex-direction: row;
-    padding-left: 1rem;
-    margin-bottom: .5rem;
-  }
-  .details > .content > span {
-    color: var(--active-color);
-    padding-right: 2rem;
-  }
-  .details > .content > pre {
-    margin: 0;
-    font-family: inherit;
-    font-size: .8rem;
-  }
   .images {
     padding: 0 3rem;
   }
   .images > img {
     aspect-ratio: auto;
     margin-bottom: 1rem;
+  }
+  @media (max-width: 767px) {
+    .project-page {
+      padding: 0;
+    }
+    .images {
+      padding: 0;
+    }
   }
 </style>

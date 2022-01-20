@@ -57,10 +57,15 @@ export default{
     margin-bottom: 1.5rem;
   }
   footer.write-page-buttons {
-    margin: 1.5rem 0;
+    padding: 1rem 0;
     text-align: right;
   }
   footer.write-page-buttons > button {
     margin-left: 1rem !important;
+  }
+  @media (max-width: 767px) {
+    form.write-page {
+      padding: 0;
+    }
   }
 </style>

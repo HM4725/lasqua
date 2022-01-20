@@ -32,8 +32,7 @@ export default{
     return {
       no: 0,
       title: '',
-      content: '',
-      isAdmin: false
+      content: ''
     }
   },
   methods: {
@@ -71,10 +70,15 @@ export default{
     margin-bottom: 1.5rem;
   }
   footer.modify-page-buttons {
-    margin: 1.5rem 0;
+    padding: 1rem 0;
     text-align: right;
   }
   footer.modify-page-buttons > button {
     margin-left: 1rem !important;
+  }
+  @media (max-width: 767px) {
+    form.modify-page {
+      padding: 0;
+    }
   }
 </style>

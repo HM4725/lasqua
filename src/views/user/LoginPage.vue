@@ -20,9 +20,9 @@
       </div>
     </form>
     <footer class="etc">
-      <default-button value="회원가입" @click="$router.push('/signup')"/>
-      <default-button value="아이디 찾기"/>
-      <default-button value="비밀번호 찾기"/>
+      <default-button class="button" value="회원가입" @click="$router.push('/signup')"/>
+      <default-button class="button" value="아이디 찾기"/>
+      <default-button class="button" value="비밀번호 찾기"/>
     </footer>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default{
 
 <style scoped>
   .login {
-    width: 30rem;
+    width: 24rem;
   }
   form.login-form {
     margin: 1rem 0;
@@ -84,8 +84,28 @@ export default{
     color: red;
   }
   footer.etc {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: row;
     column-gap: 1rem;
+  }
+  footer.etc > .button {
+    flex: 1;
+  }
+  @media (max-width: 767px) {
+    .login {
+      width: 100%;
+    }
+    .login-wrapper {
+      padding: 1rem;
+    }
+    .login-info {
+      width: 70%;
+      margin-right: 1rem;
+    }
+    footer.etc {
+      margin: 0 1rem 1rem 1rem;
+      row-gap: 1rem;
+      flex-direction: column;
+    }
   }
 </style>

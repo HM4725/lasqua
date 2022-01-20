@@ -40,7 +40,7 @@ export default{
   }
   @media (max-width: 767px) {
     section.notice-list-page {
-      padding: 10px;
+      padding: 0px;
     }
   }
 </style>

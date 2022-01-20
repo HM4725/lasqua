@@ -8,8 +8,8 @@
     <notice-content :content="content"/>
     <footer>
       <default-button class="button" value="목록" @click="backToList"/>
-      <default-button class="button" value="수정하기" @click="modifyNotice" v-if="isAdmin"/>
-      <default-button class="button" value="삭제하기" @click="deleteNotice" v-if="isAdmin"/>
+      <default-button class="button" value="수정" @click="modifyNotice" v-if="isAdmin"/>
+      <default-button class="button" value="삭제" @click="deleteNotice" v-if="isAdmin"/>
     </footer>
   </article>
 </template>
@@ -78,9 +78,14 @@ export default{
   }
   footer {
     text-align: right;
-    margin: 1rem 0;
+    padding: 1rem 0;
   }
   footer > .button {
     margin-left: 1rem;
+  }
+  @media (max-width: 767px) {
+    article.view-page {
+      padding: 0;
+    }
   }
 </style>
