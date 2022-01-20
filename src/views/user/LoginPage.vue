@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <p class="f-title">la squadra di blu</p>
+    <h2>la squadra di blu</h2>
     <p>
       라스콰드라 디 블루에 속한<br>
       아티스트와 기업을 위한 페이지입니다.<br>

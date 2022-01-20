@@ -3,7 +3,7 @@
     <h1>회원가입</h1>
     <div class="signup-info">
       <div class="necessary">
-        <p class="f-title">필수 사항</p>
+        <h2>필수 사항</h2>
         <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="username" @input="v=>{id.val=v}" @focus="clearBox(id)"/>
         <span class="message">{{id.msg}}</span>
         <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="new-password" @input="v=>{pw.val=v}" @focus="clearBox(pw)"/>
@@ -18,7 +18,7 @@
         <span class="message">{{tel.msg}}</span>
       </div>
       <div class="optional">
-        <p class="f-title">선택 사항</p>
+        <h2>선택 사항</h2>
         <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
         <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
         <date-box id="signup-regdate" placeholder="생년월일" ref="birth"/>
@@ -252,6 +252,9 @@ export default{
     .signup-info {
       flex-direction: column;
       width: 100%;
+    }
+    .signup-info > div {
+      margin: 0;
     }
   }
 </style>

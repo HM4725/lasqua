@@ -2,7 +2,7 @@
   <div class="project-page">
     <article class="project">
       <div class="details">
-        <div class="title">{{title}}</div>
+        <h1 class="title">{{title}}</h1>
         <dl><dt>작가</dt><dd>{{id}}</dd></dl>
         <dl><dt>설명</dt><dd>{{content}}</dd></dl>
       </div>
@@ -106,12 +106,6 @@ export default{
   }
   .details {
     text-align: left;
-  }
-  .details > .title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    border-bottom: solid 1px var(--active-bg-color)
   }
   .images {
     padding: 0 3rem;
