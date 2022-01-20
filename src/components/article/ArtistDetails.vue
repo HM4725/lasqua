@@ -2,7 +2,7 @@
   <section class="artist-details">
     <div class="artist">
       <div class="image">
-        <img-component :src="profileImage" :title="artist.id" ratio="3/4" class="artist-img"/>
+        <img-component :src="artist.profileImage" :title="artist.id" ratio="3/4" class="artist-img"/>
       </div>
       <div class="information">
         <dl><dt>작가</dt><dd>{{artist.id}}</dd></dl>
@@ -52,6 +52,9 @@ export default{
     async loadArtist() {
       try {
         const response = await this.$api("GET", `/user/${this.uid}`)
+        if(!response.data.profileImage) {
+          response.data.profileImage = require('@/assets/img/default-profile.png')
+        }
         this.artist = response.data
       } catch(error) {
         this.artist = {}
@@ -76,9 +79,6 @@ export default{
   computed: {
     useSns() {
       return this.artist.facebook || this.artist.instagram || this.artist.twitter
-    },
-    profileImage() {
-      return this.artist.profileImage || require('@/assets/img/default-profile.png')
     }
   },
   created() {
