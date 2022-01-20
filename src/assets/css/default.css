@@ -40,17 +40,18 @@ dl, dt, dd {
   all: unset;
 }
 dl {
-  display: block;
+  display: flex;
   margin-bottom: 1em;
+  column-gap: 2em;
 }
 dt {
   color: var(--disabled-color);
   vertical-align: top;
+  word-break: keep-all;
 }
 dd {
   display: inline-block;
-  margin-left: 2rem;
-  white-space: pre;
+  white-space: pre-line;
 }
 input::placeholder {
   color: #a9a9a9;
