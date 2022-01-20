@@ -16,6 +16,9 @@ export default{
   components: {
     RouterButton,
     NoticeTable
+  },
+  mounted() {
+    console.log(this.$store.getters.userRole)
   }
 }
 </script>

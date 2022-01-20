@@ -13,18 +13,23 @@ const store = createStore({
   mutations: {
     login: (state, payload) => {
       state.user.id = payload.id
+      state.user.role = payload.role
     },
     logout: (state) => {
       state.user = {}
     }
   },
   getters: {
-    userId: (state) => state.user.id
+    userId: (state) => state.user.id,
+    userRole: (state) => state.user.role
   },
   actions: {
     login: async ({commit}, payload) => {
       try {
-        await api("POST", "/login", payload)
+        await api('POST', '/login', payload)
+        const info = await ('GET', `/user/${payload.id}/info`)
+        // add fields which you want
+        payload.role = info.role
         commit('login', payload)
         return true
       } catch(error) {
