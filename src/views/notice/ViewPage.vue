@@ -8,8 +8,8 @@
     <notice-content :content="content"/>
     <footer>
       <default-button class="button" value="목록" @click="backToList"/>
-      <default-button class="button" value="수정하기" @click="modifyNotice"/>
-      <default-button class="button" value="삭제하기" @click="deleteNotice"/>
+      <default-button class="button" value="수정하기" @click="modifyNotice" v-if="isAdmin"/>
+      <default-button class="button" value="삭제하기" @click="deleteNotice" v-if="isAdmin"/>
     </footer>
   </article>
 </template>
@@ -29,7 +29,8 @@ export default{
       no: 0,
       title: '',
       content: '',
-      regdate: ''
+      regdate: '',
+      isAdmin: false
     }
   },
   methods: {
@@ -64,6 +65,7 @@ export default{
   created() {
     this.no = this.$route.query.no
     this.loadNotice(this.no)
+    this.$store.getters.userRole === 'admin' && (this.isAdmin = true)
   }
 }
 </script>

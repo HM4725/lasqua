@@ -1,8 +1,9 @@
 <template>
   <section>
-    <header>
+    <h1>공지사항</h1>
+    <div class="buttons" v-if="isAdmin">
       <router-button link="/notice/write" value="공지사항 작성"/>
-    </header>
+    </div>
     <notice-table/>
   </section>
 </template>
@@ -17,8 +18,13 @@ export default{
     RouterButton,
     NoticeTable
   },
-  mounted() {
-    console.log(this.$store.getters.userRole)
+  data() {
+    return {
+      isAdmin: false
+    }
+  },
+  created() {
+    this.$store.getters.userRole === 'admin' && (this.isAdmin = true)
   }
 }
 </script>
@@ -28,7 +34,7 @@ export default{
     width: 100%;
     padding: 3rem;
   }
-  section > header {
+  section > div.buttons {
     text-align: right;
   }
 </style>

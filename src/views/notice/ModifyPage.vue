@@ -32,7 +32,8 @@ export default{
     return {
       no: 0,
       title: '',
-      content: ''
+      content: '',
+      isAdmin: false
     }
   },
   methods: {
@@ -50,6 +51,8 @@ export default{
     }
   },
   created() {
+    this.$store.getters.userRole !== 'admin' && this.$router.push('/error')
+
     const target = JSON.parse(this.data)
     target.error && this.$handleWrongAccess('/notice')
     this.no = target.no

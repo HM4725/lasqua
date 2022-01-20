@@ -41,6 +41,9 @@ export default{
     cancel() {
       this.$router.push('/notice')
     }
+  },
+  created() {
+    this.$store.getters.userRole !== 'admin' && this.$router.push('/error')
   }
 }
 </script>
