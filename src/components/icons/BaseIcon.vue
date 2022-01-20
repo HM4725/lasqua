@@ -21,7 +21,7 @@ export default{
     fill: var(--base-color);
     transition: fill .15s ease-out;
     cursor: pointer;
-    display: block;
+    display: inline-block;
   }
   .icon.disabled {
     fill: var(--active-color);

@@ -33,9 +33,4 @@ export default {
   .fade-leave-active {
     opacity: 0;
   }
-  @media (max-width: 767px) {
-    .main-wrapper {
-      padding: 16px;
-    }
-  }
 </style>
