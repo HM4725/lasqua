@@ -27,7 +27,7 @@ const store = createStore({
     login: async ({commit}, payload) => {
       try {
         await api('POST', '/login', payload)
-        const response = await ('GET', `/user/${payload.id}/info`)
+        const response = await api('GET', `/user/${payload.id}/info`)
         const info = response.data
         // add fields which you want
         payload.role = info.role
