@@ -67,4 +67,9 @@ export default{
     overflow-wrap: break-word;
     border-spacing: 1.5rem;
   }
+  @media (max-width: 767px) {
+    table {
+      border-spacing: 5px;
+    }
+  }
 </style>
