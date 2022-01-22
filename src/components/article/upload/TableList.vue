@@ -23,7 +23,7 @@ export default{
   data() {
     return {
       rows: [],
-      INTERVAL: 1
+      INTERVAL: 5
     }
   },
   methods: {
