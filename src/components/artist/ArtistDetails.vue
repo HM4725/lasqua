@@ -56,7 +56,8 @@ export default{
     AfterIcon
   },
   props: {
-    uid: String
+    uid: String,
+    no: Number
   },
   data() {
     return {
@@ -81,7 +82,10 @@ export default{
         const response = await this.$api("GET", `/articles/${this.uid}?page=${page}`)
         const data = response.data
         if(data.page === page) {
+          const idx = data.articles.findIndex(article => article.no === this.no)
+          data.articles.splice(idx, 1)
           data.articles.sort((a, b) => b.no - a.no)
+          data.allArticleCount -= 1
           this.$refs.articles.inject(data)
         }
       } catch(error) {

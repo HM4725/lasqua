@@ -12,10 +12,10 @@
         </template>
       </div>
     </article>
-    <artist-details v-if="id" class="artist" :uid="id"/>
+    <artist-details v-if="id" class="artist" :uid="id" :no="no"/>
     <footer v-if="myPage">
-      <default-button value="수정하기" @click="modifyArticle"/>
-      <default-button value="삭제하기" @click="deleteArticle"/>
+      <default-button class="button" value="수정하기" @click="modifyArticle"/>
+      <default-button class="button" value="삭제하기" @click="deleteArticle"/>
     </footer>
   </div>
 </template>
@@ -73,7 +73,7 @@ export default{
     },
   },
   created() {
-    this.no = this.$route.query.no
+    this.no = parseInt(this.$route.query.no)
     this.loadArticle()
   }
 }
@@ -100,8 +100,9 @@ export default{
   }
   .project-page > footer {
     text-align: right;
+    margin: 1rem 0;
   }
-  .project-page > footer > button {
+  .project-page > footer > .button {
     margin-left: 1rem;
   }
   .info {
@@ -123,6 +124,9 @@ export default{
     }
     .images {
       padding: 0;
+    }
+    .project-page > footer {
+      padding: var(--mobile-padding-size);
     }
   }
 </style>
