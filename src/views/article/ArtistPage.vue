@@ -104,13 +104,13 @@ export default {
     overflow: hidden;
   }
   .artist-page > section {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
+    display: flex;
+    flex-direction: row;
     min-height: 60%;
   }
   .artist {
-    width: 80%;
-    margin: 0 auto;
+    flex: 1;
+    padding: 0 1.5rem;
     position: relative;
     top: -7vw;
     height: fit-content;
@@ -120,6 +120,7 @@ export default {
     margin-top: 1rem;
   }
   .projects {
+    flex: 3;
     padding: 1rem;
     height: fit-content;
   }
@@ -136,8 +137,18 @@ export default {
     display: block;
   }
   @media (max-width: 767px) {
-    .artist-page {
+    .artist-page > section {
+      flex-direction: column;
+    }
+    .artist {
+      width: 100%;
+      position: static;
+      top: 0;
       padding: 0;
+    }
+    .projects {
+      flex: 1;
+      padding: 1rem 0;
     }
   }
 </style>
