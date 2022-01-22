@@ -4,7 +4,7 @@
       <article-row v-for="(row, i) in rows" :articles="row" :key="`row_${i}`"
         @mount="addRow" @clicked="handleClick"/>
     </tbody>
-    <tfoot v-show="isRightExist" class="loading">
+    <tfoot v-show="loading" class="loading">
       <tr>
         <td :colspan="rowlength">
           <loading-icon :size="64"/>
@@ -36,7 +36,8 @@ export default{
       init: false,
       rows: [],
       INTERVAL: 5,
-      isRightExist: true
+      isRightExist: true,
+      loading: false
     }
   },
   methods: {
@@ -45,6 +46,7 @@ export default{
       if(this.isRightExist) {
         const delta = (window.scrollY + window.innerHeight) - document.documentElement.scrollHeight
         if(Math.abs(delta) < this.INTERVAL) {
+          this.loading = true
           this.$emit('request')
         }
       }
@@ -61,6 +63,7 @@ export default{
         }
         this.rows.push(articles)
       }
+      this.loading = false
       this.init = true
     }
   },
@@ -82,6 +85,7 @@ export default{
   }
   tfoot.loading {
     width: 100%;
+    text-align: center;
   }
   @media (max-width: 767px) {
     table {
