@@ -35,7 +35,7 @@ export default{
     return {
       init: false,
       rows: [],
-      INTERVAL: 1,
+      INTERVAL: 5,
       isRightExist: true
     }
   },
