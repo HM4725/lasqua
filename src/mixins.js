@@ -19,6 +19,16 @@ export default {
     $handleWrongAccess(redirect) {
       alert('잘못된 접근입니다.')
       this.$router.push(redirect)
+    },
+    $processMessenger(message, redirect, query) {
+      this.$router.push({
+        name: 'message',
+        params: {
+          message: message,
+          redirect: redirect
+          },
+        query: query
+      })
     }
   }
 }

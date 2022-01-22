@@ -48,7 +48,7 @@ export default{
     async deleteArticle() {
       try {
         await this.$api("DELETE", `/article/${this.no}?id=${this.id}`)
-          this.$router.push(`/artist/${this.$store.getters.userId}`)
+        this.$processMessenger('게시글을 삭제하였습니다.', `/artist/${this.$store.getters.userId}`)
       } catch(error) {
         console.error(error)
       }
@@ -68,7 +68,7 @@ export default{
         this.regdate = data.regdate
         this.id === this.$store.getters.userId && (this.myPage = true)
       } catch(error) {
-        this.$router.push({name: 'message', params: {message: "잘못된 접근입니다.", redirect: "/"}})
+        this.$handleWrongAccess('/')
       }
     },
   },

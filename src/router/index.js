@@ -86,7 +86,8 @@ const routes = [
   {
     path: '/message',
     name: 'message',
-    component: () => import('@/views/utils/MessagePage.vue')
+    component: () => import('@/views/utils/MessagePage.vue'),
+    props: true
   },
   {
     path: '/test',
