@@ -88,19 +88,14 @@ export default{
   @media (max-width: 767px) {
     .artist-card {
       flex-direction: row;
-      padding: 0;
+      padding: 6px 0;
       border: none;
-      border-radius: 0;
-      box-shadow: rgb(0 0 0 / 20%) 0 0 12px 12px
-    }
-    .artist-card > .image{
-      border: none;
-      padding: 5px;
-      margin-bottom: 0;
+      box-shadow: rgb(0 0 0 / 20%) 0 0 12px 12px;
     }
     .artist-card > .image {
       flex: 2;
-      margin: auto 0;
+      margin: auto 6px;
+      padding: 0;
     }
     .artist-card > .profile {
       padding: .5rem .5rem 0 1rem;

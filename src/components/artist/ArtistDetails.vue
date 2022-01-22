@@ -21,9 +21,16 @@
       </div>
     </div>
     <div class="projects">
-      <label>작가의 다른 작품 더보기</label>
-      <article-list ref="articles" :rowlength="4" paging="button"
-        @request="handleRequest" @clicked="handleClick"/>
+      <template v-if="$isMobile()">
+        <label>작가의 다른 작품 더보기</label>
+        <article-list ref="articles" :rowlength="3" paging="scroll"
+          @request="handleRequest" @clicked="handleClick"/>
+      </template>
+      <template v-else>
+        <label>작가의 다른 작품 더보기</label>
+        <article-list ref="articles" :rowlength="4" paging="button"
+          @request="handleRequest" @clicked="handleClick"/>
+      </template>
     </div>
   </section>
 </template>
@@ -127,5 +134,21 @@ export default{
   }
   ul.sns > li {
     margin-left: 8px;
+  }
+  @media (max-width: 767px) {
+    .artist-details > .artist {
+      flex-direction: row;
+      padding: 6px 0;
+      border: none;
+    }
+    .artist-details > .artist > .image{
+      flex: 2;
+      margin: auto 6px;
+      padding: 0;
+    }
+    .artist-details > .artist > .information {
+      padding: .5rem .5rem 0 1rem;
+      flex: 3;
+    }
   }
 </style>
