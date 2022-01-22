@@ -27,8 +27,8 @@
         </label>
         <div class="articles-wrapper">
           <transition name="slide-down">
-            <article-list v-show="open" ref="articles" :rowlength="3" 
-              paging="scroll" @request="handleRequest" @clicked="handleClick"/>
+            <article-list v-if="open" ref="articles" paging="scroll" 
+              @request="handleRequest" @clicked="handleClick"/>
           </transition>
         </div>
       </template>
