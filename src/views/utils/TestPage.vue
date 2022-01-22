@@ -6,7 +6,16 @@
 
 <script>
 export default{
-  name: 'utils.test.page'
+  name: 'utils.test.page',
+  methods: {
+    async test() {
+        const response = await this.$api("GET", `/user/${id}/info`)
+        console.log(response.data)
+    },
+  },
+  mounted() {
+    
+  }
 }
 </script>
 
