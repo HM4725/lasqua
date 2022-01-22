@@ -24,7 +24,7 @@
 
 <script>
 import ImgComponent from '@/components/utils/ImgComponent.vue'
-import ArtistProfile from '@/components/article/ArtistProfile.vue'
+import ArtistProfile from '@/components/artist/ArtistProfile.vue'
 import RouterButton from '@/components/buttons/RouterButton.vue'
 import ArticleList from '@/components/article/articlelist/ArticleList.vue'
 import ProfileModifyButton from '@/components/buttons/ProfileModifyButton.vue'

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import ArticleList from './articlelist/ArticleList.vue'
+import ArticleList from '../article/articlelist/ArticleList.vue'
 import ImgComponent from '../utils/ImgComponent.vue'
 import SnsLinkButton from '../buttons/SnsLinkButton.vue'
 

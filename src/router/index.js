@@ -38,14 +38,14 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/artist/:id',
-    name: 'artist',
-    component: () => import('@/views/article/ArtistPage.vue'),
-  },
-  {
     path: '/search',
     name: 'search',
     component: () => import('@/views/article/SearchPage.vue'),
+  },
+  {
+    path: '/artist/:id',
+    name: 'artist',
+    component: () => import('@/views/user/ArtistPage.vue'),
   },
   {
     path: '/login',

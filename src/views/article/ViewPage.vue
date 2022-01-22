@@ -23,7 +23,7 @@
 <script>
 import ImgComponent from '@/components/utils/ImgComponent.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
-import ArtistDetails from '@/components/article/ArtistDetails.vue'
+import ArtistDetails from '@/components/artist/ArtistDetails.vue'
 
 export default{
   name: 'article.view.page',
