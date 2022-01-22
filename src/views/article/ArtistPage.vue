@@ -8,13 +8,14 @@
         <artist-profile :artist="artist"/>
         <profile-modify-button v-if="myPage" class="button" @modify="modify"
           :artist="artist" :focus="signup"/>
-        <router-button v-if="myPage" class="button" link="/myinfo" value="개인정보 수정"/>
+        <router-button v-if="myPage&&(!$isMobile())" class="button" link="/myinfo" value="개인정보 수정"/>
       </div>
       <div class="projects">
         <div v-if="myPage" class="buttons">
+          <router-button v-if="isMobile()" class="button" link="/myinfo" value="개인정보 수정"/>
           <router-button class="button" link="/article/upload" value="게시글 올리기"/>
         </div>
-        <article-list ref="articles" :rowlength="3" paging="scroll"
+        <article-list class="articles" ref="articles" :rowlength="3" paging="scroll"
           @request="handleRequest" @clicked="handleClick"/>
       </div>
     </section>
@@ -146,9 +147,23 @@ export default {
       top: 0;
       padding: 0;
     }
+    .artist > .button {
+      padding: 0 6px;
+    }
     .projects {
       flex: 1;
-      padding: 1rem 0;
+      padding: 0;
+    }
+    .projects > .buttons {
+      justify-content: space-between;
+      column-gap: 6px;
+      padding: 6px;
+    }
+    .projects > .buttons > .button {
+      flex: 1;
+    }
+    .articles {
+      margin-top: 12px;
     }
   }
 </style>
