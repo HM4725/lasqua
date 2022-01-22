@@ -1,12 +1,22 @@
 <template>
   <table>
-    <article-row v-for="(row, i) in rows" :articles="row" :key="`row_${i}`"
-      @mount="addRow" @clicked="handleClick"/>
+    <tbody>
+      <article-row v-for="(row, i) in rows" :articles="row" :key="`row_${i}`"
+        @mount="addRow" @clicked="handleClick"/>
+    </tbody>
+    <tfoot v-show="loading" class="loading">
+      <tr>
+        <td :colspan="rowlength">
+          <loading-icon :size="64"/>
+        </td>
+      </tr>
+    </tfoot>
   </table>
 </template>
 
 <script>
 import ArticleRow from './ArticleRow.vue'
+import LoadingIcon from '../../icons/LoadingIcon.vue'
 
 export default{
   name: 'components.article.list.table',
@@ -15,7 +25,8 @@ export default{
     'clicked'
   ],
   components: {
-    ArticleRow
+    ArticleRow,
+    LoadingIcon
   },
   props: {
     rowlength: Number
@@ -25,7 +36,8 @@ export default{
       init: false,
       rows: [],
       INTERVAL: 1,
-      isRightExist: true
+      isRightExist: true,
+      loading: false
     }
   },
   methods: {
@@ -33,7 +45,10 @@ export default{
     addRow() {
       if(this.isRightExist) {
         const delta = (window.scrollY + window.innerHeight) - document.documentElement.scrollHeight
-        Math.abs(delta) < this.INTERVAL && this.$emit('request')
+        if(Math.abs(delta) < this.INTERVAL) {
+          this.loading = true
+          this.$emit('request')
+        }
       }
     },
     handleClick(no) {
@@ -48,6 +63,7 @@ export default{
         }
         this.rows.push(articles)
       }
+      this.loading = false
       this.init = true
     }
   },
@@ -66,6 +82,9 @@ export default{
     table-layout: fixed;
     overflow-wrap: break-word;
     border-spacing: 1.5rem;
+  }
+  tfoot.loading {
+    width: 100%;
   }
   @media (max-width: 767px) {
     table {
