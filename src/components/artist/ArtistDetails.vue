@@ -22,9 +22,15 @@
     </div>
     <div class="projects">
       <template v-if="$isMobile()">
-        <label>작가의 다른 작품 더보기</label>
-        <article-list ref="articles" :rowlength="3" paging="scroll"
-          @request="handleRequest" @clicked="handleClick"/>
+        <label :class="{open: open}" @click="toggleOthers">
+          작가의 다른 작품 더보기 <after-icon class="open-icon"/>
+        </label>
+        <div class="articles-wrapper">
+          <transition name="slide-down">
+            <article-list v-show="open" ref="articles" :rowlength="3" 
+              paging="scroll" @request="handleRequest" @clicked="handleClick"/>
+          </transition>
+        </div>
       </template>
       <template v-else>
         <label>작가의 다른 작품 더보기</label>
@@ -39,20 +45,23 @@
 import ArticleList from '../article/articlelist/ArticleList.vue'
 import ImgComponent from '../utils/ImgComponent.vue'
 import SnsLinkButton from '../buttons/SnsLinkButton.vue'
+import AfterIcon from '@/components/icons/AfterIcon.vue'
 
 export default{
   name: 'components.article.artist.details',
   components: {
     ArticleList,
     ImgComponent,
-    SnsLinkButton
+    SnsLinkButton,
+    AfterIcon
   },
   props: {
     uid: String
   },
   data() {
     return {
-      artist: {}
+      artist: {},
+      open: false
     }
   },
   methods: {
@@ -81,6 +90,9 @@ export default{
     },
     handleClick(no) {
       this.$router.push(`/article/view?no=${no}`)
+    },
+    toggleOthers() {
+      this.open = !this.open
     }
   },
   computed: {
@@ -150,5 +162,31 @@ export default{
       padding: .5rem .5rem 0 1rem;
       flex: 3;
     }
+    .projects > label {
+      display: block;
+      color: var(--base-color);
+      padding: 1rem;
+      margin-right: 0;
+    }
+    .open-icon {
+      transition: transform .25s ease-out;
+      position: relative;
+      top: 2px;
+    }
+    label.open > .open-icon {
+      transform: rotate(90deg);
+    }
+    div.articles-wrapper {
+      overflow: hidden;
+    }
+  }
+  .slide-down-enter-active,
+  .slide-down-leave-active {
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  }
+  .slide-down-enter-from,
+  .slide-down-leave-active {
+    opacity: 0;
+    transform: translateY(-50%);
   }
 </style>
