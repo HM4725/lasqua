@@ -128,5 +128,8 @@ export default{
     .project-page > footer {
       padding: var(--mobile-padding-size);
     }
+    .project-page > section.artist {
+      padding-bottom: 0;
+    }
   }
 </style>
