@@ -12,7 +12,7 @@
       </div>
       <div class="projects">
         <div v-if="myPage" class="buttons">
-          <router-button v-if="isMobile()" class="button" link="/myinfo" value="개인정보 수정"/>
+          <router-button v-if="$isMobile()" class="button" link="/myinfo" value="개인정보 수정"/>
           <router-button class="button" link="/article/upload" value="게시글 올리기"/>
         </div>
         <article-list class="articles" ref="articles" :rowlength="3" paging="scroll"
