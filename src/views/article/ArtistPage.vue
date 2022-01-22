@@ -129,7 +129,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    margin: 1rem;
+    padding: 1rem;
   }
   .tooltip > .tooltip-text {
     display: none;
