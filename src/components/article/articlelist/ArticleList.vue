@@ -74,6 +74,12 @@ export default{
         this.articles.blocksize : this.articles.mountsize
       const articles = this.articles.loaded.slice(this.articles.itr, 
         this.articles.itr + requestSize)
+      if(articles.length === 0) {
+        console.log(`articles: ${articles}`)
+        console.log(`this.articles.itr: ${this.articles.itr}`)
+        console.log(`requestSize: ${requestSize}`)
+        console.log(`this.articles.loaded: ${this.articles.loaded}`)
+      }
       this.$refs.list.inject(articles)
       articles.length > 0 && (this.articles.itr += requestSize)
     },
