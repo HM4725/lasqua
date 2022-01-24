@@ -43,8 +43,9 @@ export default{
   methods: {
     // Child API
     addRow() {
-      if(this.isRightExist) {
-        const delta = (window.scrollY + window.innerHeight) - document.documentElement.scrollHeight
+      if(this.isRightExist && !this.loading) {
+        const delta = (window.scrollY + window.innerHeight) -
+          document.documentElement.scrollHeight
         if(Math.abs(delta) < this.INTERVAL) {
           this.loading = true
           this.$emit('request')
