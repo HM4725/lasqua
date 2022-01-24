@@ -50,10 +50,10 @@ export default{
     }
   },
   created() {
-    this.$store.getters.userRole !== 'admin' && this.$router.push('/error')
-
     const target = JSON.parse(this.data)
-    target.error && this.$handleWrongAccess('/notice')
+    if(target.error || this.$store.getters.userRole !== 'admin') {
+      this.$handleWrongAccess('/notice')
+    }
     this.no = target.no
     this.title = target.title
     this.content = target.content

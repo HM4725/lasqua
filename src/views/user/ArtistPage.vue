@@ -52,7 +52,7 @@ export default {
         const response = await this.$api("GET", `/user/${id}`)
         this.artist = response.data
       } catch(error) {
-        this.artist = {}
+        this.$handleWrongAccess('/')
       }
     },
     async modify(payload) {

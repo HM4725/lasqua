@@ -43,7 +43,9 @@ export default{
     }
   },
   created() {
-    this.$store.getters.userRole !== 'admin' && this.$router.push('/error')
+    if(this.$store.getters.userRole !== 'admin') {
+      this.$handleWrongAccess('/notice')
+    }
   }
 }
 </script>

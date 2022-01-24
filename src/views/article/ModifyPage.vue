@@ -33,7 +33,7 @@ export default{
   props: {
     data: {
       type: String,
-      default: '{"myPage": false}'
+      default: '{"error": true}'
     }
   },
   data() {
@@ -71,7 +71,9 @@ export default{
   },
   created() {
     const target = JSON.parse(this.data)
-    target.id !== this.$store.getters.userId && this.$router.replace("/error")
+    if(target.error || target.id !== this.$store.getters.userId) {
+      this.$handleWrongAccess('/')
+    }
     this.no = target.no
     this.id = target.id
     this.title = target.title
