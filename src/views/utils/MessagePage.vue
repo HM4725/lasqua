@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="message-page">
     <p v-if="message">{{message}}</p>
     <p>{{time}}초 후 이동합니다.</p>
   </div>
@@ -29,5 +29,7 @@ export default{
 </script>
 
 <style scoped>
-
+  .message-page > p:first-child {
+    margin-bottom: 1.5rem;
+  }
 </style>

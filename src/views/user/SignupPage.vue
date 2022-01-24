@@ -177,7 +177,8 @@ export default{
         await this.$api("POST", "/signup", newUser)
         const result = await this.$store.dispatch("login", {id: data.id.val, pw: data.pw.val})
         if(result) {
-          this.$router.push({name: 'mypage', query: {signup: 1}})
+          const msg = '회원가입이 정상적으로 완료되었습니다.'
+          this.$processMessenger(msg, `/artist/${this.$store.getters.userId}`, {signup: 1})
         } else {
           console.error('fail')
         }
