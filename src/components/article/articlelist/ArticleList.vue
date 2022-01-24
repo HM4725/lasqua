@@ -78,7 +78,8 @@ export default{
         console.log(`articles: ${articles}`)
         console.log(`this.articles.itr: ${this.articles.itr}`)
         console.log(`requestSize: ${requestSize}`)
-        console.log(`this.articles.loaded: ${this.articles.loaded}`)
+        console.log(`this.articles.loaded.length: ${this.articles.loaded.length}`)
+        console.log(`this.articles.loaded[0].no: ${this.articles.loaded[0].no}`)
       }
       this.$refs.list.inject(articles)
       articles.length > 0 && (this.articles.itr += requestSize)
