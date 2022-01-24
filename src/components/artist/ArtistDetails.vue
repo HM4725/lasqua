@@ -83,7 +83,7 @@ export default{
         const data = response.data
         if(data.page === page) {
           const idx = data.articles.findIndex(article => article.no === this.no)
-          data.articles.splice(idx, 1)
+          idx !== -1 && data.articles.splice(idx, 1)
           data.articles.sort((a, b) => b.no - a.no)
           data.allArticleCount -= 1
           this.$refs.articles.inject(data)
