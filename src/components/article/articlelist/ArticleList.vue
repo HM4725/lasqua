@@ -97,8 +97,6 @@ export default{
   created() {
     this.pagination = this.$isMobile() ? 'scroll': this.paging;
     this.articles.MOUNTSIZE = this.$isMobile() ? 3 : this.rowlength;
-  },
-  beforeMount() {
     this.$emit('request', this.page)
   }
 }

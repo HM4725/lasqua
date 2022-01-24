@@ -33,7 +33,7 @@ export default{
     }
   },
   mounted() {
-    this.$emit('mount')
+    this.articles.at(-1).no && this.$emit('mount')
   }
 }
 </script>
