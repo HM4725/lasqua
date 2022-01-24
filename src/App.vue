@@ -20,8 +20,24 @@ export default {
       return this.$route.path !== "/"
     }
   },
-  beforeMount() {
+  methods: {
+    setFullScreen() {
+      let vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }
+  },
+  created() {
     this.$store.dispatch("validateIdSession")
+  },
+  mounted() {
+    if(this.$isMobile()) {
+      this.setFullScreen()
+      window.addEventListener('resize', this.setFullScreen)
+    }
+  },
+  beforeUnmount() {
+    this.$isMobile() &&
+      window.removeEventListener('resize', this.setFullScreen)
   }
 }
 </script>
