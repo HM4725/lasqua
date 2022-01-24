@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="articlelist">
     <table-list v-if="pagination==='scroll'" ref="list" :rowlength="articles.MOUNTSIZE"
       @request="handleRequest" @clicked="handleClick"/>
     <slide-list v-else-if="pagination==='button'" ref="list" :rowlength="articles.MOUNTSIZE"
@@ -44,16 +44,14 @@ export default{
         loaded: [],
         itr: 0
       },
-      pagination: ''
+      pagination: '',
+      requestSize: 0
     }
   },
   computed: {
     isRightExist() {
       return this.articles.BLOCKSIZE > this.articles.MOUNTSIZE &&
         this.articles.loaded.length < this.articles.TOTALSIZE
-    },
-    requestSize() {
-      return this.pagination === 'button' ? this.articles.BLOCKSIZE : this.articles.MOUNTSIZE
     }
   },
   methods: {
@@ -88,6 +86,8 @@ export default{
         this.MAXPAGE = data.maxPage
         this.articles.TOTALSIZE = data.allArticleCount
         this.articles.BLOCKSIZE = data.articles.length
+        this.requestSize = this.pagination === 'button' ? 
+          this.articles.BLOCKSIZE : this.articles.MOUNTSIZE
         this.init = true
       }
       this.articles.loaded.push(...data.articles)
