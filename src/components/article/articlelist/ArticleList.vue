@@ -43,39 +43,44 @@ export default{
         loaded: [],
         itr: 0
       },
-      pagination: ''
+      pagination: '',
+      init: false
     }
   },
   computed: {
     isRightExist() {
       return this.articles.blocksize > this.articles.mountsize &&
         this.articles.loaded.length < this.articles.totalsize
+    },
+    requestSize() {
+      return this.pagination === 'button' ? 
+        this.articles.blocksize : this.articles.mountsize
     }
   },
   methods: {
     // Child API
     handleRequest() {
-      if(this.pagination === 'button') {
-        this.isRightExist && this.$emit('request', ++this.page)
-      } else { // scroll
-        if(this.articles.itr + this.articles.mountsize > this.articles.loaded.length) {
-          if(this.isRightExist) {
-            this.$emit('request', ++this.page)
+      if(this.init) {
+        if(this.pagination === 'button') {
+          this.isRightExist && this.$emit('request', ++this.page)
+        } else { // scroll
+          if(this.articles.itr + this.articles.mountsize > this.articles.loaded.length) {
+            if(this.isRightExist) {
+              this.$emit('request', ++this.page)
+            } else {
+              this.injectToChild()
+            }
           } else {
             this.injectToChild()
           }
-        } else {
-          this.injectToChild()
         }
       }
     },    
     injectToChild() {
-      const requestSize = this.pagination === 'button' ? 
-        this.articles.blocksize : this.articles.mountsize
       const articles = this.articles.loaded.slice(this.articles.itr, 
-        this.articles.itr + requestSize)
+        this.articles.itr + this.requestSize)
       this.$refs.list.inject(articles)
-      articles.length > 0 && (this.articles.itr += requestSize)
+      articles.length > 0 && (this.articles.itr += this.requestSize)
     },
     handleClick(no) {
       this.$emit('clicked', no)
@@ -87,6 +92,7 @@ export default{
       this.articles.blocksize = data.articles.length
       this.articles.loaded.push(...data.articles)
       this.injectToChild()
+      this.init = true
     }
   },
   created() {
