@@ -11,7 +11,7 @@
     </section>
     <footer class="submit">
       <default-button class="button" value="완료" @click="upload"/>
-      <default-button class="button" value="취소" @click="cancle"/>
+      <default-button class="button" value="취소" @click="cancel"/>
     </footer>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default{
   },
   methods: {
     // Event
-    cancle() {
+    cancel() {
       this.$refs.images.rollback()
       this.$router.go(-1)
     },

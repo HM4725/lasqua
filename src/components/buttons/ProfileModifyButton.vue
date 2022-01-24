@@ -37,7 +37,7 @@
       </template>
       <template v-slot:footer>
         <default-button value="변경" class="footer-button" @click="modify"/>
-        <default-button value="취소" class="footer-button" @click="cancle"/>
+        <default-button value="취소" class="footer-button" @click="cancel"/>
       </template>
     </modal-slot>
   </div>
@@ -113,7 +113,7 @@ export default{
       this.$emit('modify', payload)
       this.$refs.profileModal.close()
     },
-    async cancle() {
+    async cancel() {
       this.modified.banner !== this.artist.bannerImage &&
         this.$api("DELETE", `/image?link=${this.modified.banner}`)
       this.modified.profile !== this.artist.profileImage &&
