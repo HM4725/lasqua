@@ -58,9 +58,15 @@ const routes = [
     component: () => import('@/views/user/LogoutPage.vue'),
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('@/views/user/SignupPage.vue')
+    path: '/signup1',
+    name: 'signup1',
+    component: () => import('@/views/user/SignupPage1.vue')
+  },
+  {
+    path: '/signup2',
+    name: 'signup2',
+    component: () => import('@/views/user/SignupPage2.vue'),
+    props: true
   },
   {
     path: '/notice',

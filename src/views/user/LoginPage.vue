@@ -20,7 +20,7 @@
       </div>
     </form>
     <footer class="etc">
-      <default-button class="button" value="회원가입" @click="$router.push('/signup')"/>
+      <default-button class="button" value="회원가입" @click="$router.push('/signup1')"/>
       <default-button class="button" value="아이디 찾기"/>
       <default-button class="button" value="비밀번호 찾기"/>
     </footer>

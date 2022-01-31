@@ -3,8 +3,8 @@
     <h1>회원가입</h1>
     <div class="signup-info">
       <div class="necessary">
-        <h2>필수 사항</h2>
-        <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="username" @input="v=>{id.val=v}" @focus="clearBox(id)"/>
+        <h3>필수 사항</h3>
+        <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="username" @input="v=>{id.val=v}" @focus="clearBox(id)" focus/>
         <span class="message">{{id.msg}}</span>
         <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="new-password" @input="v=>{pw.val=v}" @focus="clearBox(pw)"/>
         <span class="message">{{pw.msg}}</span>
@@ -18,7 +18,7 @@
         <span class="message">{{tel.msg}}</span>
       </div>
       <div class="optional">
-        <h2>선택 사항</h2>
+        <h3>선택 사항</h3>
         <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
         <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
         <date-box id="signup-regdate" placeholder="생년월일" ref="birth"/>
@@ -38,12 +38,18 @@ import DateBox from '@/components/form/DateBox.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 
 export default{
-  name: "user.signup.page",
+  name: "user.signup.page2",
   components: {
     InputBox,
     RadioBox,
     DateBox,
     DefaultButton
+  },
+  props: {
+    agreements: {
+      type: String,
+      default: "false"
+    }
   },
   data() {
     return {
@@ -104,20 +110,26 @@ export default{
     }
   },
   methods: {
-    clearBox(target) {
-      target.msg = ''
+    // Event API
+    cancel() {
+      this.$router.push('/')
     },
     async submit() {
       try {
-        this.validation(this.$data)
-        await this.signup(this.$data)
+        this._validation(this.$data)
+        await this._signup(this.$data)
       } catch(errors) {
         for(let key in errors) {
           this.$data[key].msg = errors[key]
         }
       }
     },
-    checkVacantFields(data) {
+    // Child API
+    clearBox(target) {
+      target.msg = ''
+    },
+    // Private Methods
+    _checkVacantFields(data) {
       const errors = {}
       for(let key in data) {
         let input = data[key]
@@ -127,42 +139,42 @@ export default{
       }
       return errors
     },
-    checkConfirmPw(data) {
+    _checkConfirmPw(data) {
       const errors = {}
       if(data['pw'].val !== data['confirmPw'].val) {
         errors['confirmPw'] = '비밀번호가 일치하지 않습니다.'
       }
       return errors
     },
-    isValidate(input) {
+    _isValidate(input) {
       return !('pattern' in input) || new RegExp(input.pattern).test(input.val)
     },
-    checkValidFields(data) {
+    _checkValidFields(data) {
       const errors = {}
       for(let key in data) {
         let input = data[key]
-        if(!this.isValidate(input)) {
+        if(!this._isValidate(input)) {
           errors[key] = input.constraint
         }
       }
       return errors
     },
-    validation(data) {
+    _validation(data) {
       let errors
-      errors = this.checkVacantFields(data)
+      errors = this._checkVacantFields(data)
       if(Object.keys(errors).length !== 0) {
         throw errors
       }
-      errors = this.checkConfirmPw(data)
+      errors = this._checkConfirmPw(data)
       if(Object.keys(errors).length !== 0) {
         throw errors
       }
-      errors = this.checkValidFields(data)
+      errors = this._checkValidFields(data)
       if(Object.keys(errors).length !== 0) {
         throw errors
       }
     },
-    async signup(data) {
+    async _signup(data) {
       const newUser = {
         id: data.id.val, 
         pw: data.pw.val,
@@ -186,7 +198,7 @@ export default{
         if(e.response) {
           const response = e.response.data
           if('Required fields missing' in response) {
-            throw this.checkVacantFields(data)
+            throw this._checkVacantFields(data)
           } else {
             const errors = {}
             if(!response['Id validation']) {
@@ -211,10 +223,10 @@ export default{
           }
         }
       }
-    },
-    cancel() {
-      this.$router.go(-1)
     }
+  },
+  created() {
+    this.agreements !== 'true' && this.$handleWrongAccess('/signup1')
   }
 }
 </script>
