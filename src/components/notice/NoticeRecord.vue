@@ -1,7 +1,7 @@
 <template>
   <tr @click="handleClick">
-    <td class="record-no">{{no}}</td>
     <td class="record-title">{{title}}</td>
+    <td class="record-regdate">{{regdate}}</td>
   </tr>
 </template>
 
@@ -10,7 +10,8 @@ export default{
   name: 'components.notice.record',
   props: {
     no: Number,
-    title: String
+    title: String,
+    regdate: String
   },
   methods: {
     handleClick() {
@@ -31,5 +32,19 @@ export default{
   tr:hover, tr:active {
     background: var(--active-bg-color);
     color: var(--active-color);
+  }
+  td.record-title {
+    padding: 0 .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  td.record-regdate {
+    width: 12rem;
+  }
+  @media (max-width: 767px) {
+    td.record-regdate {
+      width: 6rem;
+    }
   }
 </style>

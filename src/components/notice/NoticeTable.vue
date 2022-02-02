@@ -3,13 +3,13 @@
     <table>
         <thead>
         <tr>
-            <th class="field-no">No</th>
-            <th class="field-title">Title</th>
+            <th class="field-title">제목</th>
+            <th class="field-regdate">등록일</th>
         </tr>
         </thead>
         <tbody>
         <notice-record v-for="(notice, i) in notices.mounted" :key="`notice_${i}`"
-            :no="notice.no" :title="notice.title"/>
+            :no="notice.no" :title="notice.title" :regdate="notice.regdate"/>
         </tbody>
     </table>
     <footer>
@@ -92,20 +92,22 @@ export default{
 
 <style scoped>
   section.table-wrapper {
-    border: 1px solid var(--base-color);
+    border: 1px solid var(--active-color);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
     padding: 1rem 2rem;
   }
   section.table-wrapper > table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1rem;
+    table-layout: fixed;
   }
   thead > tr {
     line-height: 2.5;
     border-bottom: 1px solid var(--base-color);
   }
-  th.field-no {
-    width: 3rem;
+  th.field-regdate {
+    width: 12rem;
   }
   footer > span {
     transition: color .25s ease-out;
@@ -139,6 +141,9 @@ export default{
     section.table-wrapper {
       padding: 0;
       border: none;
+    }
+    th.field-regdate {
+      width: 6rem;
     }
   }
 </style>
