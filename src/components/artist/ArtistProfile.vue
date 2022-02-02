@@ -5,6 +5,7 @@
     </div>
     <div class="profile">
       <div class="id">{{artist.id}}</div>
+      <div class="name">{{artist.name}}</div>
       <div class="info">{{artist.info}}</div>
       <ul class="sns" v-if="useSns">
         <li v-if="artist.facebook">
@@ -70,6 +71,10 @@ export default{
   .artist-card > .profile > .id {
     font-size: 1.2rem;
     font-weight: bold;
+  }
+  .artist-card > .profile > .name {
+    font-weight: bold;
+    text-align: left;
   }
   .artist-card > .profile > .info {
     text-align: left;
