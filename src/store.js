@@ -14,6 +14,11 @@ const store = createStore({
     login: (state, payload) => {
       state.user.id = payload.id
       state.user.role = payload.role
+      state.user.name = payload.name
+      state.user.email = payload.email
+      state.user.phone = payload.phone
+      state.user.gender = payload.gender
+      state.user.company = payload.company
     },
     logout: (state) => {
       state.user = {}
@@ -21,7 +26,8 @@ const store = createStore({
   },
   getters: {
     userId: (state) => state.user.id,
-    userRole: (state) => state.user.role
+    userRole: (state) => state.user.role,
+    userInformation: (state) => state.user
   },
   actions: {
     login: async ({commit}, payload) => {
@@ -31,6 +37,11 @@ const store = createStore({
         const info = response.data
         // add fields which you want
         payload.role = info.role
+        payload.name = info.name
+        payload.email = info.email
+        payload.phone = info.phone
+        payload.gender = info.gender
+        payload.company = info.company
         commit('login', payload)
         return true
       } catch(error) {

@@ -49,24 +49,39 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'login',
+    name: 'user.login',
     component: () => import('@/views/user/LoginPage.vue')
   },
   {
     path: '/logout',
-    name: 'logout',
+    name: 'user.logout',
     component: () => import('@/views/user/LogoutPage.vue'),
   },
   {
     path: '/signup1',
-    name: 'signup1',
+    name: 'user.signup1',
     component: () => import('@/views/user/SignupPage1.vue')
   },
   {
     path: '/signup2',
-    name: 'signup2',
+    name: 'user.signup2',
     component: () => import('@/views/user/SignupPage2.vue'),
     props: true
+  },
+  {
+    path: '/account',
+    name: 'user.account',
+    component: () => import('@/views/user/AccountPage.vue'),
+    props: true,
+    meta: { requiresAuth: true }
+
+  },
+  {
+    path: '/pwauth',
+    name: 'user.pwauth',
+    component: () => import('@/views/user/PwAuthPage.vue'),
+    props: true,
+    meta: { requiresAuth: true }
   },
   {
     path: '/notice',

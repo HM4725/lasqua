@@ -8,11 +8,11 @@
         <artist-profile :artist="artist"/>
         <profile-modify-button v-if="myPage" class="button" @modify="modify"
           :artist="artist" :focus="signup"/>
-        <router-button v-if="myPage&&(!$isMobile())" class="button" link="/myinfo" value="개인정보 수정"/>
+        <router-button v-if="myPage&&(!$isMobile())" class="button" link="/account" value="개인정보 수정"/>
       </div>
       <div class="projects">
         <div v-if="myPage" class="buttons">
-          <router-button v-if="$isMobile()" class="button" link="/myinfo" value="개인정보 수정"/>
+          <router-button v-if="$isMobile()" class="button" link="/account" value="개인정보 수정"/>
           <router-button class="button" link="/article/upload" value="게시글 올리기"/>
         </div>
         <article-list class="articles" ref="articles" :rowlength="3" paging="scroll"
@@ -30,7 +30,7 @@ import ArticleList from '@/components/article/articlelist/ArticleList.vue'
 import ProfileModifyButton from '@/components/buttons/ProfileModifyButton.vue'
 
 export default {
-  name: 'article.artist.page',
+  name: 'user.artist.page',
   components: {
     ImgComponent,
     ArtistProfile,

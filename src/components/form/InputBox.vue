@@ -63,6 +63,7 @@ export default{
   }
   .input-box {
     position: relative;
+    width: 100%;
   }
   .input-box input {
     width: 100%;
