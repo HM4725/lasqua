@@ -1,6 +1,8 @@
 module.exports = {
     devServer: {
-        disableHostCheck: true
+        disableHostCheck: true,
+        hot: false,
+        liveReload: false
     },
     productionSourceMap: false,
     configureWebpack: {
