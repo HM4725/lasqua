@@ -1,28 +1,29 @@
 <template>
   <form class="withdrawal-page" @submit.prevent="submit" method="POST">
-    <h1>탈퇴안내</h1>
-    <p class="context">회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.</p>
-    <!-- 확인 후 수정할 것 -->
-    <ul>
-      <li>
-        <p>사용하고 계신 아이디(<em>{{id}}</em>)는 탈퇴할 경우, 재사용 및 복구가 불가능합니다.</p>
-      </li>
-      <li>
-        <p>탈퇴 후, 회원정보와 게시물은 모두 삭제됩니다.</p>
-      </li>
-    </ul>
-    <div class="agree-area">
-      <p>
-        탈퇴 후에는 아이디 <em>{{id}}</em> 로 다시 가입할 수 없으며<br>
-        아이디와 게시글은 복구할 수 없습니다.
-      </p>
-      <check-box id="agree-withdrawal" value="안내 사항을 모두 확인하였으며, 이에 동의합니다."
-        @checked="v=>agreement=v"/>
-    </div>
-    <footer>
-      <default-button class="button" value="취소" @click="cancel"/>
-      <default-button class="button" type="submit" value="탈퇴"/>
-    </footer>
+    <template v-if="valid==='true'">
+      <h1>탈퇴안내</h1>
+      <p class="context">회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.</p>
+      <ul>
+        <li>
+          <p>사용하고 계신 아이디(<em>{{id}}</em>)는 탈퇴할 경우, 재사용 및 복구가 불가능합니다.</p>
+        </li>
+        <li>
+          <p>탈퇴 후, 회원정보와 게시물은 모두 삭제됩니다.</p>
+        </li>
+      </ul>
+      <div class="agree-area">
+        <p>
+          탈퇴 후에는 아이디 <em>{{id}}</em> 로 다시 가입할 수 없으며<br>
+          아이디와 게시글은 복구할 수 없습니다.
+        </p>
+        <check-box id="agree-withdrawal" value="안내 사항을 모두 확인하였으며, 이에 동의합니다."
+          @checked="v=>agreement=v"/>
+      </div>
+      <footer>
+        <default-button class="button" value="취소" @click="cancel"/>
+        <default-button class="button" type="submit" value="탈퇴"/>
+      </footer>
+    </template>
   </form>
 </template>
 
@@ -61,7 +62,7 @@ export default{
       }
     },
     cancel() {
-      this.$router.push(`/artist/${this.$store.getters.userId}`)
+      this.$router.push('/user/account')
     },
   },
   created() {

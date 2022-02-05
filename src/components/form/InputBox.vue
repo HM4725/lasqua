@@ -43,9 +43,9 @@ export default{
       this.value = event.target.value
       this.$emit('input', this.value)
     },
-    clear() {
-      this.value = ''
-      this.$emit('input', this.value)
+    write(text) {
+      this.value = text
+      this.$emit('input', text)
     }
   },
   beforeMount() {

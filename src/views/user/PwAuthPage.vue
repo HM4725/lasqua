@@ -45,7 +45,7 @@ export default{
       }
     },
     cancel() {
-      this.$router.push(`/artist/${this.$store.getters.userId}`)
+      this.$router.push('/user/account')
     }
   },
   created() {

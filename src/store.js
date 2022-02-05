@@ -66,6 +66,15 @@ const store = createStore({
         return false
       }
     },
+    changePassword: async ({state}, payload) => {
+      try {
+        payload.id = state.user.id
+        await api("PUT", "/user/pw", payload)
+        return true
+      } catch(error) {
+        return false
+      }
+    },
     withdrawal: async ({commit, state}) => {
       try {
         await api("DELETE", `/user/${state.user.id}`)

@@ -1,9 +1,9 @@
 <template>
   <div class="account-page">
-    <h1 v-if="init">
+    <h1>
       개인정보 수정 <span class="user-type">({{userType}})</span>
     </h1>
-    <section class="modify-info" v-if="init">
+    <section class="modify-info">
       <div class="modify-info-id-wrapper">
         <div class="modify-info-id">
           <input-box class="box" id="modify-id" type="text" placeholder="아이디"
@@ -13,7 +13,7 @@
       </div>
       <div class="modify-info-pw-wrapper">
         <div class="modify-info-pw">
-          <input-box class="box" id="modify-pw" type="password" placeholder="비밀번호"
+          <input-box class="box" id="modify-pw" type="password" :placeholder="pwPlaceholder"
             :value="pw.val" :disabled="!pw.modify"
             @input="v=>pw.val=v" ref="pw"/>
           <default-button class="button" :value="pw.button" @click="modify('pw')"/>
@@ -21,8 +21,14 @@
         <section class="modify-info-pw-sub">
           <transition name="slide-down">
             <div v-show="pw.modify">
-              <div class="modify-info-pw-confirm">
-                <input-box class="box" id="modify-pw-confirm" type="password"
+              <div class="modify-info-pw-new">
+                <input-box class="box" id="modify-pw-new" type="password"
+                  placeholder="신규 비밀번호" @input="v=>pw.new=v"
+                  ref="pwNew"/>
+                <default-button class="button hidden" value="숨김"/>
+              </div>
+              <div class="modify-info-pw-new">
+                <input-box class="box" id="modify-pw-new-confirm" type="password"
                   placeholder="비밀번호 확인" @input="v=>pw.confirm=v"
                   ref="pwConfirm"/>
                 <default-button class="button hidden" value="숨김"/>
@@ -75,7 +81,7 @@
         <a class="wide-click" @click="withdrawal">회원탈퇴 바로가기</a>
       </div>
     </section>
-    <footer v-if="init">
+    <footer>
       <router-button value="홈으로" :link="`/artist/${this.id.val}`"/>
     </footer>
   </div>
@@ -93,12 +99,6 @@ export default{
     DefaultButton,
     RouterButton
   },
-  props: {
-    valid: {
-      type: String,
-      default: 'false'
-    }
-  },
   data() {
     return {
       id: {
@@ -111,6 +111,7 @@ export default{
         button: '수정',
         msg: '',
         modify: false,
+        new: '',
         confirm: '',
       },
       name: {
@@ -145,6 +146,9 @@ export default{
   computed: {
     userType() {
       return this.company === 'N' ? '일반회원' : '기업회원'
+    },
+    pwPlaceholder() {
+      return this.pw.modify ? '현재 비밀번호' : '비밀번호'
     }
   },
   methods: {
@@ -152,39 +156,64 @@ export default{
     async modify(v) {
       const target = this.$data[v]
       if(target.modify) {
-        if(await this.save(v)) {
-          target.modify = false
-          target.button = '수정'
-          target.msg = ''
+        if(v === 'pw') {
+          if(await this.changePassword()) {
+            target.modify = false
+            this.$refs.pw.write('00000000')
+            this.$refs.pwNew.write('')
+            this.$refs.pwConfirm.write('')
+            target.button = '수정'
+            target.msg = ''
+          }
         } else {
-          if(v === 'pw' && this.pw.val !== this.pw.confirm) {
-            target.msg = '비밀번호가 일치하지 않습니다.'
-          } else {
-            target.msg = target.constraint
+          if(await this.changeProperty(v)) {
+            target.modify = false
+            target.button = '수정'
+            target.msg = ''
           }
         }
       } else {
         if(v === 'pw') {
-          this.$refs.pw.clear()
-          this.$refs.pwConfirm.clear()
+          this.$refs.pw.write('')
+          this.$refs.pwNew.write('')
+          this.$refs.pwConfirm.write('')
         }
         target.modify = true
         target.button = '저장'
       }
     },
     withdrawal() {
-      this.$router.push({name: 'user.withdrawal', params: {valid: 'true'}})
+      this.$router.push({name: 'user.withdrawal'})
     },
-    // REST API
-    async save(v) {
+    // VUEX API
+    async changeProperty(v) {
       const target = this.$data[v]
       if(this._isValid(target)) {
-        if(v === 'pw' && this.pw.val !== this.pw.confirm) {
-          return false
-        }
-        return await this.$store.dispatch('modify', {[v]: target.val})
+        const success = await this.$store.dispatch('modify', {[v]: target.val})
+        target.msg = success ? '' : target.constraint
+        return success
       } else {
+        target.msg = target.constraint
         return false
+      }
+    },
+    async changePassword() {
+      if(this.pw.val === this.pw.new) {
+        this.pw.msg = '신규 비밀번호가 현재와 동일합니다.'
+        return false
+      } else if(new RegExp(this.pw.pattern).test(this.pw.new) === false) {
+        this.pw.msg = this.pw.constraint
+      } else if(this.pw.new !== this.pw.confirm) {
+        this.pw.msg = '신규 비밀번호가 비밀번호 확인과 일치하지 않습니다.'
+        return false
+      } else {
+        const payload = {
+          now: this.pw.val,
+          pw: this.pw.new
+        }
+        const success = await this.$store.dispatch('changePassword', payload)
+        this.pw.msg = success ? '' : '현재 비밀번호가 올바르지않습니다.'
+        return success
       }
     },
     // Private Methods
@@ -193,20 +222,14 @@ export default{
     },
   },
   created() {
-    if(this.valid !== 'true') {
-      this.$router.push({name: 'user.pwauth', params: {page: 'user.account'}})
-    } else {
-      const user = this.$store.getters.userInformation
-      console.log(user)
-      this.id.val = user.id
-      this.pw.val = '00000000'
-      this.name.val = user.name
-      this.email.val = user.email
-      this.phone.val = user.phone
-      this.company = user.company
-      this.gender = user.gender
-      this.init = true
-    }
+    const user = this.$store.getters.userInformation
+    this.id.val = user.id
+    this.pw.val = '00000000'
+    this.name.val = user.name
+    this.email.val = user.email
+    this.phone.val = user.phone
+    this.company = user.company
+    this.gender = user.gender
   }
 }
 </script>
@@ -234,7 +257,7 @@ export default{
     margin-top: 6px;
     margin-bottom: 6px;
   }
-  .modify-info-pw-confirm {
+  .modify-info-pw-new {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
