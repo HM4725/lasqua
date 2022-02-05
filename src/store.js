@@ -71,7 +71,7 @@ const store = createStore({
     },
     validatePassword: async ({getters}, payload) => {
       try {
-        await api("POST", `/user/${getters.userId}/pw`, payload)
+        await api("POST", `/user/${getters.userId}/validation/pw`, payload)
         return true
       } catch(error) {
         console.error(error)
