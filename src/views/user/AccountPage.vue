@@ -5,14 +5,14 @@
     </h1>
     <section class="modify-info">
       <div class="modify-info-id-wrapper">
-        <div class="modify-info-id">
+        <div class="input-with-button">
           <input-box class="box" id="modify-id" type="text" placeholder="아이디"
             :value="id.val" disabled/>
           <default-button class="button hidden" value="숨김"/>
         </div>
       </div>
       <div class="modify-info-pw-wrapper">
-        <div class="modify-info-pw">
+        <div class="input-with-button">
           <input-box class="box" id="modify-pw" type="password" :placeholder="pwPlaceholder"
             :value="pw.val" :disabled="!pw.modify"
             @input="v=>pw.val=v" ref="pw"/>
@@ -21,13 +21,13 @@
         <section class="modify-info-pw-sub">
           <transition name="slide-down">
             <div v-show="pw.modify">
-              <div class="modify-info-pw-new">
+              <div class="input-with-button">
                 <input-box class="box" id="modify-pw-new" type="password"
                   placeholder="신규 비밀번호" @input="v=>pw.new=v"
                   ref="pwNew"/>
-                <default-button class="button" value="취소" @click="cancelPw"/>
+                <default-button class="button" value="취소" @click="close('pw')"/>
               </div>
-              <div class="modify-info-pw-new">
+              <div class="input-with-button">
                 <input-box class="box" id="modify-pw-new-confirm" type="password"
                   placeholder="비밀번호 확인" @input="v=>pw.confirm=v"
                   ref="pwConfirm"/>
@@ -39,7 +39,7 @@
         </section>
       </div>
       <div class="modify-info-name-wrapper">
-        <div class="modify-info-name">
+        <div class="input-with-button">
           <input-box class="box" id="modify-name" type="text" placeholder="이름"
             :value="name.val" :disabled="!name.modify" 
             @input="v=>name.val=v"/>
@@ -52,20 +52,28 @@
         </section>
       </div>
       <div class="modify-info-email-wrapper">
-        <div class="modify-info-email">
+        <div class="input-with-button">
           <input-box class="box" id="modify-email" type="text" placeholder="이메일"
-            :value="email.val" :disabled="!email.modify" 
+            :value="email.val" :disabled="email.check" 
             @input="v=>email.val=v"/>
           <default-button class="button" :value="email.button" @click="modify('email')"/>
         </div>
         <section class="modify-info-email-sub">
           <transition name="slide-down">
-            <div class="error" v-show="email.msg">{{email.msg}}</div>
+            <div v-show="email.modify">
+              <div class="input-with-button">
+                <input-box class="box" id="modify-email-check" type="text"
+                  placeholder="인증번호" @input="v=>email.number=v"
+                  :disabled="!email.check" ref="emailCheck"/>
+                <default-button class="button" value="취소" @click="close('email')"/>
+              </div>
+              <div class="error">{{email.msg}}</div>
+            </div>
           </transition>
         </section>
       </div>
       <div class="modify-info-phone-wrapper">
-        <div class="modify-info-phone">
+        <div class="input-with-button">
           <input-box class="box" id="modify-phone" type="text" placeholder="전화번호"
             :value="phone.val" :disabled="!phone.modify"
             @input="v=>phone.val=v"/>
@@ -128,6 +136,8 @@ export default{
         constraint: 'email 양식 제한',
         button: '수정',
         msg: '',
+        number: '',
+        check: true,
         modify: false
       },
       phone: {
@@ -160,40 +170,79 @@ export default{
     // Event API
     async modify(v) {
       const target = this.$data[v]
+      // User Property Modification Logic & End
       if(target.modify) {
         if(v === 'pw') {
           if(await this.changePassword()) {
-            target.modify = false
-            this.$refs.pw.write('00000000')
-            this.$refs.pwNew.write('')
-            this.$refs.pwConfirm.write('')
-            target.button = '수정'
-            target.msg = ''
+            this.close(v)
+          }
+        } else if(v === 'email') {
+          if(!this.email.check) {
+            if(await this.sendCheckMail()) {
+              this.email.check = true
+            }
+          } else {
+            if (await this.checkMailNumber()) {
+              if (await this.changeProperty(v)) {
+                this.close(v)
+              }
+            }
           }
         } else {
           if(await this.changeProperty(v)) {
-            target.modify = false
-            target.button = '수정'
-            target.msg = ''
+            this.close(v)
           }
         }
+      // User Property Modification Start
       } else {
         if(v === 'pw') {
           this.$refs.pw.write('')
           this.$refs.pwNew.write('')
           this.$refs.pwConfirm.write('')
+          target.button = '저장'
+        } else if(v === 'email') {
+          this.$refs.emailCheck.write('')
+          this.email.check = false
+          target.button = '인증'
+        } else {
+          target.button = '저장'
         }
         target.modify = true
-        target.button = '저장'
       }
     },
-    cancelPw() {
-      this.pw.modify = false
-      this.$refs.pw.write('00000000')
-      this.$refs.pwNew.write('')
-      this.$refs.pwConfirm.write('')
-      this.pw.button = '수정'
-      this.pw.msg = ''
+    close(v) {
+      const target = this.$data[v]
+      if(v === 'pw') {
+        this.$refs.pw.write('00000000')
+        this.$refs.pwNew.write('')
+        this.$refs.pwConfirm.write('')
+      }
+      target.modify = false
+      target.button = '수정'
+      target.msg = ''
+    },
+    async sendCheckMail() {
+      try {
+        await this.$api('POST', '/mail?val=sign', {email: this.email.val})
+        this.email.msg = '해당 메일로 인증번호를 발송하였습니다.'
+        return true
+      } catch(error) {
+        this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'
+        return false
+      }
+    },
+    async checkMailNumber() {
+      try {
+        const payload = {
+          email: this.email.val,
+          number: this.email.number
+        }
+        await this.$api('POST', '/mailnumber', payload)
+        return true
+      } catch(error) {
+        this.email.msg = '인증 번호가 일치하지 않습니다.'
+        return false
+      }
     },
     withdrawal() {
       this.$router.push({name: 'user.withdrawal'})
@@ -259,7 +308,7 @@ export default{
   .modify-info > div {
     margin-bottom: 16px;
   }
-  .modify-info > div > div{
+  .input-with-button {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -268,13 +317,10 @@ export default{
     overflow: hidden;
   }
   .modify-info > div > section > div {
-    margin-top: 6px;
-    margin-bottom: 6px;
-  }
-  .modify-info-pw-new {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--active-color);
   }
   .modify-info-withdrawal {
     text-align: right;
