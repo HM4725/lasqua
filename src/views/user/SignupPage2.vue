@@ -4,11 +4,11 @@
     <div class="signup-info">
       <div class="necessary">
         <h3>필수 사항</h3>
-        <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="username" @input="v=>{id.val=v}" @focus="clearBox(id)" focus/>
+        <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="off" @input="v=>{id.val=v}" @focus="clearBox(id)" focus/>
         <span class="message">{{id.msg}}</span>
-        <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="new-password" @input="v=>{pw.val=v}" @focus="clearBox(pw)"/>
+        <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="off" @input="v=>{pw.val=v}" @focus="clearBox(pw)"/>
         <span class="message">{{pw.msg}}</span>
-        <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="new-password" @input="v=>{confirmPw.val=v}" @focus="clearBox(confirmPw)"/>
+        <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="off" @input="v=>{confirmPw.val=v}" @focus="clearBox(confirmPw)"/>
         <span class="message">{{confirmPw.msg}}</span>
         <input-box id="signup-name" type="text" placeholder="이름" @input="v=>{name.val=v}" @focus="clearBox(name)"/>
         <span class="message">{{name.msg}}</span>

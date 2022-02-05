@@ -20,21 +20,21 @@
         </div>
         <section class="modify-info-pw-sub">
           <transition name="slide-down">
-            <div v-show="pw.modify">
+            <form v-show="pw.modify">
               <div class="input-with-button">
                 <input-box class="box" id="modify-pw-new" type="password"
                   placeholder="신규 비밀번호" @input="v=>pw.new=v"
-                  ref="pwNew"/>
+                  autocomplete="off" ref="pwNew"/>
                 <default-button class="button" value="취소" @click="close('pw')"/>
               </div>
               <div class="input-with-button">
                 <input-box class="box" id="modify-pw-new-confirm" type="password"
                   placeholder="비밀번호 확인" @input="v=>pw.confirm=v"
-                  ref="pwConfirm"/>
+                  autocomplete="off" ref="pwConfirm"/>
                 <default-button class="button hidden" value="숨김"/>
               </div>
               <div class="error" v-show="pw.msg">{{pw.msg}}</div>
-            </div>
+            </form>
           </transition>
         </section>
       </div>
