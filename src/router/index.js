@@ -69,17 +69,23 @@ const routes = [
     props: true
   },
   {
-    path: '/account',
+    path: '/user/account',
     name: 'user.account',
     component: () => import('@/views/user/AccountPage.vue'),
     props: true,
     meta: { requiresAuth: true }
-
   },
   {
-    path: '/pwauth',
+    path: '/user/pwauth',
     name: 'user.pwauth',
     component: () => import('@/views/user/PwAuthPage.vue'),
+    props: true,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/user/withdrawal',
+    name: 'user.withdrawal',
+    component: () => import('@/views/user/WithdrawalPage.vue'),
     props: true,
     meta: { requiresAuth: true }
   },

@@ -6,6 +6,7 @@
       @input="v=>pw=v" focus/>
     <div v-if="error" class="error">비밀번호가 일치하지 않습니다.</div>
     <footer>
+      <default-button class="button" value="뒤로" @click="cancel"/>
       <default-button class="button" type="submit" value="다음"/>
     </footer>
   </form>
@@ -37,13 +38,14 @@ export default{
     async submit() {
       this.error = false
       const auth = await this.$store.dispatch('validatePassword', {pw: this.pw})
-      console.log(this.pw)
-      console.log(auth)
       if(auth) {
         this.$router.push({name: this.page, params: {valid: 'true'}})
       } else {
         this.error = true
       }
+    },
+    cancel() {
+      this.$router.push(`/artist/${this.$store.getters.userId}`)
     }
   },
   created() {
@@ -61,16 +63,19 @@ export default{
     margin: auto;
   }
   .validation-page > .message {
-    margin-bottom: 1rem;
+    text-align: left;
+    padding-left: 8px;
+    margin-bottom: 16px;
   }
   .validation-page > .error {
-    margin-top: 1rem;
+    margin-top: 16px;
     color: red;
   }
   .validation-page > footer {
     text-align: right;
+    padding: 16px 0;
   }
   .validation-page > footer .button {
-    margin: 1rem;
+    margin-left: 16px;
   }
 </style>

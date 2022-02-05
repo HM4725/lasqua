@@ -1,75 +1,97 @@
 <template>
   <div class="account-page">
-    <h1 v-if="init">개인정보 수정</h1>
+    <h1 v-if="init">
+      개인정보 수정 <span class="user-type">({{userType}})</span>
+    </h1>
     <section class="modify-info" v-if="init">
       <div class="modify-info-id-wrapper">
         <div class="modify-info-id">
           <input-box class="box" id="modify-id" type="text" placeholder="아이디"
             :value="id.val" disabled/>
-          <default-button class="button" value="수정"/>
+          <default-button class="button hidden" value="숨김"/>
         </div>
       </div>
       <div class="modify-info-pw-wrapper">
         <div class="modify-info-pw">
           <input-box class="box" id="modify-pw" type="password" placeholder="비밀번호"
-            :value="pw.val" disabled/>
+            :value="pw.val" :disabled="!pw.modify"
+            @input="v=>pw.val=v" ref="pw"/>
           <default-button class="button" :value="pw.button" @click="modify('pw')"/>
         </div>
         <section class="modify-info-pw-sub">
           <transition name="slide-down">
-            <div v-show="pw.modify">비밀번호 수정</div>
+            <div v-show="pw.modify">
+              <div class="modify-info-pw-confirm">
+                <input-box class="box" id="modify-pw-confirm" type="password"
+                  placeholder="비밀번호 확인" @input="v=>pw.confirm=v"
+                  ref="pwConfirm"/>
+                <default-button class="button hidden" value="숨김"/>
+              </div>
+              <div class="error" v-show="pw.msg">{{pw.msg}}</div>
+            </div>
           </transition>
         </section>
       </div>
       <div class="modify-info-name-wrapper">
         <div class="modify-info-name">
           <input-box class="box" id="modify-name" type="text" placeholder="이름"
-            :value="name.val" disabled/>
+            :value="name.val" :disabled="!name.modify" 
+            @input="v=>name.val=v"/>
           <default-button class="button" :value="name.button" @click="modify('name')"/>
         </div>
         <section class="modify-info-name-sub">
           <transition name="slide-down">
-            <div v-show="name.modify">이름 수정</div>
+            <div class="error" v-show="name.msg">{{name.msg}}</div>
           </transition>
         </section>
       </div>
       <div class="modify-info-email-wrapper">
         <div class="modify-info-email">
           <input-box class="box" id="modify-email" type="text" placeholder="이메일"
-            :value="email.val" disabled/>
+            :value="email.val" :disabled="!email.modify" 
+            @input="v=>email.val=v"/>
           <default-button class="button" :value="email.button" @click="modify('email')"/>
         </div>
         <section class="modify-info-email-sub">
           <transition name="slide-down">
-            <div v-show="email.modify">이메일 수정</div>
+            <div class="error" v-show="email.msg">{{email.msg}}</div>
           </transition>
         </section>
       </div>
       <div class="modify-info-phone-wrapper">
         <div class="modify-info-phone">
           <input-box class="box" id="modify-phone" type="text" placeholder="전화번호"
-            :value="phone.val" disabled/>
+            :value="phone.val" :disabled="!phone.modify"
+            @input="v=>phone.val=v"/>
           <default-button class="button" value="수정" @click="modify('phone')"/>
         </div>
         <section class="modify-info-phone-sub">
           <transition name="slide-down">
-            <div v-show="phone.modify">전화번호 수정</div>
+            <div class="error" v-show="phone.msg">{{phone.msg}}</div>
           </transition>
         </section>
       </div>
+      <div class="modify-info-withdrawal">
+        <a class="wide-click" @click="withdrawal">회원탈퇴 바로가기</a>
+      </div>
     </section>
+    <footer v-if="init">
+      <router-button value="홈으로" :link="`/artist/${this.id.val}`"/>
+    </footer>
   </div>
 </template>
 
 <script>
 import InputBox from '@/components/form/InputBox.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
+import RouterButton from '@/components/buttons/RouterButton.vue'
 
 export default{
   name: 'user.account.page',
   components: {
     InputBox,
-    DefaultButton
+    DefaultButton,
+    RouterButton
   },
   props: {
     valid: {
@@ -88,7 +110,8 @@ export default{
         constraint: '[영문, 숫자, 특수문자]를 모두 포함 & 8 ~ 20 글자 수 제한',
         button: '수정',
         msg: '',
-        modify: false
+        modify: false,
+        confirm: '',
       },
       name: {
         val: '',
@@ -119,23 +142,55 @@ export default{
       init: false
     }
   },
+  computed: {
+    userType() {
+      return this.company === 'N' ? '일반회원' : '기업회원'
+    }
+  },
   methods: {
     // Event API
-    modify(v) {
+    async modify(v) {
       const target = this.$data[v]
       if(target.modify) {
-        this.save(target)
-        target.modify = false
-        target.button = '수정'
+        if(await this.save(v)) {
+          target.modify = false
+          target.button = '수정'
+          target.msg = ''
+        } else {
+          if(v === 'pw' && this.pw.val !== this.pw.confirm) {
+            target.msg = '비밀번호가 일치하지 않습니다.'
+          } else {
+            target.msg = target.constraint
+          }
+        }
       } else {
+        if(v === 'pw') {
+          this.$refs.pw.clear()
+          this.$refs.pwConfirm.clear()
+        }
         target.modify = true
         target.button = '저장'
       }
     },
+    withdrawal() {
+      this.$router.push({name: 'user.withdrawal', params: {valid: 'true'}})
+    },
     // REST API
-    save(target) {
-      console.log(target)
-    }
+    async save(v) {
+      const target = this.$data[v]
+      if(this._isValid(target)) {
+        if(v === 'pw' && this.pw.val !== this.pw.confirm) {
+          return false
+        }
+        return await this.$store.dispatch('modify', {[v]: target.val})
+      } else {
+        return false
+      }
+    },
+    // Private Methods
+    _isValid(target) {
+      return new RegExp(target.pattern).test(target.val)
+    },
   },
   created() {
     if(this.valid !== 'true') {
@@ -160,26 +215,53 @@ export default{
   .account-page {
     width: 20rem;
   }
+  span.user-type {
+    font-weight: normal;
+    font-size: 1.2rem;
+  }
   .modify-info > div {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
   .modify-info > div > div{
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
   }
-  .modify-info > div > div > .button {
-    margin-left: 1rem;
-    padding: .5rem;
-    height: 2.5rem;
+  .modify-info > div > section {
+    overflow: hidden;
+  }
+  .modify-info > div > section > div {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  .modify-info-pw-confirm {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .modify-info-withdrawal {
+    text-align: right;
+    margin-top: 8px;
+  }
+  .modify-info-withdrawal > a {
+    font-size: .8rem;
+    color: #444444;
+  }
+  .modify-info .button {
+    margin-left: 16px;
+    padding: 8px;
+    height: 40px;
     min-height: 0;
   }
-  .modify-info-id > .button {
+  .modify-info .hidden {
     visibility: hidden;
+  } 
+  .modify-info .error {
+    color: red;
+    word-break: keep-all;
   }
-  .modify-info > div > section {
-    border-bottom: 1px solid var(--active-bg-color);
-    overflow: hidden;
+  .account-page > footer {
+    padding: 16px;
   }
   @media (max-width: 767px) {
     .modify {
@@ -189,9 +271,6 @@ export default{
     .modify-info {
       flex-direction: column;
       width: 100%;
-    }
-    .modify-info > div {
-      margin: 0;
     }
   }
   .slide-down-enter-active,

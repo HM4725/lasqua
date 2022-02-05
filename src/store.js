@@ -11,17 +11,13 @@ const store = createStore({
     }
   },
   mutations: {
-    login: (state, payload) => {
-      state.user.id = payload.id
-      state.user.role = payload.role
-      state.user.name = payload.name
-      state.user.email = payload.email
-      state.user.phone = payload.phone
-      state.user.gender = payload.gender
-      state.user.company = payload.company
-    },
     logout: (state) => {
       state.user = {}
+    },
+    setUser: (state, payload) => {
+      for(let prop in payload) {
+        state.user[prop] = payload[prop]
+      }
     }
   },
   getters: {
@@ -35,17 +31,18 @@ const store = createStore({
         await api('POST', '/login', payload)
         const response = await api('GET', `/user/${payload.id}/info`)
         const info = response.data
-        // add fields which you want
-        payload.role = info.role
-        payload.name = info.name
-        payload.email = info.email
-        payload.phone = info.phone
-        payload.gender = info.gender
-        payload.company = info.company
-        commit('login', payload)
+        const payload2 = {
+          id: payload.id,
+          name: info.name,
+          role: info.role,
+          email: info.email,
+          phone: info.phone,
+          gender: info.gender,
+          company: info.company
+        }
+        commit('setUser', payload2)
         return true
       } catch(error) {
-        console.error(error)
         return false
       }
     },
@@ -55,7 +52,26 @@ const store = createStore({
         commit('logout')
         return true
       } catch(error) {
-        console.error(error)
+        return false
+      }
+    },
+    modify: async ({commit, state}, payload) => {
+      try {
+        payload.id = state.user.id
+        await api("PUT", "/user", payload)
+        delete payload.id
+        commit('setUser', payload)
+        return true
+      } catch(error) {
+        return false
+      }
+    },
+    withdrawal: async ({commit, state}) => {
+      try {
+        await api("DELETE", `/user/${state.user.id}`)
+        commit('logout')
+        return true
+      } catch(error) {
         return false
       }
     },
@@ -74,7 +90,6 @@ const store = createStore({
         await api("POST", `/user/${getters.userId}/validation/pw`, payload)
         return true
       } catch(error) {
-        console.error(error)
         return false
       }
     }

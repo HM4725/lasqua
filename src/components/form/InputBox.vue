@@ -1,6 +1,7 @@
 <template>
   <div class="input-box" :class="{filled: filled}">
-    <input v-bind="$attrs" :type="type" :id="id" :placeholder="placeholder" :value="value" @input="updateInput" @focus="enter" ref="input"/>
+    <input v-bind="$attrs" :type="type" :id="id" :placeholder="placeholder" 
+      :value="value" @input="updateInput" ref="input"/>
     <label v-if="placeholder" :for="id">{{placeholder}}</label>
   </div>
 </template>
@@ -32,15 +33,19 @@ export default{
       value: ''
     }
   },
+  computed: {
+    filled() {
+      return this.value.length !== 0
+    }
+  },
   methods: {
     updateInput(event) {
       this.value = event.target.value
       this.$emit('input', this.value)
-    }
-  },
-  computed: {
-    filled() {
-      return this.value.length !== 0
+    },
+    clear() {
+      this.value = ''
+      this.$emit('input', this.value)
     }
   },
   beforeMount() {
@@ -76,6 +81,7 @@ export default{
   }
   .input-box input::placeholder {
     transition: opacity .15s ease-out;
+    color: #555555;
     opacity: 1;
   }
   .input-box label {
@@ -104,5 +110,10 @@ export default{
   .input-box > input:focus{
     outline: none;
     border-color: var(--active-color);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  }
+  .input-box > input:disabled{
+    color: var(--disabled-color);
+    border-color: var(--disabled-color);
   }
 </style>
