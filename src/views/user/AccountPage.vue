@@ -25,7 +25,7 @@
                 <input-box class="box" id="modify-pw-new" type="password"
                   placeholder="신규 비밀번호" @input="v=>pw.new=v"
                   ref="pwNew"/>
-                <default-button class="button hidden" value="숨김"/>
+                <default-button class="button" value="취소" @click="cancelPw"/>
               </div>
               <div class="modify-info-pw-new">
                 <input-box class="box" id="modify-pw-new-confirm" type="password"
@@ -140,12 +140,17 @@ export default{
       },
       company: 'N',
       gender: 'N',
+      role: '',
       init: false
     }
   },
   computed: {
     userType() {
-      return this.company === 'N' ? '일반회원' : '기업회원'
+      if(this.role === 'admin') {
+        return '관리자'
+      } else {
+        return this.company === 'N' ? '일반회원' : '기업회원'
+      }
     },
     pwPlaceholder() {
       return this.pw.modify ? '현재 비밀번호' : '비밀번호'
@@ -181,6 +186,14 @@ export default{
         target.modify = true
         target.button = '저장'
       }
+    },
+    cancelPw() {
+      this.pw.modify = false
+      this.$refs.pw.write('00000000')
+      this.$refs.pwNew.write('')
+      this.$refs.pwConfirm.write('')
+      this.pw.button = '수정'
+      this.pw.msg = ''
     },
     withdrawal() {
       this.$router.push({name: 'user.withdrawal'})
@@ -230,6 +243,7 @@ export default{
     this.phone.val = user.phone
     this.company = user.company
     this.gender = user.gender
+    this.role = user.role
   }
 }
 </script>
