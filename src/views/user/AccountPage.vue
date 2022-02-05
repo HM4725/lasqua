@@ -180,6 +180,7 @@ export default{
           if(!this.email.check) {
             if(await this.sendCheckMail()) {
               this.email.check = true
+              target.button = '확인'
             }
           } else {
             if (await this.checkMailNumber()) {
