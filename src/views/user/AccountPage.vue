@@ -236,7 +236,7 @@ export default{
       try {
         this.email.msg = '해당 메일로 인증번호를 보냈습니다.'
         await this.$api('POST', '/mail?val=sign', {email: this.email.val})
-        this.email.msg = '메일에서 인증번호를 확인하여 주세요.'
+        this.email.msg = '메일에서 인증번호를 확인해 주세요.'
         return true
       } catch(error) {
         this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'
