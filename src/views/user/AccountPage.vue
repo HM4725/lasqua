@@ -309,7 +309,7 @@ export default{
 
 <style scoped>
   .account-page {
-    width: 20rem;
+    width: 300px;
   }
   span.user-type {
     font-weight: normal;

@@ -61,6 +61,7 @@ export default{
     display: flex;
     flex-direction: column;
     margin: auto;
+    width: 300px;
   }
   .validation-page > .message {
     text-align: left;
