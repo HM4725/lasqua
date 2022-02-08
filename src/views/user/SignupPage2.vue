@@ -24,8 +24,8 @@
           </div>
         </form>
         <span class="message">{{email.msg}}</span>
-        <input-box id="signup-phone" type="tel" placeholder="전화번호" @input="v=>{tel.val=v}"/>
-        <span class="message">{{tel.msg}}</span>
+        <input-box id="signup-phone" type="text" placeholder="전화번호" @input="v=>{phone.val=v}"/>
+        <span class="message">{{phone.msg}}</span>
       </div>
       <div class="optional">
         <h3>선택 사항</h3>
@@ -100,7 +100,7 @@ export default{
         button: '인증',
         required: true
       },
-      tel: {
+      phone: {
         val: '',
         pattern: '^\\d{2,3}-\\d{3,4}-\\d{4}$',
         constraint: '{2~3자리 숫자}-{3~4자리 숫자}-{4자리 숫자}',
@@ -263,7 +263,7 @@ export default{
         pw: data.pw.val,
         name: data.name.val,
         email: data.email.val,
-        phone: data.tel.val,
+        phone: data.phone.val,
         company: this.$refs.company.getValue(),
         gender: this.$refs.gender.getValue(),
         birth: this.$refs.birth.getValue()
@@ -297,7 +297,7 @@ export default{
               errors.email = data.email.constraint
             }
             if(!response['Phone validation']) {
-              errors.tel = data.tel.constraint
+              errors.phone = data.phone.constraint
             }
             if(!response['Id Unique']) {
               errors.id = "중복된 아이디입니다."
