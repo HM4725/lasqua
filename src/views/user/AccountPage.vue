@@ -170,49 +170,16 @@ export default{
     // Event API
     async modify(v) {
       const target = this.$data[v]
-      // User Property Modification Logic & End
-      if(target.modify) {
-        if(v === 'pw') {
-          if(await this.changePassword()) {
-            this.close(v)
-          }
-        } else if(v === 'email') {
-          if(!this.email.check) {
-            if(await this.sendCheckMail()) {
-              this.email.check = true
-              target.button = '확인'
-            }
-          } else {
-            if (await this.checkMailNumber()) {
-              if (await this.changeProperty(v)) {
-                this.close(v)
-              }
-            }
-          }
-        } else {
-          if(await this.changeProperty(v)) {
-            this.close(v)
-          }
-        }
-      // User Property Modification Start
+      if(!target.modify) {
+        this._modifyInit(v, target)
       } else {
-        if(v === 'pw') {
-          this.$refs.pw.write('')
-          this.$refs.pwNew.write('')
-          this.$refs.pwConfirm.write('')
-          target.button = '저장'
-        } else if(v === 'email') {
-          this.$refs.emailCheck.write('')
-          this.email.check = false
-          target.button = '인증'
-        } else {
-          target.button = '저장'
-        }
-        target.modify = true
+        await this._modifyLogic(v, target)
       }
     },
-    close(v) {
-      const target = this.$data[v]
+    close(v, target) {
+      if(!target) {
+        target = this.$data[v]
+      }
       if(v === 'pw') {
         this.$refs.pw.write('00000000')
         this.$refs.pwNew.write('')
@@ -222,17 +189,61 @@ export default{
       target.button = '수정'
       target.msg = ''
     },
-    async sendCheckMail() {
+    withdrawal() {
+      this.$router.push({name: 'user.withdrawal'})
+    },
+    // Private API
+    _modifyInit(v, target) {
+      if(v === 'pw') {
+        this.$refs.pw.write('')
+        this.$refs.pwNew.write('')
+        this.$refs.pwConfirm.write('')
+        target.button = '확인'
+      } else if(v === 'email') {
+        this.$refs.emailCheck.write('')
+        this.email.check = false
+        target.button = '인증'
+      } else {
+        target.button = '확인'
+      }
+      target.modify = true
+    },
+    async _modifyLogic(v, target) {
+      if(v === 'pw') {
+        if(await this._changePassword()) {
+          this.close(v, target)
+        }
+      } else if(v === 'email') {
+        if(!this.email.check) {
+          if(await this._sendCheckMail()) {
+            this.email.check = true
+            target.button = '확인'
+          }
+        } else {
+          if (await this._checkMailNumber()) {
+            if (await this._changeProperty(v)) {
+              this.close(v, target)
+            }
+          }
+        }
+      } else {
+        if(await this._changeProperty(v)) {
+          this.close(v, target)
+        }
+      }
+    },
+    async _sendCheckMail() {
       try {
+        this.email.msg = '해당 메일로 인증번호를 보냈습니다.'
         await this.$api('POST', '/mail?val=sign', {email: this.email.val})
-        this.email.msg = '해당 메일로 인증번호를 발송하였습니다.'
+        this.email.msg = '메일에서 인증번호를 확인하여 주세요.'
         return true
       } catch(error) {
         this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'
         return false
       }
     },
-    async checkMailNumber() {
+    async _checkMailNumber() {
       try {
         const payload = {
           email: this.email.val,
@@ -245,11 +256,11 @@ export default{
         return false
       }
     },
-    withdrawal() {
-      this.$router.push({name: 'user.withdrawal'})
+    _isValid(target) {
+      return new RegExp(target.pattern).test(target.val)
     },
     // VUEX API
-    async changeProperty(v) {
+    async _changeProperty(v) {
       const target = this.$data[v]
       if(this._isValid(target)) {
         const success = await this.$store.dispatch('modify', {[v]: target.val})
@@ -260,7 +271,7 @@ export default{
         return false
       }
     },
-    async changePassword() {
+    async _changePassword() {
       if(this.pw.val === this.pw.new) {
         this.pw.msg = '신규 비밀번호가 현재와 동일합니다.'
         return false
@@ -274,15 +285,11 @@ export default{
           now: this.pw.val,
           pw: this.pw.new
         }
-        const success = await this.$store.dispatch('changePassword', payload)
+        const success = await this.$store.dispatch('_changePassword', payload)
         this.pw.msg = success ? '' : '현재 비밀번호가 올바르지않습니다.'
         return success
       }
-    },
-    // Private Methods
-    _isValid(target) {
-      return new RegExp(target.pattern).test(target.val)
-    },
+    }
   },
   created() {
     const user = this.$store.getters.userInformation
