@@ -21,20 +21,22 @@
     </form>
     <footer class="etc">
       <default-button class="button" value="회원가입" @click="$router.push('/signup1')"/>
-      <default-button class="button" value="아이디 찾기"/>
-      <default-button class="button" value="비밀번호 찾기"/>
+      <router-button class="button" value="아이디 찾기" link="/findid1"/>
+      <router-button class="button" value="비밀번호 찾기" link="/findpw1"/>
     </footer>
   </div>
 </template>
 
 <script>
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
+import RouterButton from '@/components/buttons/RouterButton.vue'
 import InputBox from '@/components/form/InputBox.vue'
 
 export default{
   name: 'user.login.page',
   components: {
     DefaultButton,
+    RouterButton,
     InputBox
   },
   data() {

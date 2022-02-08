@@ -69,6 +69,28 @@ const routes = [
     props: true
   },
   {
+    path: '/findid1',
+    name: 'user.findid1',
+    component: () => import('@/views/user/FindIdPage1.vue')
+  },
+  {
+    path: '/findid2',
+    name: 'user.findid2',
+    component: () => import('@/views/user/FindIdPage2.vue'),
+    props: true
+  },
+  {
+    path: '/findpw1',
+    name: 'user.findpw1',
+    component: () => import('@/views/user/FindPwPage1.vue')
+  },
+  {
+    path: '/findpw2',
+    name: 'user.findpw2',
+    component: () => import('@/views/user/FindPwPage2.vue'),
+    props: true
+  },
+  {
     path: '/user/account',
     name: 'user.account',
     component: () => import('@/views/user/AccountPage.vue'),
