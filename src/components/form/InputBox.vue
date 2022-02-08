@@ -81,7 +81,7 @@ export default{
   }
   .input-box input::placeholder {
     transition: opacity .15s ease-out;
-    color: #555555;
+    color: #707070;
     opacity: 1;
   }
   .input-box label {
@@ -113,7 +113,7 @@ export default{
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   }
   .input-box > input:disabled{
-    color: var(--disabled-color);
+    color: #707070;
     border-color: var(--disabled-color);
   }
 </style>
