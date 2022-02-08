@@ -215,9 +215,11 @@ export default{
         }
       } else if(v === 'email') {
         if(!this.email.check) {
+          this.email.check = true
           if(await this._sendCheckMail()) {
-            this.email.check = true
             target.button = '확인'
+          } else {
+            this.email.check = false
           }
         } else {
           if (await this._checkMailNumber()) {
