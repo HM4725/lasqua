@@ -4,17 +4,27 @@
     <div class="signup-info">
       <div class="necessary">
         <h3>필수 사항</h3>
-        <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="off" @input="v=>{id.val=v}" @focus="clearBox(id)" focus/>
+        <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="off" @input="v=>{id.val=v}" focus/>
         <span class="message">{{id.msg}}</span>
-        <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="off" @input="v=>{pw.val=v}" @focus="clearBox(pw)"/>
+        <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="off" @input="v=>{pw.val=v}"/>
         <span class="message">{{pw.msg}}</span>
-        <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="off" @input="v=>{confirmPw.val=v}" @focus="clearBox(confirmPw)"/>
+        <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="off" @input="v=>{confirmPw.val=v}"/>
         <span class="message">{{confirmPw.msg}}</span>
-        <input-box id="signup-name" type="text" placeholder="이름" @input="v=>{name.val=v}" @focus="clearBox(name)"/>
+        <input-box id="signup-name" type="text" placeholder="이름" @input="v=>{name.val=v}"/>
         <span class="message">{{name.msg}}</span>
-        <input-box id="signup-email" type="text" placeholder="이메일" @input="v=>{email.val=v}" @focus="clearBox(email)"/>
+        <form @submit.prevent="authMail" method="POST">
+          <div class="input-with-button">
+            <input-box id="signup-email" type="text" placeholder="이메일" @input="v=>{email.val=v}"
+              :disabled="email.auth"/>
+            <default-button class="button" type="submit" :value="email.button" v-if="!email.auth"/>
+          </div>
+          <div class="input-with-button" v-show="email.check">
+            <input-box id="signup-email-auth" type="text" placeholder="인증번호" @input="v=>{email.number=v}"/>
+            <default-button class="button" value="취소" @click="cancelAuthMail"/>
+          </div>
+        </form>
         <span class="message">{{email.msg}}</span>
-        <input-box id="signup-phone" type="tel" placeholder="전화번호" @input="v=>{tel.val=v}"  @focus="clearBox(tel)"/>
+        <input-box id="signup-phone" type="tel" placeholder="전화번호" @input="v=>{tel.val=v}"/>
         <span class="message">{{tel.msg}}</span>
       </div>
       <div class="optional">
@@ -56,14 +66,14 @@ export default{
       id: {
         val: '',
         pattern: '^[0-9a-zA-Z]{4,15}$',
-        constraint: '[영문, 숫자]만 허용 & 4 ~ 15 글자 수 제한',
+        constraint: '영문과 숫자만 허용되며, 4 ~ 15자 이내여야 합니다.',
         msg: '',
         required: true
       },
       pw: {
         val: '',
         pattern: '^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!-/:-@\\[-`{-~]).{8,20}$',
-        constraint: '[영문, 숫자, 특수문자]를 모두 포함 & 8 ~ 20 글자 수 제한',
+        constraint: '영문, 숫자와 특수문자를 모두 포함하며, 8 ~ 20자 이내여야 합니다.',
         msg: '',
         required: true
       },
@@ -74,16 +84,20 @@ export default{
       },
       name: {
         val: '',
-        pattern: '^[가-힣a-zA-Z]{1,10}$',
-        constraint: '10글자 이하 제한, 공백 및 특수문자 사용 불가',
+        pattern: '^[가-힣a-zA-Z0-9]{1,10}$',
+        constraint: '공백 및 특수문자 사용 불가하며, 10자 이내여야 합니다.',
         msg: '',
         required: true
       },
       email: {
         val: '',
         pattern: '^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$',
-        constraint: 'email 양식 제한',
+        constraint: '올바른 이메일을 입력하세요.',
         msg: '',
+        check: false,
+        auth: false,
+        number: '',
+        button: '인증',
         required: true
       },
       tel: {
@@ -116,6 +130,11 @@ export default{
     },
     async submit() {
       try {
+        for(let key in this.$data) {
+          if(this.$data[key].msg !== undefined) {
+            this.$data[key].msg = ''
+          }
+        }
         this._validation(this.$data)
         await this._signup(this.$data)
       } catch(errors) {
@@ -124,11 +143,64 @@ export default{
         }
       }
     },
+    async authMail() {
+      if(this.email.val.length !== 0) {
+        if(this._isValidate(this.email)) {
+          if(!this.email.check) {
+            const send = await this._sendCheckMail()
+            if(!send) {
+              this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'
+            }
+          } else {
+            if (await this._checkMailNumber()) {
+              this.email.msg = ''
+              this.email.auth = true
+            } else {
+              this.email.msg = '인증 번호가 일치하지 않습니다.'
+            }
+          }
+        } else {
+          this.email.msg = this.email.constraint
+        }
+      } else {
+        this.email.msg = '이메일을 입력하세요.'
+      }
+    },
+    cancelAuthMail() {
+      this.email.button = '인증'
+      this.email.msg = ''
+      this.email.check = false
+    },
     // Child API
     clearBox(target) {
       target.msg = ''
     },
     // Private Methods
+    async _sendCheckMail() {
+      try {
+        this.email.button = '확인'
+        this.email.check = true
+        this.email.msg = '해당 메일로 인증번호를 보냈습니다.'
+        await this.$api('POST', '/mail?val=sign', {email: this.email.val})
+        this.email.msg = this.email.check ? '메일에서 인증번호를 확인해 주세요.' : ''
+        return true
+      } catch(error) {
+        return false
+      }
+    },
+    async _checkMailNumber() {
+      try {
+        const payload = {
+          email: this.email.val,
+          number: this.email.number
+        }
+        await this.$api('POST', '/mailnumber', payload)
+        this.email.check = false
+        return true
+      } catch(error) {
+        return false
+      }
+    },
     _checkVacantFields(data) {
       const errors = {}
       for(let key in data) {
@@ -136,6 +208,13 @@ export default{
         if(input.required && input.val.length === 0) {
           errors[key] = "필수 사항입니다."
         }
+      }
+      return errors
+    },
+    _checkEmail(data) {
+      const errors = {}
+      if(!data['email'].auth) {
+        errors['email'] = '이메일을 인증하세요.'
       }
       return errors
     },
@@ -166,6 +245,10 @@ export default{
         throw errors
       }
       errors = this._checkConfirmPw(data)
+      if(Object.keys(errors).length !== 0) {
+        throw errors
+      }
+      errors = this._checkEmail(data)
       if(Object.keys(errors).length !== 0) {
         throw errors
       }
@@ -240,21 +323,35 @@ export default{
   .signup-info {
     display: flex;
     flex-direction: row;
-    width: 30rem;
+    width: 600px;
   }
   .signup-info > div {
-    margin: 1rem;
+    margin: 16px;
     flex: 1;
   }
   .signup-info > div > * {
-    margin: .5rem 0;
+    margin: 8px 0;
   }
   .signup > footer {
-    margin: 1rem;
+    margin: 16px;
   }
   .signup > footer > .button {
-    margin: 0 .75rem;
+    margin: 0 12px;
   }
+  .input-with-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .input-with-button > .button {
+    margin-left: 16px;
+    padding: 8px;
+    height: 40px;
+    min-height: 0;
+  }
+  .input-with-button > .hidden {
+    visibility: hidden;
+  } 
   .message {
     color: red;
   }
