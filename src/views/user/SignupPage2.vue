@@ -24,14 +24,17 @@
           </div>
         </form>
         <span class="message">{{email.msg}}</span>
-        <input-box id="signup-phone" type="text" placeholder="전화번호" @input="v=>{phone.val=v}"/>
+        <input-box id="signup-phone" type="text" placeholder="전화번호" @input="v=>{phone.val=v}" subplaceholder="예) 010-0000-0000"/>
         <span class="message">{{phone.msg}}</span>
       </div>
       <div class="optional">
         <h3>선택 사항</h3>
         <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
+        <span class="message">{{company.msg}}</span>
         <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
-        <date-box id="signup-regdate" placeholder="생년월일" ref="birth"/>
+        <span class="message">{{gender.msg}}</span>
+        <input-box id="signup-birth" type="text" placeholder="생년월일" @input="v=>{birth.val=v}" subplaceholder="예) 2000-01-01"/>
+        <span class="message">{{birth.msg}}</span>
       </div>
     </div>
     <footer>
@@ -44,7 +47,6 @@
 <script>
 import InputBox from '@/components/form/InputBox.vue'
 import RadioBox from '@/components/form/RadioBox.vue'
-import DateBox from '@/components/form/DateBox.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 
 export default{
@@ -52,7 +54,6 @@ export default{
   components: {
     InputBox,
     RadioBox,
-    DateBox,
     DefaultButton
   },
   props: {
@@ -103,24 +104,29 @@ export default{
       phone: {
         val: '',
         pattern: '^\\d{2,3}-\\d{3,4}-\\d{4}$',
-        constraint: '{2~3자리 숫자}-{3~4자리 숫자}-{4자리 숫자}',
+        constraint: '올바른 형식으로 입력하세요.',
         msg: '',
         required: true
       },
       gender: {
         options: {M: '남자', F: '여자', N: '그 외'},
         checked: 'N',
+        msg: '',
         required: false
       },
       company: {
         options: {Y: '기업회원', N: '일반회원'},
         checked: 'N',
+        msg: '',
         required: false
       },
-      // birth: {
-      //   val: '',
-      //   required: false
-      // },
+      birth: {
+        val: '',
+        pattern: '^\\d{4}-\\d{2}-\\d{2}$',
+        constraint: '올바른 형식으로 입력하세요.',
+        msg: '',
+        required: false
+      },
     }
   },
   methods: {
@@ -145,7 +151,7 @@ export default{
     },
     async authMail() {
       if(this.email.val.length !== 0) {
-        if(this._isValidate(this.email)) {
+        if(this._isValid(this.email)) {
           if(!this.email.check) {
             const send = await this._sendCheckMail()
             if(!send) {
@@ -211,28 +217,44 @@ export default{
       }
       return errors
     },
-    _checkEmail(data) {
-      const errors = {}
-      if(!data['email'].auth) {
-        errors['email'] = '이메일을 인증하세요.'
-      }
-      return errors
-    },
-    _checkConfirmPw(data) {
-      const errors = {}
+    _checkSeveralFields(data) {
+      // Check Password
       if(data['pw'].val !== data['confirmPw'].val) {
-        errors['confirmPw'] = '비밀번호가 일치하지 않습니다.'
+        return {confirmPw: '비밀번호가 일치하지 않습니다.'}
       }
-      return errors
+      // Check Email
+      if(!data['email'].auth) {
+        return {email: '이메일을 인증하세요.'}
+      }
+      // Check Birth
+      if(data['birth'].val !== '') {
+        const birth = data['birth']
+        if(this._isValid(birth)) {
+          const date = new Date(birth.val)
+          if(isNaN(date)) {
+            return {birth: '올바른 생년월일을 입력하세요.'}
+          } else {
+            const vdate = birth.val.split('-')
+            if(date.getFullYear() !== parseInt(vdate[0]) ||
+                date.getMonth() + 1 !== parseInt(vdate[1]) ||
+                date.getDate() !== parseInt(vdate[2])) {
+              return {birth: '올바른 생년월일을 입력하세요.'}
+            }
+          }
+        } else {
+          return {birth: birth.constraint}
+        }
+      }
+      return {}
     },
-    _isValidate(input) {
+    _isValid(input) {
       return !('pattern' in input) || new RegExp(input.pattern).test(input.val)
     },
-    _checkValidFields(data) {
+    _checkValidRequiredFields(data) {
       const errors = {}
       for(let key in data) {
         let input = data[key]
-        if(!this._isValidate(input)) {
+        if(input.required && !this._isValid(input)) {
           errors[key] = input.constraint
         }
       }
@@ -244,15 +266,11 @@ export default{
       if(Object.keys(errors).length !== 0) {
         throw errors
       }
-      errors = this._checkConfirmPw(data)
+      errors = this._checkSeveralFields(data)
       if(Object.keys(errors).length !== 0) {
         throw errors
       }
-      errors = this._checkEmail(data)
-      if(Object.keys(errors).length !== 0) {
-        throw errors
-      }
-      errors = this._checkValidFields(data)
+      errors = this._checkValidRequiredFields(data)
       if(Object.keys(errors).length !== 0) {
         throw errors
       }
@@ -275,7 +293,8 @@ export default{
           const msg = '회원가입이 정상적으로 완료되었습니다.'
           this.$processMessenger(msg, `/artist/${this.$store.getters.userId}`, {signup: 1})
         } else {
-          console.error('fail')
+          alert('오류가 발생하였습니다.')
+          this.$router.push('/signup1')
         }
       } catch(e) {
         if(e.response) {
@@ -301,6 +320,12 @@ export default{
             }
             if(!response['Id Unique']) {
               errors.id = "중복된 아이디입니다."
+            }
+            if(!response['Compnay validation']) {
+              errors.company = "올바르지 않은 회원종류입니다."
+            }
+            if(!response['Gender validation']) {
+              errors.gender = "올바르지 않은 성별입니다."
             }
             throw errors
           }
