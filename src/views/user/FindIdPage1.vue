@@ -54,9 +54,8 @@ export default{
         if(this._isValid(this.email)) {
           if(!this.email.check) {
             this.email.check = true
-            const send = await this._sendCheckMail()
-            if(!send) {
-              this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'
+            if(!await this._sendCheckMail()) {
+              this.email.check = false
             }
           } else {
             if (await this._checkMailNumber()) {
