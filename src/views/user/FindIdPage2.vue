@@ -71,7 +71,7 @@ export default{
   },
   created() {
     if(this.auth === '' || this.email === '') {
-      this.$handleWrongAccess('/')
+      this.$handleWrongAccess('/login')
     } else {
       this.findId()
     }
