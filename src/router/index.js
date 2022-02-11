@@ -80,13 +80,13 @@ const routes = [
     props: true
   },
   {
-    path: '/findpw1',
-    name: 'user.findpw1',
+    path: '/findpw',
+    name: 'user.findpw',
     component: () => import('@/views/user/FindPwPage1.vue')
   },
   {
-    path: '/findpw2',
-    name: 'user.findpw2',
+    path: '/findpw/result',
+    name: 'user.findpw.result',
     component: () => import('@/views/user/FindPwPage2.vue'),
     props: true
   },

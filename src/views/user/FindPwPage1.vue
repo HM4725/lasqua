@@ -73,7 +73,7 @@ export default{
                   auth: this.email.number,
                   email: this.email.val
                 }
-                this.$router.push({name: 'user.findpw2', params: payload})
+                this.$router.push({name: 'user.findpw.result', params: payload})
               } else {
                 this.msg = '인증 번호가 일치하지 않습니다.'
               }
