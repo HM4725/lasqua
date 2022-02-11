@@ -1,16 +1,16 @@
 <template>
   <form class="findid-page" @submit.prevent="submit" method="POST">
     <h1>아이디 찾기</h1>
-    <div class="message">이메일을 입력하세요.</div>
+    <p class="message">이메일을 입력하세요.</p>
     <div>
-        <input-box id="signup-email" type="text" placeholder="이메일"
+      <input-box id="findid-email" type="text" placeholder="이메일"
         @input="v=>{email.val=v}" :disabled="email.check"/>
     </div>
-    <div class="auth-box">
-        <input-box id="signup-email-auth" type="text" placeholder="인증번호"
-        @input="v=>{email.number=v}" :disabled="email.auth" v-show="email.check"/>
+    <div class="auth-box" v-show="email.check">
+      <input-box id="findid-email-auth" type="text" placeholder="인증번호"
+        @input="v=>{email.number=v}" :disabled="email.auth"/>
     </div>
-    <div class="error">{{email.msg}}</div>
+    <p class="error">{{email.msg}}</p>
     <footer>
       <default-button class="button" value="뒤로" @click="cancel"/>
       <default-button class="button" type="submit" :value="email.button"/>
@@ -131,6 +131,7 @@ export default{
   .findid-page > .error {
     margin-top: 16px;
     color: red;
+    word-break: keep-all;
   }
   .findid-page > footer {
     text-align: right;
