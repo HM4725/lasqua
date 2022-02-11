@@ -1,7 +1,9 @@
 <template>
   <div class="input-box" :class="{filled: filled}">
-    <input v-bind="$attrs" :type="type" :id="id" :placeholder="placeholder" 
-      :value="value" @input="updateInput" ref="input"/>
+    <input v-bind="$attrs" :type="type" :id="id" :placeholder="iplaceholder" 
+      :value="value" @input="updateInput" ref="input"
+      @focus="handleFocus" @blur="handleBlur"
+      :class="{blank: subplaceholder===''}"/>
     <label v-if="placeholder" :for="id">{{placeholder}}</label>
   </div>
 </template>
@@ -23,19 +25,32 @@ export default{
       type: String,
       default: ""
     },
+    subplaceholder: {
+      type: String,
+      default: ""
+    },
     focus: {
       type: Boolean,
       default: false
-    }
+    },
   },
   data() {
     return {
-      value: ''
+      value: '',
+      input: false
     }
   },
   computed: {
     filled() {
       return this.value.length !== 0
+    },
+    iplaceholder() {
+      if(this.input) {
+        return this.subplaceholder === "" ?
+          this.placeholder : this.subplaceholder
+      } else {
+        return this.placeholder
+      }
     }
   },
   methods: {
@@ -46,6 +61,12 @@ export default{
     write(text) {
       this.value = text
       this.$emit('input', text)
+    },
+    handleFocus() {
+      this.input = true
+    },
+    handleBlur() {
+      this.input = false
     }
   },
   beforeMount() {
@@ -73,10 +94,10 @@ export default{
   .input-box input {
     width: 100%;
     transition: all .25s;
-    margin-top: .5rem;
-    padding: .6rem;
+    margin-top: 8px;
+    padding: 10px;
     border: 1px solid var(--base-color);
-    border-radius: 0;
+    border-radius: 4px;
     background-color: white !important;
   }
   .input-box input::placeholder {
@@ -86,25 +107,25 @@ export default{
   }
   .input-box label {
     position: absolute;
-    left: .6rem;
-    top: 1rem;
+    left: 10px;
+    top: 16px;
     padding: 0 1px;
     font-size: .9rem;
-    height: 1rem;
-    line-height: 1rem;
+    height: 16px;
+    line-height: 16px;
     transition: all 0.25s ease-out;
     overflow: hidden;
     white-space: nowrap;
     z-index: 1;
     opacity: 0;
   }
-  .input-box > input:focus::placeholder {
+  .input-box > input.blank:focus::placeholder {
     opacity: 0;
   }
   .input-box > input:focus + label,
   .input-box.filled > input + label {
     opacity: 1;
-    top: .1rem;
+    top: 1px;
     background-color: white;
   }
   .input-box > input:focus{
