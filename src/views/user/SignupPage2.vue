@@ -5,17 +5,17 @@
       <div class="necessary">
         <h3>필수 사항</h3>
         <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="off" @input="v=>{id.val=v}" focus/>
-        <span class="message">{{id.msg}}</span>
+        <p class="message">{{id.msg}}</p>
         <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="off" @input="v=>{pw.val=v}"/>
-        <span class="message">{{pw.msg}}</span>
+        <p class="message">{{pw.msg}}</p>
         <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="off" @input="v=>{confirmPw.val=v}"/>
-        <span class="message">{{confirmPw.msg}}</span>
+        <p class="message">{{confirmPw.msg}}</p>
         <input-box id="signup-name" type="text" placeholder="이름" @input="v=>{name.val=v}"/>
-        <span class="message">{{name.msg}}</span>
+        <p class="message">{{name.msg}}</p>
         <form @submit.prevent="authMail" method="POST">
           <div class="input-with-button">
             <input-box id="signup-email" type="text" placeholder="이메일" @input="v=>{email.val=v}"
-              :disabled="email.auth"/>
+              :disabled="email.check||email.auth"/>
             <default-button class="button" type="submit" :value="email.button" v-if="!email.auth"/>
           </div>
           <div class="input-with-button" v-show="email.check">
@@ -23,18 +23,18 @@
             <default-button class="button" value="취소" @click="cancelAuthMail"/>
           </div>
         </form>
-        <span class="message">{{email.msg}}</span>
+        <p class="message">{{email.msg}}</p>
         <input-box id="signup-phone" type="text" placeholder="전화번호" @input="v=>{phone.val=v}" subplaceholder="예) 010-0000-0000"/>
-        <span class="message">{{phone.msg}}</span>
+        <p class="message">{{phone.msg}}</p>
       </div>
       <div class="optional">
         <h3>선택 사항</h3>
         <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
-        <span class="message">{{company.msg}}</span>
+        <p class="message">{{company.msg}}</p>
         <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
-        <span class="message">{{gender.msg}}</span>
+        <p class="message">{{gender.msg}}</p>
         <input-box id="signup-birth" type="text" placeholder="생년월일" @input="v=>{birth.val=v}" subplaceholder="예) 2000-01-01"/>
-        <span class="message">{{birth.msg}}</span>
+        <p class="message">{{birth.msg}}</p>
       </div>
     </div>
     <footer>
@@ -185,7 +185,6 @@ export default{
         this.email.check = true
         this.email.msg = '해당 메일로 인증번호를 보냈습니다.'
         await this.$api('POST', '/mail?val=sign', {email: this.email.val})
-        this.email.msg = this.email.check ? '메일에서 인증번호를 확인해 주세요.' : ''
         return true
       } catch(error) {
         this.email.button = '인증'
@@ -288,8 +287,10 @@ export default{
         email: data.email.val,
         phone: data.phone.val,
         company: this.$refs.company.getValue(),
-        gender: this.$refs.gender.getValue(),
-        birth: this.$refs.birth.getValue()
+        gender: this.$refs.gender.getValue()
+      }
+      if(data.birth.val) {
+        newUser.birth = data.birth.val
       }
       try {
         await this.$api("POST", "/signup", newUser)
@@ -383,7 +384,6 @@ export default{
     visibility: hidden;
   } 
   .message {
-    display: block;
     text-align: left;
     color: red;
     word-break: keep-all;
