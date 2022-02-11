@@ -4,36 +4,44 @@
     <div class="signup-info">
       <div class="necessary">
         <h3>필수 사항</h3>
-        <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="off" @input="v=>{id.val=v}" focus/>
+        <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="off"
+          @input="v=>id.val=v" focus/>
         <p class="message">{{id.msg}}</p>
-        <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="off" @input="v=>{pw.val=v}"/>
+        <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="off"
+          @input="v=>pw.val=v"/>
         <p class="message">{{pw.msg}}</p>
-        <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="off" @input="v=>{confirmPw.val=v}"/>
+        <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="off"
+          @input="v=>confirmPw.val=v"/>
         <p class="message">{{confirmPw.msg}}</p>
-        <input-box id="signup-name" type="text" placeholder="이름" @input="v=>{name.val=v}"/>
+        <input-box id="signup-name" type="text" placeholder="이름" @input="v=>name.val=v"/>
         <p class="message">{{name.msg}}</p>
         <form @submit.prevent="authMail" method="POST">
           <div class="input-with-button">
-            <input-box id="signup-email" type="text" placeholder="이메일" @input="v=>{email.val=v}"
+            <input-box id="signup-email" type="text" placeholder="이메일" @input="v=>email.val=v"
               :disabled="email.check||email.auth"/>
             <default-button class="button" type="submit" :value="email.button" v-if="!email.auth"/>
           </div>
           <div class="input-with-button" v-show="email.check">
-            <input-box id="signup-email-auth" type="text" placeholder="인증번호" @input="v=>{email.number=v}"/>
+            <input-box id="signup-email-auth" type="text" placeholder="인증번호"
+              @input="v=>email.number=v"/>
             <default-button class="button" value="취소" @click="cancelAuthMail"/>
           </div>
         </form>
         <p class="message">{{email.msg}}</p>
-        <input-box id="signup-phone" type="text" placeholder="전화번호" @input="v=>{phone.val=v}" subplaceholder="예) 010-0000-0000"/>
+        <input-box id="signup-phone" type="text" placeholder="전화번호" subplaceholder="예) 010-0000-0000"
+          @input="v=>phone.val=v"/>
         <p class="message">{{phone.msg}}</p>
       </div>
       <div class="optional">
         <h3>선택 사항</h3>
-        <radio-box id="signup-company" title="회원 구분" :options="company.options" :checked="company.checked" ref="company"/>
+        <radio-box id="signup-company" title="회원 구분" :options="company.options" :value="company.val"
+          @change="selectCompany"/>
         <p class="message">{{company.msg}}</p>
-        <radio-box id="signup-gender" title="성별" :options="gender.options" :checked="gender.checked" ref="gender"/>
+        <radio-box v-if="company.val==='N'" id="signup-gender" title="성별" :options="gender.options" 
+          :value="gender.val" @change="v=>gender.val=v"/>
         <p class="message">{{gender.msg}}</p>
-        <input-box id="signup-birth" type="text" placeholder="생년월일" @input="v=>{birth.val=v}" subplaceholder="예) 2000-01-01"/>
+        <input-box v-if="company.val==='N'" id="signup-birth" type="text" placeholder="생년월일"
+          subplaceholder="예) 2000-01-01" @input="v=>birth.val=v"/>
         <p class="message">{{birth.msg}}</p>
       </div>
     </div>
@@ -110,13 +118,13 @@ export default{
       },
       gender: {
         options: {M: '남자', F: '여자', N: '그 외'},
-        checked: 'N',
+        val: 'N',
         msg: '',
         required: false
       },
       company: {
         options: {Y: '기업회원', N: '일반회원'},
-        checked: 'N',
+        val: 'N',
         msg: '',
         required: false
       },
@@ -173,6 +181,13 @@ export default{
       this.email.button = '인증'
       this.email.msg = ''
       this.email.check = false
+    },
+    selectCompany(v) {
+      this.company.val = v
+      if(v === 'Y') {
+        this.gender.val = 'N'
+        this.birth.val = ''
+      }
     },
     // Child API
     clearBox(target) {
@@ -286,8 +301,8 @@ export default{
         name: data.name.val,
         email: data.email.val,
         phone: data.phone.val,
-        company: this.$refs.company.getValue(),
-        gender: this.$refs.gender.getValue()
+        company: data.company.val,
+        gender: data.gender.val
       }
       if(data.birth.val) {
         newUser.birth = data.birth.val

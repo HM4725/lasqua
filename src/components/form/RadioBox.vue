@@ -3,7 +3,8 @@
     <fieldset class="radio-box">
       <legend v-if="title">{{title}}</legend>
       <div class="option" :id="id" v-for="(option, key) in options" :key="key">
-        <input type="radio" :name="id" :id="id + '-' + key" v-model="radioValue" :value="key">
+        <input type="radio" @change="change"
+          :name="id" :id="id + '-' + key" v-model="radioValue" :value="key">
         <label :for="id + '-' + key">{{option}}</label>
       </div>
     </fieldset>
@@ -13,6 +14,7 @@
 <script>
 export default{
   name: 'components.form.radio',
+  emits: ['change'],
   props: {
     id: {
       type: String,
@@ -26,21 +28,22 @@ export default{
       type: Object,
       default: () => {}
     },
-    checked: {
+    value: {
       type: String,
+      default: ''
     }
   },
   data() {
     return {
-      radioValue: this.checked,
+      radioValue: this.value,
     }
   },
   methods: {
-    getValue() {
-      return this.radioValue
-    },
     isLast(i) {
       return i === this.options.length - 1
+    },
+    change() {
+      this.$emit('change', this.radioValue)
     }
   }
 }
