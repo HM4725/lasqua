@@ -69,13 +69,13 @@ const routes = [
     props: true
   },
   {
-    path: '/findid1',
-    name: 'user.findid1',
+    path: '/findid',
+    name: 'user.findid',
     component: () => import('@/views/user/FindIdPage1.vue')
   },
   {
-    path: '/findid2',
-    name: 'user.findid2',
+    path: '/findid/result',
+    name: 'user.findid.result',
     component: () => import('@/views/user/FindIdPage2.vue'),
     props: true
   },

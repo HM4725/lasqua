@@ -63,7 +63,7 @@ export default{
                 auth: this.email.number,
                 email: this.email.val
               }
-              this.$router.push({name: 'user.findid2', params: payload})
+              this.$router.push({name: 'user.findid.result', params: payload})
             } else {
               this.email.msg = '인증 번호가 일치하지 않습니다.'
             }
