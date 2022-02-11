@@ -82,11 +82,9 @@ export default{
     },
   },
   created() {
-    // if(this.auth === '' || this.email === '') {
-    //   this.$handleWrongAccess('/')
-    // } else {
-    //   this.findId()
-    // }
+    if(this.auth === '' || this.email === '') {
+      this.$handleWrongAccess('/login')
+    }
   }
 }
 </script>
