@@ -287,7 +287,7 @@ export default{
     submit() {
       try {
         this._checkAgreement()
-        this.$router.push({name: 'user.signup2', params: {agreements: true}})
+        this.$router.push({name: 'user.signup.form', params: {agreements: true}})
       } catch(error) {
         this.error = error
       }

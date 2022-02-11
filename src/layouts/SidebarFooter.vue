@@ -10,7 +10,7 @@
         <router-link class="wide-click" to="/login" @click="closeSidebar">로그인</router-link>
       </li>
       <li>
-        <router-link class="wide-click" to="/signup1" @click="closeSidebar">회원가입</router-link>
+        <router-link class="wide-click" to="/signup" @click="closeSidebar">회원가입</router-link>
       </li>
     </template>
   </ul>

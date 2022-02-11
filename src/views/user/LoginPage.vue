@@ -20,7 +20,7 @@
       </div>
     </form>
     <footer class="etc">
-      <router-button class="button" value="회원가입" link="/signup1"/>
+      <router-button class="button" value="회원가입" link="/signup"/>
       <router-button class="button" value="아이디 찾기" link="/findid1"/>
       <router-button class="button" value="비밀번호 찾기" link="/findpw1"/>
     </footer>

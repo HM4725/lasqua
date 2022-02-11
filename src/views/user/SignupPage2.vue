@@ -300,7 +300,7 @@ export default{
           this.$processMessenger(msg, `/artist/${this.$store.getters.userId}`, {signup: 1})
         } else {
           alert('오류가 발생하였습니다.')
-          this.$router.push('/signup1')
+          this.$router.push('/signup')
         }
       } catch(e) {
         if(e.response) {
@@ -340,7 +340,7 @@ export default{
     }
   },
   created() {
-    this.agreements !== 'true' && this.$handleWrongAccess('/signup1')
+    this.agreements !== 'true' && this.$handleWrongAccess('/signup')
   }
 }
 </script>

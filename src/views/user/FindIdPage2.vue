@@ -64,7 +64,7 @@ export default{
       } catch(error) {
         // Id가 없는 경우
         this.button.value = '회원가입'
-        this.button.link = '/signup1'
+        this.button.link = '/signup'
       }
       this.init = true
     }
