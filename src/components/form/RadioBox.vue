@@ -57,6 +57,7 @@ export default{
     margin-top: .7rem;
     padding: .5rem 2px 0 2px;
     border: 1px solid var(--base-color);
+    border-radius: 4px;
     background-color: white;
   }
   fieldset.radio-box > legend {
@@ -70,6 +71,7 @@ export default{
   }
   .option {
     border: 1px solid var(--base-color);
+    border-radius: 4px;
     flex: 1;
     margin: 3px;
   }
@@ -85,5 +87,6 @@ export default{
   .option > input[type="radio"]:checked + label {
     font-weight: bolder;
     background-color: var(--active-bg-color);
+    border-radius: 4px;
   }
 </style>
