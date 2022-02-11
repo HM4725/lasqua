@@ -153,10 +153,7 @@ export default{
       if(this.email.val.length !== 0) {
         if(this._isValid(this.email)) {
           if(!this.email.check) {
-            const send = await this._sendCheckMail()
-            if(!send) {
-              this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'
-            }
+            await this._sendCheckMail()
           } else {
             if (await this._checkMailNumber()) {
               this.email.msg = ''
@@ -191,6 +188,14 @@ export default{
         this.email.msg = this.email.check ? '메일에서 인증번호를 확인해 주세요.' : ''
         return true
       } catch(error) {
+        this.email.button = '인증'
+        this.email.check = false
+        const status = error.response.status
+        if(status === 400) {
+          this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'
+        } else if(status === 406) {
+          this.email.msg = '이미 가입된 메일입니다. 다른 이메일을 사용하시거나, 아이디 찾기를 진행해주세요.'
+        }
         return false
       }
     },
@@ -378,7 +383,10 @@ export default{
     visibility: hidden;
   } 
   .message {
+    display: block;
+    text-align: left;
     color: red;
+    word-break: keep-all;
   }
   @media (max-width: 767px) {
     .signup {
