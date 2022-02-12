@@ -48,7 +48,7 @@ export default {
   @import "./assets/css/wide-click.css";
 
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
