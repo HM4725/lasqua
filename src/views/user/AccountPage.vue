@@ -75,7 +75,7 @@
       <div class="modify-info-phone-wrapper">
         <div class="input-with-button">
           <input-box class="box" id="modify-phone" type="text" placeholder="전화번호"
-            :value="phone.val" :disabled="!phone.modify"
+            :value="phone.val" :disabled="!phone.modify" subplaceholder="예) 010-0000-0000"
             @input="v=>phone.val=v"/>
           <default-button class="button" value="수정" @click="modify('phone')"/>
         </div>
