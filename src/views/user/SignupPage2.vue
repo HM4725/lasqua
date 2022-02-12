@@ -302,10 +302,8 @@ export default{
         email: data.email.val,
         phone: data.phone.val,
         company: data.company.val,
-        gender: data.gender.val
-      }
-      if(data.birth.val) {
-        newUser.birth = data.birth.val
+        gender: data.gender.val,
+        birth: data.birth.val.length === 0 ? '1901-01-01' : data.birth.val
       }
       try {
         await this.$api("POST", "/signup", newUser)
