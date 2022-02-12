@@ -38,7 +38,8 @@ const store = createStore({
           email: info.email,
           phone: info.phone,
           gender: info.gender,
-          company: info.company
+          company: info.company,
+          birth: info.birth
         }
         commit('setUser', payload2)
         return true

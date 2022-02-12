@@ -4,88 +4,103 @@
       개인정보 수정 <span class="user-type">({{userType}})</span>
     </h1>
     <section class="modify-info">
-      <div class="modify-info-id-wrapper">
+      <div class="modify-field">
         <div class="input-with-button">
           <input-box class="box" id="modify-id" type="text" placeholder="아이디"
             :value="id.val" disabled/>
           <default-button class="button hidden" value="숨김"/>
         </div>
       </div>
-      <div class="modify-info-pw-wrapper">
+      <form class="modify-field" @submit.prevent="modify('pw')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-pw" type="password" :placeholder="pwPlaceholder"
-            :value="pw.val" :disabled="!pw.modify"
+            :value="pw.val" :disabled="!pw.modify" tabindex="1"
             @input="v=>pw.val=v" ref="pw"/>
-          <default-button class="button" :value="pw.button" @click="modify('pw')"/>
+          <default-button class="button" :value="pw.button" type="submit" tabindex="4"/>
         </div>
         <section class="modify-info-pw-sub">
           <transition name="slide-down">
-            <form v-show="pw.modify">
+            <div v-show="pw.modify">
               <div class="input-with-button">
                 <input-box class="box" id="modify-pw-new" type="password"
                   placeholder="신규 비밀번호" @input="v=>pw.new=v"
-                  autocomplete="off" ref="pwNew"/>
-                <default-button class="button" value="취소" @click="close('pw')"/>
+                  autocomplete="off" ref="pwNew" tabindex="2"/>
+                <default-button class="button" value="취소" @click="close('pw')" tabindex="5"/>
               </div>
               <div class="input-with-button">
                 <input-box class="box" id="modify-pw-new-confirm" type="password"
                   placeholder="비밀번호 확인" @input="v=>pw.confirm=v"
-                  autocomplete="off" ref="pwConfirm"/>
+                  autocomplete="off" ref="pwConfirm" tabindex="3"/>
                 <default-button class="button hidden" value="숨김"/>
               </div>
-              <div class="error" v-show="pw.msg">{{pw.msg}}</div>
-            </form>
+              <p class="error" v-show="pw.msg">{{pw.msg}}</p>
+            </div>
           </transition>
         </section>
-      </div>
-      <div class="modify-info-name-wrapper">
+      </form>
+      <form class="modify-field" @submit.prevent="modify('name')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-name" type="text" placeholder="이름"
-            :value="name.val" :disabled="!name.modify" 
+            :value="name.val" :disabled="!name.modify" tabindex="6"
             @input="v=>name.val=v"/>
-          <default-button class="button" :value="name.button" @click="modify('name')"/>
+          <default-button class="button" :value="name.button" type="submit" tabindex="7"/>
         </div>
         <section class="modify-info-name-sub">
           <transition name="slide-down">
-            <div class="error" v-show="name.msg">{{name.msg}}</div>
+            <p class="error" v-show="name.msg">{{name.msg}}</p>
           </transition>
         </section>
-      </div>
-      <div class="modify-info-email-wrapper">
+      </form>
+      <form class="modify-field" @submit.prevent="modify('email')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-email" type="text" placeholder="이메일"
-            :value="email.val" :disabled="email.check" 
+            :value="email.val" :disabled="email.check" tabindex="8"
             @input="v=>email.val=v"/>
-          <default-button class="button" :value="email.button" @click="modify('email')"/>
+          <default-button class="button" :value="email.button" type="submit" tabindex="10"/>
         </div>
         <section class="modify-info-email-sub">
           <transition name="slide-down">
             <div v-show="email.modify">
               <div class="input-with-button">
                 <input-box class="box" id="modify-email-check" type="text"
-                  placeholder="인증번호" @input="v=>email.number=v"
+                  placeholder="인증번호" @input="v=>email.number=v" tabindex="9"
                   :disabled="!email.check" ref="emailCheck"/>
-                <default-button class="button" value="취소" @click="close('email')"/>
+                <default-button class="button" value="취소" @click="close('email')"
+                  tabindex="11"/>
               </div>
-              <div class="error">{{email.msg}}</div>
+              <p class="error">{{email.msg}}</p>
             </div>
           </transition>
         </section>
-      </div>
-      <div class="modify-info-phone-wrapper">
+      </form>
+      <form class="modify-field" @submit.prevent="modify('phone')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-phone" type="text" placeholder="전화번호"
             :value="phone.val" :disabled="!phone.modify" subplaceholder="예) 010-0000-0000"
-            @input="v=>phone.val=v"/>
-          <default-button class="button" value="수정" @click="modify('phone')"/>
+            @input="v=>phone.val=v" tabindex="12"/>
+          <default-button class="button" :value="phone.button" type="submit" tabindex="13"/>
         </div>
         <section class="modify-info-phone-sub">
           <transition name="slide-down">
-            <div class="error" v-show="phone.msg">{{phone.msg}}</div>
+            <p class="error" v-show="phone.msg">{{phone.msg}}</p>
           </transition>
         </section>
-      </div>
-      <div class="modify-info-withdrawal">
+      </form>
+      <form v-if="userType==='일반회원'"
+          class="modify-field" @submit.prevent="modify('birth')" method="POST">
+        <div class="input-with-button">
+          <input-box class="box" id="modify-birth" type="text" placeholder="생년월일"
+            :value="birth.val" :disabled="!birth.modify" subplaceholder="예) 2000-01-01"
+            @input="v=>birth.val=v" tabindex="14"/>
+          <default-button class="button" :value="birth.button" type="submit" tabindex="15"/>
+        </div>
+        <section class="modify-info-birth-sub">
+          <transition name="slide-down">
+            <p class="error" v-show="birth.msg">{{birth.msg}}</p>
+          </transition>
+        </section>
+      </form>
+      <div class="modify-field withdrawal">
         <a class="wide-click" @click="withdrawal">회원탈퇴 바로가기</a>
       </div>
     </section>
@@ -148,8 +163,21 @@ export default{
         msg: '',
         modify: false
       },
+      birth: {
+        val: '',
+        pattern: '^\\d{4}-\\d{2}-\\d{2}$',
+        constraint: '올바른 형식으로 입력하세요.',
+        button: '수정',
+        msg: '',
+        modify: false
+      },
+      gender: {
+        options: {M: '남자', F: '여자', N: '그 외'},
+        val: 'N',
+        msg: '',
+        modify: false
+      },
       company: 'N',
-      gender: 'N',
       role: '',
       init: false
     }
@@ -228,12 +256,19 @@ export default{
             }
           }
         }
+      } else if(v === 'birth') {
+        if(this._validateBirth(target)) {
+          if(await this._changeProperty(v)) {
+            this.close(v, target)
+          }
+        }
       } else {
         if(await this._changeProperty(v)) {
           this.close(v, target)
         }
       }
     },
+    // Email methods
     async _sendCheckMail() {
       try {
         this.email.msg = '해당 메일로 인증번호를 보냈습니다.'
@@ -258,6 +293,26 @@ export default{
         return false
       }
     },
+    // Birth methods
+    _validateBirth(birth) {
+      if(!this._isValid(birth)) {
+        birth.msg = birth.constraint
+        return false
+      }
+      const date = new Date(birth.val)
+      const vdate = birth.val.split('-')
+      const valid = !isNaN(date) &&
+        date.getFullYear() === parseInt(vdate[0]) &&
+        date.getMonth() + 1 === parseInt(vdate[1]) &&
+        date.getDate() === parseInt(vdate[2])
+      if(valid) {
+        return true
+      } else {
+        birth.msg = '올바른 생년월일을 입력하세요.'
+        return false
+      }
+    },
+    // Common methods
     _isValid(target) {
       return new RegExp(target.pattern).test(target.val)
     },
@@ -301,7 +356,8 @@ export default{
     this.email.val = user.email
     this.phone.val = user.phone
     this.company = user.company
-    this.gender = user.gender
+    this.gender.val = user.gender
+    this.birth.val = user.birth
     this.role = user.role
   }
 }
@@ -315,7 +371,7 @@ export default{
     font-weight: normal;
     font-size: 1.2rem;
   }
-  .modify-info > div {
+  .modify-info > .modify-field {
     margin-bottom: 16px;
   }
   .input-with-button {
@@ -323,20 +379,19 @@ export default{
     justify-content: space-between;
     align-items: flex-end;
   }
-  .modify-info > div > section {
+  .modify-info > .modify-field > section {
     overflow: hidden;
   }
-  .modify-info > div > section > div {
+  .modify-info > .modify-field > section > div {
     margin-top: 8px;
     margin-bottom: 8px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--active-color);
   }
-  .modify-info-withdrawal {
+  .modify-field.withdrawal {
     text-align: right;
     margin-top: 8px;
   }
-  .modify-info-withdrawal > a {
+  .modify-field.withdrawal > a {
     font-size: .8rem;
     color: #444444;
   }
@@ -349,7 +404,8 @@ export default{
   .modify-info .hidden {
     visibility: hidden;
   } 
-  .modify-info .error {
+  .modify-info .error { 
+    text-align: left;
     color: red;
     word-break: keep-all;
   }
