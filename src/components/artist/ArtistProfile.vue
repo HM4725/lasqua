@@ -4,9 +4,9 @@
       <img-component :src="profileImage" :title="artist.id" ratio="3/4" class="artist-img"/>
     </div>
     <div class="profile">
-      <div class="id">{{artist.id}}</div>
-      <div class="name">{{artist.name}}</div>
-      <div class="info">{{artist.info}}</div>
+      <h3 class="id">{{artist.id}}</h3>
+      <p class="name"><strong>{{artist.name}}</strong></p>
+      <p class="info">{{artist.info}}</p>
       <ul class="sns" v-if="useSns">
         <li v-if="artist.facebook">
           <sns-link-button type="facebook" :link="artist.facebook"/>
@@ -59,28 +59,23 @@ export default{
     display: flex;
     flex-direction: column;
     border: 1px solid var(--active-bg-color);
-    border-radius: .25rem;
+    border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-    padding: 1rem;
+    padding: 16px;
     background-color: white;
   }
   .artist-card > .image{
     border: 1px solid var(--active-color);
-    margin-bottom: 1rem;
-  }
-  .artist-card > .profile > .id {
-    font-size: 1.2rem;
-    font-weight: bold;
+    margin-bottom: 16px;
   }
   .artist-card > .profile > .name {
-    font-weight: bold;
     text-align: left;
   }
   .artist-card > .profile > .info {
     text-align: left;
     word-break: break-word;
     white-space: pre-line;
-    padding-bottom: 1rem;
+    padding-bottom: 16px;
   }
   .artist-card > .profile > ul.sns {
     display: flex;
@@ -103,7 +98,7 @@ export default{
       padding: 0;
     }
     .artist-card > .profile {
-      padding: .5rem .5rem 0 1rem;
+      padding: 8px 8px 0 16px;
       flex: 3;
     }
     .artist-card > .profile > .id {

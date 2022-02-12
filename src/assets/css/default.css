@@ -66,6 +66,7 @@ h1 {
   font-size: 1.8em;
   text-align: left;
   margin-block-start: 0;
+  margin-block-end: .83em;
   border-bottom: solid 1px var(--active-bg-color);
 }
 h2 {
@@ -73,18 +74,23 @@ h2 {
   font-weight: 500;
   font-size: 1.4em;
   margin-block-start: 0;
+  margin-block-end: .2em;
 }
 h3 {
   font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
   font-weight: 500;
   font-size: 1.2em;
   margin-block-start: 0;
+  margin-block-end: .2em;
 }
 p {
   all: unset;
   display: block;
   font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
+}
+p > strong {
+  font-weight: 500;
 }
 
 @media (max-width: 767px) {
