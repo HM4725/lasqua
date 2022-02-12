@@ -14,7 +14,7 @@
       <form class="modify-field" @submit.prevent="modify('pw')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-pw" type="password" :placeholder="pwPlaceholder"
-            :value="pw.val" :disabled="!pw.modify" tabindex="1"
+            :value="pw.val" :disabled="!pw.modify" tabindex="1" autocomplete="off"
             @input="v=>pw.val=v" ref="pw"/>
           <default-button class="button" :value="pw.button" type="submit" tabindex="4"/>
         </div>
@@ -54,8 +54,8 @@
       <form class="modify-field" @submit.prevent="modify('email')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-email" type="text" placeholder="이메일"
-            :value="email.val" :disabled="email.check" tabindex="8"
-            @input="v=>email.val=v"/>
+            :value="email.val" :disabled="!email.modify||email.check" tabindex="8"
+            @input="v=>email.val=v" ref="email"/>
           <default-button class="button" :value="email.button" type="submit" tabindex="10"/>
         </div>
         <section class="modify-info-email-sub">
@@ -89,7 +89,7 @@
       <form v-if="userType==='일반회원'"
           class="modify-field" @submit.prevent="modify('birth')" method="POST">
         <div class="input-with-button">
-          <input-box class="box" id="modify-birth" type="text" placeholder="생년월일"
+          <input-box class="box" id="modify-birth" type="text" placeholder="생년월일 (선택)"
             :value="birth.val" :disabled="!birth.modify" subplaceholder="예) 2000-01-01"
             @input="v=>birth.val=v" tabindex="14"/>
           <default-button class="button" :value="birth.button" type="submit" tabindex="15"/>
@@ -130,38 +130,43 @@ export default{
       pw: {
         val: '',
         pattern: '^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!-/:-@\\[-`{-~]).{8,20}$',
-        constraint: '[영문, 숫자, 특수문자]를 모두 포함 & 8 ~ 20 글자 수 제한',
+        constraint: '영문, 숫자와 특수문자를 모두 포함하며, 8 ~ 20자 이내여야 합니다.',
         button: '수정',
         msg: '',
         modify: false,
         new: '',
         confirm: '',
+        required: true
       },
       name: {
         val: '',
         pattern: '^[가-힣a-zA-Z]{1,10}$',
-        constraint: '10글자 이하 제한, 공백 및 특수문자 사용 불가',
+        constraint: '공백 및 특수문자 사용 불가하며, 10자 이내여야 합니다.',
         button: '수정',
         msg: '',
-        modify: false
+        modify: false,
+        required: true
       },
       email: {
         val: '',
+        oldVal: '',
         pattern: '^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$',
-        constraint: 'email 양식 제한',
+        constraint: '올바른 이메일을 입력하세요.',
         button: '수정',
         msg: '',
         number: '',
         check: true,
-        modify: false
+        modify: false,
+        required: true
       },
       phone: {
         val: '',
         pattern: '^\\d{2,3}-\\d{3,4}-\\d{4}$',
-        constraint: '{2~3자리 숫자}-{3~4자리 숫자}-{4자리 숫자}',
+        constraint: '올바른 형식으로 입력하세요.',
         button: '수정',
         msg: '',
-        modify: false
+        modify: false,
+        required: true
       },
       birth: {
         val: '',
@@ -169,13 +174,15 @@ export default{
         constraint: '올바른 형식으로 입력하세요.',
         button: '수정',
         msg: '',
-        modify: false
+        modify: false,
+        required: false
       },
       gender: {
         options: {M: '남자', F: '여자', N: '그 외'},
         val: 'N',
         msg: '',
-        modify: false
+        modify: false,
+        required: false
       },
       company: 'N',
       role: '',
@@ -212,6 +219,8 @@ export default{
         this.$refs.pw.write('00000000')
         this.$refs.pwNew.write('')
         this.$refs.pwConfirm.write('')
+      } else if(v === 'email') {
+        this.$refs.email.write(target.oldVal)
       }
       target.modify = false
       target.button = '수정'
@@ -229,6 +238,7 @@ export default{
         target.button = '확인'
       } else if(v === 'email') {
         this.$refs.emailCheck.write('')
+        this.email.oldVal = this.email.val
         this.email.check = false
         target.button = '인증'
       } else {
@@ -237,46 +247,71 @@ export default{
       target.modify = true
     },
     async _modifyLogic(v, target) {
-      if(v === 'pw') {
-        if(await this._changePassword()) {
-          this.close(v, target)
-        }
-      } else if(v === 'email') {
-        if(!this.email.check) {
-          this.email.check = true
-          if(await this._sendCheckMail()) {
-            target.button = '확인'
-          } else {
-            this.email.check = false
+      if(!target.required || target.val !== '') {
+        if(v === 'pw') {
+          if(await this._changePassword()) {
+            this.close(v, target)
           }
-        } else {
-          if (await this._checkMailNumber()) {
-            if (await this._changeProperty(v)) {
+        } else if(v === 'email') {
+          if(await this._authMail()) {
+            if(await this._changeProperty(v)) {
+              target.oldVal = target.val
               this.close(v, target)
             }
           }
-        }
-      } else if(v === 'birth') {
-        if(this._validateBirth(target)) {
+        } else if(v === 'birth') {
+          if(this._validateBirth(target)) {
+            if(target.val.length === 0) {
+              target.val = '1901-01-01'
+            }
+            if(await this._changeProperty(v)) {
+              this.close(v, target)
+            }
+          }
+        } else {
           if(await this._changeProperty(v)) {
             this.close(v, target)
           }
         }
       } else {
-        if(await this._changeProperty(v)) {
-          this.close(v, target)
-        }
+        target.msg = '올바르게 입력해주세요.'
       }
     },
     // Email methods
+    async _authMail() {
+      if(!this.email.check) { // 1. Send mail
+        if(this._isValid(this.email)) {
+          this.email.check = true
+          this.email.button = '확인'
+          if(!await this._sendCheckMail()) {
+            this.email.check = false
+            this.email.button = '인증'
+          }
+        } else {
+          this.email.msg = this.email.constraint
+        }
+        return false
+      } else { // 2. Check mail
+        if(await this._checkMailNumber()) {
+          return true
+        } else {
+          this.email.msg = '인증 번호가 일치하지 않습니다.'
+          return false
+        }
+      }
+    },
     async _sendCheckMail() {
       try {
         this.email.msg = '해당 메일로 인증번호를 보냈습니다.'
         await this.$api('POST', '/mail?val=sign', {email: this.email.val})
-        this.email.msg = '메일에서 인증번호를 확인해 주세요.'
         return true
       } catch(error) {
-        this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'
+        const status = error.response.status
+        if(status === 400) {
+          this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'
+        } else if(status === 406) {
+          this.email.msg = '이미 사용 중인 이메일입니다.'
+        }
         return false
       }
     },
@@ -289,7 +324,6 @@ export default{
         await this.$api('POST', '/mailnumber', payload)
         return true
       } catch(error) {
-        this.email.msg = '인증 번호가 일치하지 않습니다.'
         return false
       }
     },
@@ -298,6 +332,8 @@ export default{
       if(!this._isValid(birth)) {
         birth.msg = birth.constraint
         return false
+      } else if(birth.val.length === 0) {
+        return true
       }
       const date = new Date(birth.val)
       const vdate = birth.val.split('-')
@@ -314,7 +350,11 @@ export default{
     },
     // Common methods
     _isValid(target) {
-      return new RegExp(target.pattern).test(target.val)
+      if(!target.required && target.val.length === 0) {
+        return true
+      } else {
+        return new RegExp(target.pattern).test(target.val)
+      }
     },
     // VUEX API
     async _changeProperty(v) {
@@ -357,7 +397,7 @@ export default{
     this.phone.val = user.phone
     this.company = user.company
     this.gender.val = user.gender
-    this.birth.val = user.birth
+    this.birth.val = user.birth === '1901-01-01' ? '' : user.birth
     this.role = user.role
   }
 }
