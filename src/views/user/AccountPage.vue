@@ -287,7 +287,7 @@ export default{
           now: this.pw.val,
           pw: this.pw.new
         }
-        const success = await this.$store.dispatch('_changePassword', payload)
+        const success = await this.$store.dispatch('changePassword', payload)
         this.pw.msg = success ? '' : '현재 비밀번호가 올바르지않습니다.'
         return success
       }
