@@ -186,13 +186,16 @@ export default{
 <style scoped>
   .search-page {
     width: 100%;
-    height: 100%;
   }
   div.projects {
     width: 100%;
     margin-bottom: 2rem;
   }
   @media (max-width: 767px) {
+    .search-page {
+      width: 100%;
+      height: 100%;
+    }
     div.projects > div.open + section.articles-wrapper {
       padding-bottom: 7rem;
     }
