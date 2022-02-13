@@ -1,0 +1,65 @@
+.ProseMirror {
+  padding: 16px;
+  min-height: 300px;
+  text-align: left;;
+}
+.ProseMirror:focus {
+  border: none;
+  outline: none;
+}
+.ProseMirror h1 {
+  font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 1.8em;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border: none;
+}
+.ProseMirror h2 {
+  font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 1.4em;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.ProseMirror h3 {
+  font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 1.2em;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 3px solid var(--active-color);
+}
+.ProseMirror blockquote {
+  border: 1px solid var(--active-color);;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-left: 10px solid var(--active-color);;
+}
+.ProseMirror hr {
+  border: 0;
+  border-bottom: 1px solid var(--active-color);
+}
+.ProseMirror a {
+  all: unset;
+  font-weight: bolder;
+  color: var(--base-color);
+  text-decoration: none;
+}
+.ProseMirror a:hover {
+  color: var(--active-color);
+  cursor: pointer;
+}
+.ProseMirror a:active {
+  color: var(--active-color);
+}

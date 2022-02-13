@@ -2,7 +2,7 @@
   <form class="write-page" @submit.prevent="submit">
     <input-box class="title-input-box" type="text" id="title" placeholder="공지사항 제목" 
       focus @input="v=>title=v"/>
-    <ckeditor ref="editor" @write="v=>content=v"/>
+    <editor-box v-model="content"/>
     <footer class="write-page-buttons">
       <default-button type="click" value="취소" @click.prevent="cancel"/>
       <default-button type="submit" value="작성"/>
@@ -12,14 +12,14 @@
 
 <script>
 import InputBox from '@/components/form/InputBox.vue'
-import Ckeditor from '@/components/form/CKEditor.vue'
+import EditorBox from '@/components/form/EditorBox.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 
 export default{
   name: 'notice.write.page',
   components: {
     InputBox,
-    Ckeditor,
+    EditorBox,
     DefaultButton
   },
   data() {

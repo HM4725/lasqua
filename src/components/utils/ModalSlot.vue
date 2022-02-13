@@ -1,7 +1,7 @@
 <template>
   <div class="modal-component">
     <transition name="modal">
-      <div class="modal-mask" v-if="showModal">
+      <div class="modal-mask" v-if="showModal" @click="clickOutside">
         <div class="modal-wrapper">
           <div class="modal-container">
 
@@ -17,11 +17,11 @@
               </slot>
             </div>
 
-            <div class="modal-footer">
+            <footer class="modal-footer">
               <slot name="footer">
                 <default-button class="modal-default-button" value="확인" @click="close"/>
               </slot>
-            </div>
+            </footer>
 
           </div>
         </div>
@@ -50,12 +50,21 @@ export default{
     close() {
       this.showModal = false
       this.$emit("close")
+    },
+    clickOutside(e) {
+      let el = e.target
+      if(el.classList.contains('modal-wrapper')) {
+        this.close()
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+  .modal-component {
+    display: inline-block;
+  }
   .modal-mask {
     position: fixed;
     z-index: 9998;
@@ -65,7 +74,6 @@ export default{
     height: 100%;
     background-color: rgba(0, 0, 0, .5);
     display: table;
-    transition: opacity .3s ease;
   }
   .modal-wrapper {
     display: table-cell;
@@ -78,7 +86,6 @@ export default{
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
   }
   .modal-header {
     font-size: 1.2rem;
@@ -91,18 +98,24 @@ export default{
     float: right;
   }
   .modal-footer {
-    display: flex;
-    flex-direction: row-reverse;
+    text-align: right;
+    padding: 16px 0;
   }
-  .modal-enter-from {
-    opacity: 0;
+  
+  .modal-enter-active,
+  .modal-leave-active {
+    transition: opacity .25s ease-out;
   }
+  .modal-enter-active .modal-container,
+  .modal-leave-active .modal-container {
+    transition: transform .25s ease-out;
+  }
+  .modal-enter-from,
   .modal-leave-active {
     opacity: 0;
   }
   .modal-enter-from .modal-container,
   .modal-leave-active .modal-container {
-    -webkit-transform: scale(1.01);
     transform: scale(1.01);
   }
 </style>
