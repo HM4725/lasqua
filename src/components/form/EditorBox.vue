@@ -290,5 +290,7 @@ export default {
   }
   .editor > .editor-content {
     border: 1px solid var(--base-color);
+    -webkit-user-select: text;
+    user-select: text;
   }
 </style>
