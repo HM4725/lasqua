@@ -80,7 +80,10 @@ export default{
     vertical-align: middle;
   }
   .modal-container {
-    width: 20rem;
+    width: 350px;
+    max-height: 95vh;
+    max-height: calc(95 * var(--vh));
+    overflow: scroll;
     margin: 0px auto;
     padding: 20px 30px;
     background-color: #fff;
