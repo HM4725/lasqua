@@ -38,10 +38,14 @@ export default{
   methods: {
     open() {
       this.isOpen = true
+      document.documentElement.style.overflow = 'hidden'
+      document.documentElement.style.touchAction = 'none'
     },
     close() {
       this.$refs.search.clear()
       this.isOpen = false
+      document.documentElement.style.overflow = ''
+      document.documentElement.style.touchAction = ''
     },
     clickOutside(e) {
       let el = e.target
@@ -59,10 +63,11 @@ export default{
     position: fixed;
     top: 0;
     left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    height: calc(100 * var(--vh));
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
     visibility: hidden;
     opacity: 0;
     transition: all .25s ease-in-out;
@@ -73,27 +78,28 @@ export default{
   }
   .sidebar {
     position: relative;
+    overflow: scroll;
     top: 0;
-    left: -18rem;
-    width: 18rem;
+    left: -288px;
+    width: 288px;
     height: 100%;
     background-color: white;
     padding-top: 18vh;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 24px;
     transition: all .45s ease-in-out;
   }
   .sidebar-wrapper.open .sidebar {
-    box-shadow: 5px 0 20px 5px rgba(0, 0, 0, 0.2);
-    transform: translateX(18rem);
+    box-shadow: 5px 0 20px 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(288px);
   }
   .sidebar-nav > .nav-button {
     width: 100%;
-    margin: .5rem 0;
+    margin: 8px 0;
   }
   .sidebar-footer {
     position: absolute;
-    bottom: 1.5rem;
+    bottom: 24px;
   }
 </style>
