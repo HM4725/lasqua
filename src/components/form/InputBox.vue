@@ -110,11 +110,10 @@ export default{
     left: 10px;
     top: 16px;
     padding: 0 1px;
-    font-size: .9rem;
+    font-size: .9em;
     height: 16px;
     line-height: 16px;
     transition: all 0.25s ease-out;
-    overflow: hidden;
     white-space: nowrap;
     z-index: 1;
     opacity: 0;

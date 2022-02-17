@@ -52,17 +52,18 @@ export default{
 <style scoped>
   .textarea-box {
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
   .textarea-box textarea {
     width: 100%;
-    height: 8rem;
+    height: 100px;
+    overflow: scroll;
     resize: none;
     transition: all .25s;
-    margin-top: .5rem;
-    padding: 1rem .6rem;
+    margin-top: 8px;
+    padding: 16px 10px;
     border: 1px solid var(--base-color);
-    border-radius: 0;
+    border-radius: 4px;
     background-color: white !important;
   }
   .textarea-box textarea::placeholder {
@@ -71,14 +72,13 @@ export default{
   }
   .textarea-box label {
     position: absolute;
-    left: .6rem;
-    top: 1rem;
+    left: 10px;
+    top: 16px;
     padding: 0 1px;
-    font-size: .9rem;
-    height: 1rem;
-    line-height: 1rem;
+    font-size: .9em;
+    height: 16px;
+    line-height: 16px;
     transition: all 0.25s ease-out;
-    overflow: hidden;
     white-space: nowrap;
     z-index: 1;
     opacity: 0;
@@ -89,7 +89,7 @@ export default{
   .textarea-box textarea:focus + label,
   .textarea-box.filled textarea + label {
     opacity: 1;
-    top: .1rem;
+    top: 1px;
     background-color: white;
   }
   .textarea-box textarea:focus{
@@ -99,7 +99,7 @@ export default{
   .textarea-box .length {
     position: relative;
     top: 0;
-    margin-right: 1rem;
+    margin-right: 16px;
     text-align: right;
   }
 </style>
