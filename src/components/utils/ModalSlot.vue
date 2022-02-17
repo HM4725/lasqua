@@ -46,9 +46,13 @@ export default{
   methods: {
     show() {
       this.showModal = true
+      document.documentElement.style.overflow = 'hidden'
+      document.documentElement.style.touchAction = 'none'
     },
     close() {
       this.showModal = false
+      document.documentElement.style.overflow = ''
+      document.documentElement.style.touchAction = ''
       this.$emit("close")
     },
     clickOutside(e) {
