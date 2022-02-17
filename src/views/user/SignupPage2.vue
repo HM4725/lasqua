@@ -303,7 +303,7 @@ export default{
         phone: data.phone.val,
         company: data.company.val,
         gender: data.gender.val,
-        birth: data.birth.val.length === 0 ? '1901-01-01' : data.birth.val
+        birth: data.birth.val.length === 0 ? null : data.birth.val
       }
       try {
         await this.$api("POST", "/signup", newUser)

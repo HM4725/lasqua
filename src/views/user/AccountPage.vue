@@ -247,23 +247,33 @@ export default{
       target.modify = true
     },
     async _modifyLogic(v, target) {
-      if(!target.required || target.val !== '') {
-        if(v === 'pw') {
-          if(await this._changePassword()) {
-            this.close(v, target)
-          }
-        } else if(v === 'email') {
-          if(await this._authMail()) {
+      if(target.required) {
+        if(target.val.length > 0) {
+          if(v === 'pw') {
+            if(await this._changePassword()) {
+              this.close(v, target)
+            }
+          } else if(v === 'email') {
+            if(await this._authMail()) {
+              if(await this._changeProperty(v)) {
+                target.oldVal = target.val
+                this.close(v, target)
+              }
+            }
+          } else {
             if(await this._changeProperty(v)) {
-              target.oldVal = target.val
               this.close(v, target)
             }
           }
-        } else if(v === 'birth') {
+        } else {
+          target.msg = '올바르게 입력해주세요.'
+        }
+      } else {
+        if(target.val.length === 0) {
+          target.val = null
+        }
+        if(v === 'birth') {
           if(this._validateBirth(target)) {
-            if(target.val.length === 0) {
-              target.val = '1901-01-01'
-            }
             if(await this._changeProperty(v)) {
               this.close(v, target)
             }
@@ -273,8 +283,6 @@ export default{
             this.close(v, target)
           }
         }
-      } else {
-        target.msg = '올바르게 입력해주세요.'
       }
     },
     // Email methods
@@ -332,7 +340,7 @@ export default{
       if(!this._isValid(birth)) {
         birth.msg = birth.constraint
         return false
-      } else if(birth.val.length === 0) {
+      } else if(birth.val === null) {
         return true
       }
       const date = new Date(birth.val)
@@ -350,10 +358,14 @@ export default{
     },
     // Common methods
     _isValid(target) {
-      if(!target.required && target.val.length === 0) {
-        return true
+      if(target.required) {
+          return new RegExp(target.pattern).test(target.val)
       } else {
-        return new RegExp(target.pattern).test(target.val)
+        if(target.val !== null && target.val.length > 0) {
+          return new RegExp(target.pattern).test(target.val)
+        } else {
+          return true
+        }
       }
     },
     // VUEX API
@@ -397,7 +409,7 @@ export default{
     this.phone.val = user.phone
     this.company = user.company
     this.gender.val = user.gender
-    this.birth.val = user.birth === '1901-01-01' ? '' : user.birth
+    this.birth.val = user.birth === null ? '' : user.birth
     this.role = user.role
   }
 }
