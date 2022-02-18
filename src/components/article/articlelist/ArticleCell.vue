@@ -57,13 +57,13 @@ export default{
   .thumbnail {
     border: 1px solid var(--active-bg-color);
     border-radius: 4px;
+    overflow: hidden;
     transition: all .25s ease-in-out;
   }
   .thumbnail * {
     pointer-events: none;
   }
   .thumbnail > .thumbnail-img {
-    border-radius: 3px;
     transition: all .25s ease-in-out;
   }
   .thumbnail.clickable {
