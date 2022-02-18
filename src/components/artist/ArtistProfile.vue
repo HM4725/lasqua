@@ -90,7 +90,7 @@ export default{
       flex-direction: row;
       padding: 6px 0;
       border: none;
-      box-shadow: rgb(0 0 0 / 20%) 0 0 12px 12px;
+      border-radius: none;
     }
     .artist-card > .image {
       flex: 2;
