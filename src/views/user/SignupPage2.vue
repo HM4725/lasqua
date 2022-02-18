@@ -340,6 +340,9 @@ export default{
             if(!response['Id Unique']) {
               errors.id = "중복된 아이디입니다."
             }
+            if(!response['Id disabled']) {
+              errors.id = "사용할 수 없는 아이디입니다."
+            }
             if(!response['Compnay validation']) {
               errors.company = "올바르지 않은 회원종류입니다."
             }
