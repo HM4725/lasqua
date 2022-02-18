@@ -1,14 +1,14 @@
 <template>
   <div class="upload-wrapper">
-    <!-- <table-list v-if="pagination==='scroll'" ref="images" :rowlength="rowlength"
-      @clicked="handleClick" @upload="handleUpload"/> -->
-    <slide-list  ref="images" :rowlength="rowlength"
+    <table-list v-if="pagination==='scroll'" ref="images" :rowlength="rowlength"
+      @clicked="handleClick" @upload="handleUpload"/>
+    <slide-list v-else-if="pagination==='button'" ref="images" :rowlength="rowlength"
       @clicked="handleClick" @upload="handleUpload"/>
   </div>
 </template>
 
 <script>
-// import TableList from './TableList.vue'
+import TableList from './TableList.vue'
 import SlideList from './SlideList.vue'
 
 function wrapImage(image) {
@@ -22,7 +22,7 @@ function wrapImage(image) {
 export default{
   name: 'components.article.upload.main',
   components: {
-    // TableList,
+    TableList,
     SlideList
   },
   props: {
