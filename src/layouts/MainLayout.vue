@@ -19,9 +19,9 @@ export default {
     display: -webkit-box;
     display: flex;
     width: 100%;
-    min-height: -webkit-calc(100vh - 48px);
-    min-height: -moz-calc(100vh - 48px);
-    min-height: calc(100vh - 48px);
+    min-height: -webkit-calc(100 * var(--vh, 1vh) - 48px);
+    min-height: -moz-calc(100 * var(--vh, 1vh) - 48px);
+    min-height: calc(100 * var(--vh, 1vh) - 48px);
     height: auto;
     -webkit-box-pack: center;
   }

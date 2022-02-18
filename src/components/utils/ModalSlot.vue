@@ -75,9 +75,9 @@ export default{
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
-    height: -webkit-calc(100 * var(--vh));
-    height: calc(100 * var(--vh));
+    height: -webkit-calc(100 * var(--vh, 1vh));
+    height: -moz-calc(100 * var(--vh, 1vh));
+    height: calc(100 * var(--vh, 1vh));
     background-color: rgba(0, 0, 0, .5);
     display: table;
   }
@@ -87,9 +87,9 @@ export default{
   }
   .modal-container {
     width: 350px;
-    max-height: 100vh;
-    max-height: -webkit-calc(100 * var(--vh));
-    max-height: calc(100 * var(--vh));
+    max-height: -webkit-calc(100 * var(--vh, 1vh));
+    max-height: -moz-calc(100 * var(--vh, 1vh));
+    max-height: calc(100 * var(--vh, 1vh));
     overflow: scroll;
     margin: 0px auto;
     padding: 20px 30px;

@@ -64,8 +64,9 @@ export default{
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
-    height: calc(100 * var(--vh));
+    height: -webkit-calc(100 * var(--vh, 1vh));
+    height: -moz-calc(100 * var(--vh, 1vh));
+    height: calc(100 * var(--vh, 1vh));
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
     visibility: hidden;
