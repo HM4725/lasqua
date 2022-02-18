@@ -438,7 +438,7 @@ export default{
   }
   span.user-type {
     font-weight: normal;
-    font-size: 1.2em;
+    font-size: .7em;
   }
   .modify-info > .modify-field {
     margin-bottom: 16px;
