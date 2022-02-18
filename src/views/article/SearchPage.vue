@@ -197,7 +197,7 @@ export default{
       height: 100%;
     }
     div.projects > div.open + section.articles-wrapper {
-      padding-bottom: 272px;
+      padding-bottom: 50px;
     }
     div.artists {
       width: 100%;
