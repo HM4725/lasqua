@@ -62,7 +62,7 @@ textarea::placeholder {
 }
 h1 {
   font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.8em;
   text-align: left;
   margin-block-start: 0;
@@ -71,14 +71,14 @@ h1 {
 }
 h2 {
   font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.4em;
   margin-block-start: 0;
   margin-block-end: .2em;
 }
 h3 {
   font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.2em;
   margin-block-start: 0;
   margin-block-end: .2em;
@@ -91,7 +91,7 @@ p {
   word-break: keep-all;
 }
 p > strong {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 @media (max-width: 767px) {
@@ -111,11 +111,4 @@ p > strong {
   font-weight: 400;
   src: local(''),
        url('../fonts/noto-sans-kr-v25-latin_korean-regular.woff2') format('woff2')
-}
-@font-face {
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 500;
-  src: local(''),
-       url('../fonts/noto-sans-kr-v25-latin_korean-500.woff2') format('woff2')
 }
