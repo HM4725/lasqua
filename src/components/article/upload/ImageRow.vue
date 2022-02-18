@@ -1,7 +1,8 @@
 <template>
   <tr>
     <td v-for="(article, i) in articles" :key="`cell_${i}`">
-      <article-cell :article="article" @clicked="handleClick"/>
+      <article-cell :article="article"
+        @clicked="handleClick" @error="handleClick"/>
     </td>
   </tr>
 </template>
