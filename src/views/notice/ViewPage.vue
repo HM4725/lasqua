@@ -8,8 +8,8 @@
     <notice-content :content="content"/>
     <footer>
       <default-button class="button" value="목록" @click="backToList"/>
-      <default-button class="button" value="수정" @click="modifyNotice" v-if="isAdmin"/>
       <default-button class="button" value="삭제" @click="deleteNotice" v-if="isAdmin"/>
+      <default-button class="button" value="수정" @click="modifyNotice" v-if="isAdmin"/>
     </footer>
   </article>
 </template>
