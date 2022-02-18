@@ -79,7 +79,7 @@ export default{
         while(i >= idx.i) {
           j = i === idx.i ? idx.j : 0
           this.rows[i].push(tmp)
-          tmp = this.rows[i].splice(j, 1)
+          tmp = this.rows[i].splice(j, 1)[0]
           i--
         }
         if(this.rows.at(-1)[0].no === undefined) {
