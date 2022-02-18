@@ -1,5 +1,5 @@
 <template>
-  <div class="modify-wrapper">
+  <div class="modify-page">
     <header class="title">
       <input-box class="info-box" type="text" id="upload-title" placeholder="프로젝트 제목" :value="title" @input="v=>title=v" maxlength="20" focus/>
     </header>
@@ -10,8 +10,8 @@
       <textarea-box class="content-box" type="text" id="modify-content" placeholder="프로젝트 설명글" :value="content" @input="v=>content=v"/>
     </section>
     <footer class="submit">
-      <default-button class="button" value="완료" @click="modify"/>
       <default-button class="button" value="취소" @click="cancel"/>
+      <default-button class="button" value="완료" @click="modify"/>
     </footer>
   </div>
 </template>
@@ -84,32 +84,28 @@ export default{
 </script>
 
 <style scoped>
-  .modify-wrapper {
+  .modify-page {
     width: 100%;
-  }
-  .modify-wrapper > .title {
-    padding: 0 3rem;
-  }
-  .modify-wrapper > .images {
-    margin: 3rem 0;
-  }
-  .modify-wrapper > .content {
-    padding: 0 3rem;
-    width: 100%;
-  }
-  .modify-wrapper > .content > .content-box{
-    height: 5rem;
-  }
-  .modify-wrapper > .submit {
+    padding: 32px;
     display: flex;
-    flex-direction: row-reverse;
-    padding-right: 3rem;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .modify-wrapper > .submit > .button {
-    margin-left: 1rem;
+  .modify-page > .images {
+    padding: 32px 0;
+  }
+  .modify-page > .content > .content-box{
+    height: 80px;
+  }
+  .modify-page > footer.submit {
+    text-align: right;
+    margin: 16px 0;
+  }
+  .modify-page > footer.submit > .button {
+    margin-left: 16px;
   }
   @media (max-width: 767px) {
-    .modify-wrapper {
+    .modify-page {
       padding: var(--mobile-padding-size);
     }
   }

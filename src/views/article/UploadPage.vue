@@ -1,5 +1,5 @@
 <template>
-  <div class="upload-wrapper">
+  <div class="upload-page">
     <header class="title">
       <input-box class="info-box" type="text" id="upload-title" placeholder="프로젝트 제목" @input="v=>title=v" maxlength="20" focus/>
     </header>
@@ -10,8 +10,8 @@
       <textarea-box class="content-box" type="text" id="details" placeholder="프로젝트 설명글" @input="v=>content=v"/>
     </section>
     <footer class="submit">
-      <default-button class="button" value="완료" @click="upload"/>
       <default-button class="button" value="취소" @click="cancel"/>
+      <default-button class="button" value="완료" @click="upload"/>
     </footer>
   </div>
 </template>
@@ -62,29 +62,29 @@ export default{
 </script>
 
 <style scoped>
-  .upload-wrapper {
+  .upload-page {
     width: 100%;
-  }
-  .upload-wrapper > .title {
-    padding: 0 3rem;
-  }
-  .upload-wrapper > .images {
-    margin: 3rem 0;
-  }
-  .upload-wrapper > .content {
-    padding: 0 3rem;
-    width: 100%;
-  }
-  .upload-wrapper > .content > .content-box{
-    height: 5rem;
-  }
-  .upload-wrapper > .submit {
+    padding: 32px;
     display: flex;
-    flex-direction: row-reverse;
-    padding-right: 3rem;
-    margin-bottom: 2rem;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .upload-wrapper > .submit > .button {
-    margin-left: 1rem;
+  .upload-page > .images {
+    padding: 32px 0;
+  }
+  .upload-page > .content > .content-box{
+    height: 80px;
+  }
+  .upload-page > footer.submit {
+    text-align: right;
+    margin: 16px 0;
+  }
+  .upload-page > footer.submit > .button {
+    margin-left: 16px;
+  }
+  @media (max-width: 767px) {
+    .upload-page {
+      padding: var(--mobile-padding-size);
+    }
   }
 </style>

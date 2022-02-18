@@ -155,7 +155,7 @@ export default{
   }
   .arrow-button {
     display: flex;
-    padding: 0 1rem;
+    padding: 0 16px;
     cursor: pointer;
     align-items: center;
   }
@@ -171,6 +171,7 @@ export default{
   .main {
     display: flex;
     width: 100%;
+    padding-left: 24px;
   }
   article {
     width: 75%;
@@ -182,10 +183,10 @@ export default{
     transition: transform .25s ease-in-out;
   }
   ul.slide > li {
-    padding-right: 1.5rem;
+    padding-right: 24px;
   }
   .add-button {
-    padding-right: 1.5rem;
+    padding-right: 24px;
     padding-top: 2px;
     width: 25%;
   }
