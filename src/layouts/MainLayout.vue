@@ -19,7 +19,10 @@ export default {
     display: -webkit-box;
     display: flex;
     width: 100%;
-    height: 100%;
+    min-height: -webkit-calc(100vh - 48px);
+    min-height: -moz-calc(100vh - 48px);
+    min-height: calc(100vh - 48px);
+    height: auto;
     -webkit-box-pack: center;
   }
   .main-wrapper > div {
