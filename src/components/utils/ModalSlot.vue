@@ -19,7 +19,7 @@
 
             <footer class="modal-footer">
               <slot name="footer">
-                <default-button class="modal-default-button" value="확인" @click="close"/>
+                <default-button value="확인" @click="close"/>
               </slot>
             </footer>
 
@@ -71,11 +71,12 @@ export default{
   }
   .modal-mask {
     position: fixed;
-    z-index: 9998;
+    z-index: 10000;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
+    height: -webkit-calc(100 * var(--vh));
     height: calc(100 * var(--vh));
     background-color: rgba(0, 0, 0, .5);
     display: table;
@@ -86,13 +87,14 @@ export default{
   }
   .modal-container {
     width: 350px;
-    max-height: 95vh;
-    max-height: calc(95 * var(--vh));
+    max-height: 100vh;
+    max-height: -webkit-calc(100 * var(--vh));
+    max-height: calc(100 * var(--vh));
     overflow: scroll;
     margin: 0px auto;
     padding: 20px 30px;
     background-color: #fff;
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   }
   .modal-header {
@@ -101,9 +103,6 @@ export default{
   }
   .modal-body {
     margin: 20px 0;
-  }
-  .modal-default-button {
-    float: right;
   }
   .modal-footer {
     text-align: right;
