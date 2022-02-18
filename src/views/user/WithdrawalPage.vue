@@ -107,4 +107,10 @@ export default{
   .withdrawal-page > footer .button {
     margin-left: 16px;
   }
+  @media (max-width: 767px) {
+    .withdrawal-page {
+      width: 100%;
+      padding: var(--mobile-padding-size);
+    }
+  }
 </style>
