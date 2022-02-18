@@ -53,17 +53,17 @@ export default{
 <style>
   form.write-page {
     width: 100%;
-    padding: 0 1.5rem;
+    padding: 0 24px;
   }
   .title-input-box {
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
   }
   footer.write-page-buttons {
-    padding: 1rem 0;
+    padding: 16px 0;
     text-align: right;
   }
   footer.write-page-buttons > button {
-    margin-left: 1rem !important;
+    margin-left: 16px !important;
   }
   @media (max-width: 767px) {
     form.write-page {

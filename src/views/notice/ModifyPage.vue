@@ -4,8 +4,8 @@
       focus @input="v=>title=v" :value="title"/>
     <editor-box v-model="content"/>
     <footer class="modify-page-buttons">
-      <default-button type="click" value="취소" @click.prevent="cancel"/>
-      <default-button type="submit" value="작성"/>
+      <default-button class="button" type="click" value="취소" @click.prevent="cancel"/>
+      <default-button class="button" type="submit" value="작성"/>
     </footer>
   </form>
 </template>
@@ -65,17 +65,17 @@ export default{
 <style>
   form.modify-page {
     width: 100%;
-    padding: 0 1.5rem;
+    padding: 0 24px;
   }
   .title-input-box {
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
   }
   footer.modify-page-buttons {
-    padding: 1rem 0;
+    padding: 16px 0;
     text-align: right;
   }
-  footer.modify-page-buttons > button {
-    margin-left: 1rem !important;
+  footer.modify-page-buttons > .button {
+    margin-left: 16px;
   }
   @media (max-width: 767px) {
     form.modify-page {

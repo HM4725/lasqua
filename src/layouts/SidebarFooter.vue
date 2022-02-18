@@ -38,14 +38,14 @@ export default{
   }
   .sidebar-footer-list li {
     float: left;
-    margin-right: .2rem;
+    margin-right: 3px;
   }
   .sidebar-footer-list li::before {
     content: "|";
     color: var(--base-color);
     position: relative;
     top: -1px;
-    padding-right: .2rem;
+    padding-right: 3px;
   }
   .sidebar-footer-list li:first-child::before {
     content: "";

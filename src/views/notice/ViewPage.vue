@@ -73,15 +73,15 @@ export default{
 <style scoped>
   article.view-page {
     width: 100%;
-    padding: 1.5rem;
+    padding: 24px;
     text-align: left;
   }
   footer {
     text-align: right;
-    padding: 1rem 0;
+    padding: 16px 0;
   }
   footer > .button {
-    margin-left: 1rem;
+    margin-left: 16px;
   }
   @media (max-width: 767px) {
     article.view-page {

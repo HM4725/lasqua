@@ -120,7 +120,7 @@ export default{
   .artist-details > .artist {
     display: flex;
     width: 100%;
-    padding: 0 3rem;
+    padding: 0 48px;
   }
   .artist-details > .artist > .image {
     width: 20%;
@@ -129,19 +129,19 @@ export default{
   .artist-details > .artist > .information {
     width: 80%;
     text-align: left;
-    padding-left: 3rem;
+    padding-left: 48px;
   }
   .artist-details > .projects {
     text-align: right;
     width: 100%;
   }
   .projects > label {
-    margin-right: 3rem;
+    margin-right: 48px;
     color: red;
   }
   span {
     color: var(--active-color);
-    padding-right: 2rem;
+    padding-right: 32px;
   }
   ul.sns {
     display: flex;
@@ -163,13 +163,13 @@ export default{
       padding: 0;
     }
     .artist-details > .artist > .information {
-      padding: .5rem .5rem 0 1rem;
+      padding: 8px 8px 0 16px;
       flex: 3;
     }
     .projects > label {
       display: block;
       color: var(--base-color);
-      padding: 1rem;
+      padding: 16px;
       margin-right: 0;
     }
     .open-icon {

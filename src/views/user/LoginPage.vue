@@ -63,20 +63,20 @@ export default{
 
 <style scoped>
   .login {
-    width: 24rem;
+    width: 400px;
   }
   form.login-form {
-    margin: 1rem 0;
+    margin: 16px 0;
   }
   .login-wrapper {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
     border: 1px solid var(--base-color);
-    padding: 1rem 0;
+    padding: 16px 0;
   }
   .login-info {
-    width: 15rem;
+    width: 230px;
   }
   .info-box {
     width: 100%;
@@ -88,7 +88,7 @@ export default{
   footer.etc {
     display: flex;
     flex-direction: row;
-    column-gap: 1rem;
+    column-gap: 16px;
   }
   footer.etc > .button {
     flex: 1;
@@ -99,15 +99,15 @@ export default{
       padding: var(--mobile-padding-size);
     }
     .login-wrapper {
-      padding: 1rem;
+      padding: 16px;
     }
     .login-info {
       width: 70%;
-      margin-right: 1rem;
+      margin-right: 16px;
     }
     footer.etc {
-      margin: 0 1rem 1rem 1rem;
-      row-gap: 1rem;
+      margin: 0 16px 16px 16px;
+      row-gap: 16px;
       flex-direction: column;
     }
   }

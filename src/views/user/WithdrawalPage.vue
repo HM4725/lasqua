@@ -92,7 +92,7 @@ export default{
     font-style: normal;
   }
   .withdrawal-page > p.context {
-    font-size: .8rem;
+    font-size: .8em;
     color: #333;
   }
   .withdrawal-page > .agree-area > p {

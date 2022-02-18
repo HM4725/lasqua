@@ -44,7 +44,7 @@ export default {
     background-color: white;
   }
   .index-phrase {
-    margin-bottom: 5rem;
+    margin-bottom: 80px;
   }
   .index-phrase-font {
     font-size: 2.5rem;
@@ -57,10 +57,10 @@ export default {
 
   @media (max-width: 767px) {
     .index-wrapper {
-      padding-bottom: 3rem;
+      padding-bottom: 48px;
     }
     .index-phrase {
-      width: 20rem;
+      width: 320px;
     }
     .index-phrase-font {
       font-size: -webkit-calc(1.375rem + 1.5vw);

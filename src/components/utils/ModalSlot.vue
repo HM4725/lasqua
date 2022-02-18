@@ -98,7 +98,7 @@ export default{
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   }
   .modal-header {
-    font-size: 1.2rem;
+    font-size: 1.2em;
     font-weight: bold;
   }
   .modal-body {

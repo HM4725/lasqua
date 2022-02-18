@@ -348,21 +348,21 @@ export default{
     width: 768px;
   }
   .signup-box {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
   .signup-box > h3 {
     text-align: left;
-    margin: 0 0 1rem 2rem;
+    margin: 0 0 16px 32px;
   }
   .signup-box > h3 > .terms {
-    font-size: .8rem;
+    font-size: .8em;
     color: red;
   }
   .agreement-box {
     overflow-x: hidden;
     overflow-y: auto;
     height: 150px;
-    padding: 1rem;
+    padding: 16px;
     border: 1px solid var(--active-color);
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
     text-align: left;
@@ -377,10 +377,10 @@ export default{
     color: red;
   }
   .signup > footer {
-    margin: 1rem;
+    margin: 16px;
   }
   .signup > footer > .button {
-    margin: 0 .75rem;
+    margin: 0 8px;
   }
   @media (max-width: 767px) {
     .signup {

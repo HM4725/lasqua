@@ -113,7 +113,7 @@ export default{
   }
   .images > img {
     aspect-ratio: auto;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
   @media (max-width: 767px) {
     .project-page {

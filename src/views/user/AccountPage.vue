@@ -438,7 +438,7 @@ export default{
   }
   span.user-type {
     font-weight: normal;
-    font-size: 1.2rem;
+    font-size: 1.2em;
   }
   .modify-info > .modify-field {
     margin-bottom: 16px;
@@ -461,7 +461,7 @@ export default{
     margin-top: 8px;
   }
   .modify-field.withdrawal > a {
-    font-size: .8rem;
+    font-size: .8em;
     color: #444444;
   }
   .modify-info .button {

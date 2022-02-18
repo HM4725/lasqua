@@ -113,25 +113,25 @@ export default {
   }
   .artist {
     flex: 1;
-    padding: 0 1.5rem;
+    padding: 0 24px;
     position: relative;
     top: -7vw;
     height: fit-content;
   }
   .artist > .button {
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 16px;
   }
   .projects {
     flex: 3;
-    padding: 1rem;
+    padding: 16px;
     height: fit-content;
   }
   .projects > .buttons {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    padding: 1rem;
+    padding: 16px;
   }
   .tooltip > .tooltip-text {
     display: none;

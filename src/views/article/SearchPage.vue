@@ -189,7 +189,7 @@ export default{
   }
   div.projects {
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 32px;
   }
   @media (max-width: 767px) {
     .search-page {
@@ -197,7 +197,7 @@ export default{
       height: 100%;
     }
     div.projects > div.open + section.articles-wrapper {
-      padding-bottom: 7rem;
+      padding-bottom: 272px;
     }
     div.artists {
       width: 100%;
@@ -207,7 +207,7 @@ export default{
     div.artists.footer {
       position: fixed;
       bottom: 0;
-      padding-bottom: 1rem;
+      padding-bottom: 16px;
     }
     .button {
       display: inline-block;

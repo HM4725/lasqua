@@ -126,7 +126,7 @@ export default{
   }
   @media (max-width: 767px) {
     table {
-      border-spacing: 5px;
+      border-spacing: 6px;
     }
   }
 </style>

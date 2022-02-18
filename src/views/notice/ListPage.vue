@@ -32,11 +32,11 @@ export default{
 <style scoped>
   section.notice-list-page {
     width: 100%;
-    padding: 1rem 3rem;
+    padding: 16px 48px;
   }
   section.notice-list-page > div.buttons {
     text-align: right;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
   @media (max-width: 767px) {
     section.notice-list-page {

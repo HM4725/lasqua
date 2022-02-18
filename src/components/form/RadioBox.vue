@@ -64,8 +64,8 @@ export default{
     display: flex;
     width: 100%;
     transition: all .25s;
-    margin-top: .7rem;
-    padding: .5rem 2px 0 2px;
+    margin-top: 11px;
+    padding: 8px 2px 0 2px;
     border: 1px solid var(--base-color);
     border-radius: 4px;
     background-color: white;
@@ -73,11 +73,11 @@ export default{
   fieldset.radio-box > legend {
     position: absolute;
     background-color: white;
-    font-size: .9rem;
-    height: 1rem;
-    line-height: 1rem;
-    top: -0.5rem;
-    left: .6rem;
+    font-size: .9em;
+    height: 1em;
+    line-height: 1em;
+    top: -0.5em;
+    left: .6em;
   }
   fieldset.radio-box:disabled {
     border-color: var(--disabled-color);

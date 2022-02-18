@@ -94,12 +94,12 @@ export default{
   section.table-wrapper {
     border: 1px solid var(--active-color);
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-    padding: 1rem 2rem;
+    padding: 16px 32px;
   }
   section.table-wrapper > table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
     table-layout: fixed;
   }
   thead > tr {
@@ -107,12 +107,12 @@ export default{
     border-bottom: 1px solid var(--base-color);
   }
   th.field-regdate {
-    width: 12rem;
+    width: 200px;
   }
   footer > span {
     transition: color .25s ease-out;
     cursor: pointer;
-    padding: .5rem;
+    padding: 8px;
   }
   footer > span:active {
     background-color: var(--active-bg-color);
@@ -121,10 +121,10 @@ export default{
     color: var(--active-color)
   }
   footer > span:first-child {
-    margin-right: 1rem;
+    margin-right: 16px;
   }
   footer > span:last-child {
-    margin-left: 1rem;
+    margin-left: 16px;
   }
   footer > span.pos {
     font-weight: bold;
@@ -141,9 +141,10 @@ export default{
     section.table-wrapper {
       padding: 0;
       border: none;
+      box-shadow: none;
     }
     th.field-regdate {
-      width: 6rem;
+      width: 100px;
     }
   }
 </style>

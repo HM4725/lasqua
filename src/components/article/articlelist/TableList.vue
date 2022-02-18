@@ -82,7 +82,7 @@ export default{
     width:100%;
     table-layout: fixed;
     overflow-wrap: break-word;
-    border-spacing: 1.5rem;
+    border-spacing: 24px;
   }
   tfoot.loading {
     width: 100%;
@@ -90,7 +90,7 @@ export default{
   }
   @media (max-width: 767px) {
     table {
-      border-spacing: 5px;
+      border-spacing: 6px;
     }
   }
 </style>

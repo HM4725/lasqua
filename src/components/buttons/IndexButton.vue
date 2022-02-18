@@ -18,20 +18,20 @@ export default{
 
 <style scoped>
 .index-button {
-  width: 10rem;
-  height: 10rem;
+  width: 160px;
+  height: 160px;
   border-radius: 100%;
-  margin: 0 1rem;
+  margin: 0 16px;
   font-size: 1.5rem;
 }
 @media (max-width: 767px) {
   .index-button {
-    width: -webkit-calc(6rem + 8vw);
-    width: -moz-calc(6rem + 8vw);
-    width: calc(6rem + 8vw);
-    height: -webkit-calc(6rem + 8vw);
-    height: -moz-calc(6rem + 8vw);
-    height: calc(6rem + 8vw);
+    width: -webkit-calc(96px + 8vw);
+    width: -moz-calc(96px + 8vw);
+    width: calc(96px + 8vw);
+    height: -webkit-calc(96px + 8vw);
+    height: -moz-calc(96px + 8vw);
+    height: calc(96px + 8vw);
   }
 }
 </style>

@@ -56,14 +56,14 @@ export default{
 <style scoped>
   .thumbnail {
     border: 1px solid var(--active-bg-color);
-    border-radius: .25rem;
+    border-radius: 4px;
     transition: all .25s ease-in-out;
   }
   .thumbnail * {
     pointer-events: none;
   }
   .thumbnail > .thumbnail-img {
-    border-radius: calc(0.25rem - 1px);
+    border-radius: 3px;
     transition: all .25s ease-in-out;
   }
   .thumbnail.clickable {

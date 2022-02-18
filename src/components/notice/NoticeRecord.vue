@@ -34,17 +34,17 @@ export default{
     color: var(--active-color);
   }
   td.record-title {
-    padding: 0 .5rem;
+    padding: 0 8px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   td.record-regdate {
-    width: 12rem;
+    width: 200px;
   }
   @media (max-width: 767px) {
     td.record-regdate {
-      width: 6rem;
+      width: 100px;
     }
   }
 </style>

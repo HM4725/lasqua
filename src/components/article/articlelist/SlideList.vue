@@ -136,7 +136,7 @@ export default{
   }
   .arrow-button {
     display: flex;
-    padding: 0 1rem;
+    padding: 0 16px;
     cursor: pointer;
     align-items: center;
   }
@@ -153,7 +153,7 @@ export default{
     width: 100%;
     overflow: hidden;
     padding-top: 2px;
-    margin: 0 0.75rem;
+    margin: 0 12px;
   }
   ul {
     display: flex;
@@ -163,6 +163,6 @@ export default{
     transition: transform .25s ease-in-out;
   }
   ul > li {
-    margin: 0 0.75rem;
+    margin: 0 12px;
   }
 </style>

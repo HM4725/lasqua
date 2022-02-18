@@ -40,13 +40,13 @@ export default{
 <style scoped>
   .search-box {
     width: 100%;
-    margin-bottom: 3rem;
+    margin-bottom: 48px;
   }
   .search-input {
-    width: -webkit-calc(100% - 3.5rem);
-    width: -moz-calc(100% - 3.5rem);
-    width: calc(100% - 3.5rem);
-    margin-right: .5rem;
+    width: -webkit-calc(100% - 56px);
+    width: -moz-calc(100% - 56px);
+    width: calc(100% - 56px);
+    margin-right: 8px;
     border-radius: 0;
     border: none;
     border-bottom: 1px solid var(--base-color);
@@ -55,8 +55,8 @@ export default{
     outline: none;
   }
   .search-button {
-    width: 3rem;
-    min-height: 2rem;
+    width: 48px;
+    min-height: 32px;
     padding: 0;
   }
 </style>
