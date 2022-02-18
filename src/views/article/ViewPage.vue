@@ -14,8 +14,8 @@
     </article>
     <artist-details v-if="id" class="artist" :uid="id" :no="no"/>
     <footer v-if="myPage">
-      <default-button class="button" value="수정하기" @click="modifyArticle"/>
-      <default-button class="button" value="삭제하기" @click="deleteArticle"/>
+      <default-button class="button" value="삭제" @click="deleteArticle"/>
+      <default-button class="button" value="수정" @click="modifyArticle"/>
     </footer>
   </div>
 </template>
@@ -83,33 +83,33 @@ export default{
   .project-page {
     width: 100%;
     min-height: 100%;
-    padding: 2rem;
+    padding: 32px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   .project-page > article.project {
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
     border-bottom: solid 1px var(--active-bg-color);
   }
   .project-page > section.artist {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
     border-bottom: solid 1px var(--active-bg-color);
-    padding-bottom: 1rem;
+    padding-bottom: 16px;
   }
   .project-page > footer {
     text-align: right;
-    margin: 1rem 0;
+    margin: 16px 0;
   }
   .project-page > footer > .button {
-    margin-left: 1rem;
+    margin-left: 16px;
   }
   .info {
     text-align: left;
   }
   .images {
-    padding: 0 3rem;
+    padding: 0 48px;
   }
   .images > img {
     aspect-ratio: auto;

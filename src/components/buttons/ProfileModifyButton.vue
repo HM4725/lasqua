@@ -36,8 +36,8 @@
         </div>
       </template>
       <template v-slot:footer>
-        <default-button value="변경" class="footer-button" @click="modify"/>
         <default-button value="취소" class="footer-button" @click="cancel"/>
+        <default-button value="변경" class="footer-button" @click="modify"/>
       </template>
     </modal-slot>
   </div>
@@ -157,7 +157,7 @@ export default{
 
 <style scoped>
   span {
-    padding-left: .5rem;
+    padding-left: 8px;
   }
   .profile-modify-button {
     width: fit-content;
@@ -175,25 +175,25 @@ export default{
     opacity: 0.7;
   }
   .banner {
-    margin-bottom: .5rem;
+    margin-bottom: 8px;
     text-align: left;
   }
   .middle {
     display: flex;
     flex-direction: row;
-    margin-bottom: .5rem;
+    margin-bottom: 8px;
     text-align: left;
   }
   .middle > div {
     flex: 1;
   }
   .middle > .sns {
-    margin-left: 1rem;
+    margin-left: 16px;
   }
   .footer-button {
-    margin-left: .5rem;
+    margin-left: 16px;
   }
   span.delete-image {
-    font-size: .8rem;
+    font-size: .8em;
   }
 </style>
