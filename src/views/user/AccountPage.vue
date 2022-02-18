@@ -25,7 +25,8 @@
                 <input-box class="box" id="modify-pw-new" type="password"
                   placeholder="신규 비밀번호" @input="v=>pw.new=v"
                   autocomplete="off" ref="pwNew" tabindex="2"/>
-                <default-button class="button" value="취소" @click="close('pw')" tabindex="5"/>
+                <default-button class="button" value="취소" @click="close('pw')"
+                  type="button" tabindex="5"/>
               </div>
               <div class="input-with-button">
                 <input-box class="box" id="modify-pw-new-confirm" type="password"
@@ -66,7 +67,7 @@
                   placeholder="인증번호" @input="v=>email.number=v" tabindex="9"
                   :disabled="!email.check" ref="emailCheck"/>
                 <default-button class="button" value="취소" @click="close('email')"
-                  tabindex="11"/>
+                  type="button" tabindex="11"/>
               </div>
               <p class="error">{{email.msg}}</p>
             </div>
@@ -100,6 +101,19 @@
           </transition>
         </section>
       </form>
+      <form v-if="userType==='일반회원'"
+          class="modify-field" @submit.prevent="modify('gender')" method="POST">
+        <div class="input-with-button">
+          <radio-box id="modify-gender" title="성별" :options="gender.options"
+            :value="gender.val" :disabled="!gender.modify" @change="v=>gender.val=v"/>
+          <default-button class="button" :value="gender.button" type="submit" tabindex="13"/>
+        </div>
+        <section class="modify-info-gender-sub">
+          <transition name="slide-down">
+            <p class="error" v-show="gender.msg">{{gender.msg}}</p>
+          </transition>
+        </section>
+      </form>
       <div class="modify-field withdrawal">
         <a class="wide-click" @click="withdrawal">회원탈퇴 바로가기</a>
       </div>
@@ -112,6 +126,7 @@
 
 <script>
 import InputBox from '@/components/form/InputBox.vue'
+import RadioBox from '@/components/form/RadioBox.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 import RouterButton from '@/components/buttons/RouterButton.vue'
 
@@ -119,6 +134,7 @@ export default{
   name: 'user.account.page',
   components: {
     InputBox,
+    RadioBox,
     DefaultButton,
     RouterButton
   },
@@ -180,6 +196,7 @@ export default{
       gender: {
         options: {M: '남자', F: '여자', N: '그 외'},
         val: 'N',
+        button: '수정',
         msg: '',
         modify: false,
         required: false

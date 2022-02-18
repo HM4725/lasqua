@@ -1,6 +1,6 @@
 <template>
   <div class="radio-box-wrapper">
-    <fieldset class="radio-box">
+    <fieldset class="radio-box" :disabled="disabled">
       <legend v-if="title">{{title}}</legend>
       <div class="option" :id="id" v-for="(option, key) in options" :key="key">
         <input type="radio" @change="change"
@@ -31,6 +31,10 @@ export default{
     value: {
       type: String,
       default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -50,6 +54,9 @@ export default{
 </script>
 
 <style scoped>
+  .radio-box-wrapper {
+    width: 100%;
+  }
   fieldset.radio-box {
     all: unset;
     position: relative;
@@ -72,11 +79,18 @@ export default{
     top: -0.5rem;
     left: .6rem;
   }
+  fieldset.radio-box:disabled {
+    border-color: var(--disabled-color);
+  }
   .option {
     border: 1px solid var(--base-color);
     border-radius: 4px;
     flex: 1;
     margin: 3px;
+  }
+  fieldset.radio-box:disabled > .option {
+    border-color: var(--disabled-color);
+    color: #707070;
   }
   .option > input[type="radio"] {
     display: none;
