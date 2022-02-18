@@ -62,8 +62,8 @@
       <div class="artists">
         <h2>Artists</h2>
         <p v-if="notfound.artists">검색 결과가 없습니다.</p>
-          <article-list ref="artists" :rowlength="4" paging="button"
-            @request="handleRequestArtist" @clicked="handleClickArtist"/>
+        <article-list ref="artists" :rowlength="4" paging="button"
+          @request="handleRequestArtist" @clicked="handleClickArtist"/>
       </div>
     </template>
   </div>
@@ -234,18 +234,26 @@ export default{
       transform: rotate(90deg);
     }
   }
-  .slide-down-enter-active,
+  .slide-down-enter-active {
+    transition: opacity 0.3s cubic-bezier(.7,0,1,.3), 
+      transform 0.3s cubic-bezier(0,.7,.3,1);
+  }
   .slide-down-leave-active {
-    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+    transition: opacity 0.3s cubic-bezier(0,.7,.3,1), 
+      transform 0.3s cubic-bezier(.7,0,1,.3);
   }
   .slide-down-enter-from,
   .slide-down-leave-active {
     opacity: 0;
     transform: translateY(-50%);
   }
-  .slide-up-enter-active,
+  .slide-up-enter-active {
+    transition: opacity 0.3s cubic-bezier(.7,0,1,.3), 
+      transform 0.3s cubic-bezier(0,.7,.3,1);
+  }
   .slide-up-leave-active {
-    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+    transition: opacity 0.3s cubic-bezier(0,.7,.3,1), 
+      transform 0.3s cubic-bezier(.7,0,1,.3);
   }
   .slide-up-enter-from,
   .slide-up-leave-active {
