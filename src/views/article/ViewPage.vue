@@ -8,7 +8,8 @@
       </div>
       <div class="images">
         <template v-for="(image, i) in images.slice(1)" :key="i">
-          <img-component :src="image.link" :title="image.name"/>
+          <img-component class="image"
+            :src="image.link" :title="image.name"/>
         </template>
       </div>
     </article>
@@ -93,6 +94,9 @@ export default{
     margin-bottom: 16px;
     border-bottom: solid 1px var(--active-bg-color);
   }
+  .images > .image {
+    margin-bottom: 16px;
+  }
   .project-page > section.artist {
     margin-bottom: 16px;
     border-bottom: solid 1px var(--active-bg-color);
@@ -124,6 +128,9 @@ export default{
     }
     .images {
       padding: 0;
+    }
+    .images > .image {
+      margin-bottom: var(--mobile-padding-size);
     }
     .project-page > footer {
       padding: var(--mobile-padding-size);
