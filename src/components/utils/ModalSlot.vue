@@ -109,20 +109,20 @@ export default{
     padding: 16px 0;
   }
   
-  .modal-enter-active,
-  .modal-leave-active {
-    transition: opacity .25s ease-out;
+  .modal-enter-active {
+    transition: opacity .3s cubic-bezier(0,.7,.3,1);
   }
-  .modal-enter-active .modal-container,
+  .modal-leave-active {
+    transition: opacity .3s cubic-bezier(.7,0,1,.3);
+  }
   .modal-leave-active .modal-container {
-    transition: transform .25s ease-out;
+    transition: transform .3s cubic-bezier(0,.7,.3,1);
   }
   .modal-enter-from,
   .modal-leave-active {
     opacity: 0;
   }
-  .modal-enter-from .modal-container,
   .modal-leave-active .modal-container {
-    transform: scale(1.01);
+    transform: scale(1.05);
   }
 </style>
