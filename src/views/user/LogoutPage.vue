@@ -1,5 +1,5 @@
 <template>
-  <div class="logout">
+  <div class="logout-page">
     {{msg}}
   </div>
 </template>
@@ -26,5 +26,9 @@ export default{
 </script>
 
 <style scoped>
-
+  @media (max-width: 767px) {
+    .logout-page {
+      padding: var(--mobile-padding-size);
+    }
+  }
 </style>

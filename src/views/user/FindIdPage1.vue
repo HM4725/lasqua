@@ -139,4 +139,9 @@ export default{
   .findid-page > footer .button {
     margin-left: 16px;
   }
+  @media (max-width: 767px) {
+    .findid-page {
+      padding: var(--mobile-padding-size);
+    }
+  }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="message-page">
     <p v-if="message">{{message}}</p>
-    <p>{{time}}초 후 이동합니다.</p>
+    <p>잠시 후 이동합니다.</p>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default{
   },
   data() {
     return {
-      time: 2
+      time: 1.5
     }
   },
   mounted() {
@@ -30,6 +30,11 @@ export default{
 
 <style scoped>
   .message-page > p:first-child {
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 767px) {
+    .message-page {
+      padding: var(--mobile-padding-size);
+    }
   }
 </style>

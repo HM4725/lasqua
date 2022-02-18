@@ -120,4 +120,9 @@ export default{
   .findpw-page > footer > .button {
     margin-left: 16px;
   }
+  @media (max-width: 767px) {
+    .findpw-page {
+      padding: var(--mobile-padding-size);
+    }
+  }
 </style>

@@ -28,6 +28,11 @@ export default{
 
 <style scoped>
   .error-page > p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 767px) {
+    .error-page {
+      padding: var(--mobile-padding-size);
+    }
   }
 </style>
