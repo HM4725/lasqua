@@ -83,7 +83,7 @@
         </template>
         <template v-slot:body>
           <input-box type="text" id="editor-link" placeholder="URL"
-             :value="link" @input="v=>link=v" @keyup.enter="setLink" focus/>
+             :value="link" @input="v=>link=v" @keyup.enter.prevent="setLink" focus/>
         </template>
         <template v-slot:footer>
           <default-button class="footer-button" value="취소" @click="closeLinkModal"/>
