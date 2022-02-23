@@ -1,8 +1,8 @@
 <template>
-  <div class="modal-component">
+  <form class="modal-component" @submit.prevent>
     <transition name="modal">
-      <div class="modal-mask" v-if="showModal" @click="clickOutside">
-        <div class="modal-wrapper">
+      <div class="modal-mask" v-if="showModal">
+        <div class="modal-wrapper" @click="clickOutside">
           <div class="modal-container">
 
             <div class="modal-header">
@@ -27,7 +27,7 @@
         </div>
       </div>
     </transition>
-  </div>
+  </form>
 </template>
 
 <script>

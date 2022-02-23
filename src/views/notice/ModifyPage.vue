@@ -1,10 +1,10 @@
 <template>
   <form class="modify-page" @submit.prevent="submit">
-    <input-box class="title-input-box" type="text" id="title" placeholder="공지사항 제목" 
-      focus @input="v=>title=v" :value="title"/>
+    <input-box class="title-input-box" type="text" id="title"
+      placeholder="공지사항 제목" focus v-model="title"/>
     <editor-box v-model="content"/>
     <footer class="modify-page-buttons">
-      <default-button class="button" type="click" value="취소" @click.prevent="cancel"/>
+      <default-button class="button" value="취소" @click.prevent="cancel"/>
       <default-button class="button" type="submit" value="작성"/>
     </footer>
   </form>
@@ -36,8 +36,7 @@ export default{
     }
   },
   methods: {
-    async submit(e) {
-      console.log(e)
+    async submit() {
       try {
         const payload = {no: this.no, title: this.title, content: this.content}
         await this.$api('PUT', '/notice', payload)

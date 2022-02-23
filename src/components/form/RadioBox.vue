@@ -3,8 +3,8 @@
     <fieldset class="radio-box" :disabled="disabled">
       <legend v-if="title">{{title}}</legend>
       <div class="option" :id="id" v-for="(option, key) in options" :key="key">
-        <input type="radio" @change="change"
-          :name="id" :id="id + '-' + key" v-model="radioValue" :value="key">
+        <input type="radio" @change="change" v-model="radioValue"
+          :name="id" :id="id + '-' + key" :value="key">
         <label :for="id + '-' + key">{{option}}</label>
       </div>
     </fieldset>
@@ -14,7 +14,7 @@
 <script>
 export default{
   name: 'components.form.radio',
-  emits: ['change'],
+  emits: ['update:modelValue'],
   props: {
     id: {
       type: String,
@@ -26,11 +26,12 @@ export default{
     },
     options: {
       type: Object,
+      required: true,
       default: () => {}
     },
-    value: {
-      type: String,
-      default: ''
+    modelValue: {
+      validator: v => typeof v === 'string' ||
+        v === null || v === undefined
     },
     disabled: {
       type: Boolean,
@@ -39,15 +40,20 @@ export default{
   },
   data() {
     return {
-      radioValue: this.value,
+      radioValue: ''
     }
   },
   methods: {
-    isLast(i) {
-      return i === this.options.length - 1
-    },
-    change() {
-      this.$emit('change', this.radioValue)
+    change(e) {
+      this.radioValue = e.target.value
+      this.$emit('update:modelValue', this.radioValue)
+    }
+  },
+  created() {
+    if(Object.keys(this.options).includes(this.modelValue)) {
+      this.radioValue = this.modelValue
+    } else {
+      this.radioValue = 'N'
     }
   }
 }

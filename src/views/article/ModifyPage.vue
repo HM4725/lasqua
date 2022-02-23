@@ -1,13 +1,15 @@
 <template>
   <div class="modify-page">
     <header class="title">
-      <input-box class="info-box" type="text" id="upload-title" placeholder="프로젝트 제목" :value="title" @input="v=>title=v" maxlength="20" focus/>
+      <input-box class="info-box" type="text" id="modify-title"
+        placeholder="프로젝트 제목" v-model="title" maxlength="20" focus/>
     </header>
     <section class="images">
       <upload-images ref="images" :uploaded="images" :rowlength="3"/>
     </section>
     <section class="content">
-      <textarea-box class="content-box" type="text" id="modify-content" placeholder="프로젝트 설명글" :value="content" @input="v=>content=v"/>
+      <textarea-box class="content-box" type="text" id="modify-content" 
+       v-model="content" placeholder="프로젝트 설명글"/>
     </section>
     <footer class="submit">
       <default-button class="button" value="취소" @click="cancel"/>

@@ -7,11 +7,11 @@
     </p>
     <div class="pw-box">
       <input-box id="findpw-pw" type="password" placeholder="새 비밀번호"
-        @input="v=>{pw.val=v}" autocomplete="off"/>
+        v-model="pw.val" autocomplete="off"/>
     </div>
     <div class="pwconfirm-box">
       <input-box id="findpw-pwconfirm" type="password" placeholder="비밀번호 확인"
-        @input="v=>{confirmPw.val=v}" autocomplete="off"/>
+        v-model="confirmPw.val" autocomplete="off"/>
     </div>
     <p class="error">{{error}}</p>
     <footer>

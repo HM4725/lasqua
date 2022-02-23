@@ -1,6 +1,7 @@
 <template>
-  <div class="textarea-box" :class="{filled: filled}">
-    <textarea v-bind="$attrs" :id="id" :placeholder="placeholder" :value="value" @input="updateInput" :maxlength="maxlength"/>
+  <div class="textarea-box" :class="{filled: length > 0}">
+    <textarea v-bind="$attrs" :id="id" :placeholder="placeholder" :value="modelValue"
+      @input="updateInput" :maxlength="maxlength"/>
     <label v-if="placeholder" :for="id">{{placeholder}}</label>
     <div class="length">({{length}} / {{maxlength}})</div>
   </div>
@@ -15,36 +16,32 @@ export default{
       type: String,
       required: true
     },
+    modelValue: {
+      validator: v => typeof v === 'string' ||
+        v === null || v === undefined
+    },
     placeholder: {
       type: String,
-      default: ""
+      default: ''
     },
     maxlength: {
       type: Number,
       default: 100
-    },
-  },
-  data() {
-    return {
-      value: ''
     }
   },
   methods: {
     updateInput(event) {
-      this.value = event.target.value
-      this.$emit('input', this.value)
+      this.$emit('update:modelValue', event.target.value)
     }
   },
   computed: {
-    filled() {
-      return this.value.length !== 0
-    },
     length() {
-      return this.value.length
+      if(this.modelValue) {
+        return this.modelValue.length
+      } else {
+        return 0
+      }
     }
-  },
-  beforeMount() {
-    this.$attrs.value && (this.value = this.$attrs.value)
   }
 }
 </script>

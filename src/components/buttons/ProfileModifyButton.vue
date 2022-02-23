@@ -26,13 +26,13 @@
           </div>
           <div class="sns">
             <span>SNS 링크</span>
-            <input-box id="modify-facebook" :value="modified.facebook" placeholder="facebook" @input="v=>{modified.facebook=v}"/>
-            <input-box id="modify-instagram" :value="modified.instagram" placeholder="instagram" @input="v=>{modified.instagram=v}"/>
-            <input-box id="modify-twitter" :value="modified.twitter" placeholder="twitter" @input="v=>{modified.twitter=v}"/>            
+            <input-box id="modify-facebook" v-model="modified.facebook" placeholder="facebook"/>
+            <input-box id="modify-instagram" v-model="modified.instagram" placeholder="instagram"/>
+            <input-box id="modify-twitter" v-model="modified.twitter" placeholder="twitter"/>            
           </div>
         </div>
         <div class="info">
-          <textarea-box id="modify-info" :value="modified.info" placeholder="자기소개" @input="v=>{modified.info=v}"/>
+          <textarea-box id="modify-info" v-model="modified.info" placeholder="자기소개"/>
         </div>
       </template>
       <template v-slot:footer>

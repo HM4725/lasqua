@@ -4,15 +4,15 @@
     <p class="message">아이디와 이메일을 입력하세요.</p>
     <div class="id-box">
       <input-box id="findpw-id" type="text" placeholder="아이디"
-        @input="v=>{id.val=v}" :disabled="email.check" autocomplete="off"/>
+        v-model="id.val" :disabled="email.check" autocomplete="off"/>
     </div>
     <div class="email-box">
       <input-box id="findpw-email" type="text" placeholder="이메일"
-        @input="v=>{email.val=v}" :disabled="email.check"/>
+        v-model="email.val" :disabled="email.check"/>
     </div>
     <div class="auth-box" v-show="email.check">
       <input-box id="findpw-email-auth" type="text" placeholder="인증번호"
-        @input="v=>{email.number=v}" :disabled="email.auth"/>
+        v-model="email.number" :disabled="email.auth"/>
     </div>
     <p class="error">{{msg}}</p>
     <footer>

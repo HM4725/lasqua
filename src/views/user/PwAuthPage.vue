@@ -3,7 +3,7 @@
     <h1>본인확인</h1>
     <div class="message">비밀번호를 입력하세요.</div>
     <input-box id="pwauth-password" type="password" placeholder="비밀번호"
-      @input="v=>pw=v" autocomplete="off" focus/>
+      v-model="pw" autocomplete="off" focus/>
     <div v-if="error" class="error">비밀번호가 일치하지 않습니다.</div>
     <footer>
       <default-button class="button" value="뒤로" @click="cancel"/>

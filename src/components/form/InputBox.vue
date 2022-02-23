@@ -1,8 +1,8 @@
 <template>
   <div class="input-box" :class="{filled: filled}">
     <input v-bind="$attrs" :type="type" :id="id" :placeholder="iplaceholder" 
-      :value="value" @input="updateInput" ref="input"
-      @focus="handleFocus" @blur="handleBlur"
+      :value="modelValue" @input="updateInput" ref="input"
+      @focus="handleFocus" @blur="handleBlur" autocomplete="off"
       :class="{blank: subplaceholder===''}"/>
     <label v-if="placeholder" :for="id">{{placeholder}}</label>
   </div>
@@ -19,30 +19,34 @@ export default{
     },
     type: {
       type: String,
-      default: "text"
+      default: 'text'
+    },
+    modelValue: {
+      validator: v => typeof v === 'string' || 
+        v === null || v === undefined
     },
     placeholder: {
       type: String,
-      default: ""
+      default: ''
     },
     subplaceholder: {
       type: String,
-      default: ""
+      default: ''
     },
     focus: {
       type: Boolean,
       default: false
-    },
+    }
   },
   data() {
     return {
-      value: '',
       input: false
     }
   },
   computed: {
     filled() {
-      return this.value.length !== 0
+      return this.modelValue &&
+        this.modelValue.length > 0
     },
     iplaceholder() {
       if(this.input) {
@@ -55,12 +59,7 @@ export default{
   },
   methods: {
     updateInput(event) {
-      this.value = event.target.value
-      this.$emit('input', this.value)
-    },
-    write(text) {
-      this.value = text
-      this.$emit('input', text)
+      this.$emit('update:modelValue', event.target.value)
     },
     handleFocus() {
       this.input = true
@@ -68,9 +67,6 @@ export default{
     handleBlur() {
       this.input = false
     }
-  },
-  beforeMount() {
-    this.$attrs.value && (this.value = this.$attrs.value)
   },
   mounted() {
     this.focus && this.$refs.input.focus()

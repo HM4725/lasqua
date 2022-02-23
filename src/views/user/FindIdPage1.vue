@@ -4,11 +4,11 @@
     <p class="message">이메일을 입력하세요.</p>
     <div>
       <input-box id="findid-email" type="text" placeholder="이메일"
-        @input="v=>{email.val=v}" :disabled="email.check"/>
+        v-model="email.val" :disabled="email.check"/>
     </div>
     <div class="auth-box" v-show="email.check">
       <input-box id="findid-email-auth" type="text" placeholder="인증번호"
-        @input="v=>{email.number=v}" :disabled="email.auth"/>
+        v-model="email.number" :disabled="email.auth"/>
     </div>
     <p class="error">{{email.msg}}</p>
     <footer>
@@ -83,7 +83,6 @@ export default{
       try {
         this.email.msg = '해당 메일로 인증번호를 보냈습니다.'
         await this.$api('POST', '/mail?val=id', {email: this.email.val})
-        this.email.msg = '메일에서 인증번호를 확인해 주세요.'
         return true
       } catch(error) {
         this.email.msg = '인증 메일 발송에 오류가 발생하였습니다.'

@@ -7,15 +7,14 @@
       <div class="modify-field">
         <div class="input-with-button">
           <input-box class="box" id="modify-id" type="text" placeholder="아이디"
-            :value="id.val" disabled/>
+            v-model="id.val" disabled/>
           <default-button class="button hidden" value="숨김"/>
         </div>
       </div>
       <form class="modify-field" @submit.prevent="modify('pw')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-pw" type="password" :placeholder="pwPlaceholder"
-            :value="pw.val" :disabled="!pw.modify" tabindex="1" autocomplete="off"
-            @input="v=>pw.val=v" ref="pw"/>
+            v-model="pw.val" :disabled="!pw.modify" tabindex="1" autocomplete="off"/>
           <default-button class="button" :value="pw.button" type="submit" tabindex="4"/>
         </div>
         <section class="modify-info-pw-sub">
@@ -23,15 +22,15 @@
             <div v-show="pw.modify">
               <div class="input-with-button">
                 <input-box class="box" id="modify-pw-new" type="password"
-                  placeholder="신규 비밀번호" @input="v=>pw.new=v"
-                  autocomplete="off" ref="pwNew" tabindex="2"/>
+                  placeholder="신규 비밀번호" v-model="pw.new"
+                  autocomplete="off" tabindex="2"/>
                 <default-button class="button" value="취소" @click="close('pw')"
                   type="button" tabindex="5"/>
               </div>
               <div class="input-with-button">
                 <input-box class="box" id="modify-pw-new-confirm" type="password"
-                  placeholder="비밀번호 확인" @input="v=>pw.confirm=v"
-                  autocomplete="off" ref="pwConfirm" tabindex="3"/>
+                  placeholder="비밀번호 확인" v-model="pw.confirm"
+                  autocomplete="off" tabindex="3"/>
                 <default-button class="button hidden" value="숨김"/>
               </div>
               <p class="error" v-show="pw.msg">{{pw.msg}}</p>
@@ -42,8 +41,7 @@
       <form class="modify-field" @submit.prevent="modify('name')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-name" type="text" placeholder="이름"
-            :value="name.val" :disabled="!name.modify" tabindex="6"
-            @input="v=>name.val=v"/>
+            v-model="name.val" :disabled="!name.modify" tabindex="6"/>
           <default-button class="button" :value="name.button" type="submit" tabindex="7"/>
         </div>
         <section class="modify-info-name-sub">
@@ -55,8 +53,7 @@
       <form class="modify-field" @submit.prevent="modify('email')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-email" type="text" placeholder="이메일"
-            :value="email.val" :disabled="!email.modify||email.check" tabindex="8"
-            @input="v=>email.val=v" ref="email"/>
+            v-model="email.val" :disabled="!email.modify||email.check" tabindex="8"/>
           <default-button class="button" :value="email.button" type="submit" tabindex="10"/>
         </div>
         <section class="modify-info-email-sub">
@@ -64,8 +61,8 @@
             <div v-show="email.modify">
               <div class="input-with-button">
                 <input-box class="box" id="modify-email-check" type="text"
-                  placeholder="인증번호" @input="v=>email.number=v" tabindex="9"
-                  :disabled="!email.check" ref="emailCheck"/>
+                  placeholder="인증번호" v-model="email.number" tabindex="9"
+                  :disabled="!email.check"/>
                 <default-button class="button" value="취소" @click="close('email')"
                   type="button" tabindex="11"/>
               </div>
@@ -77,8 +74,8 @@
       <form class="modify-field" @submit.prevent="modify('phone')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-phone" type="text" placeholder="전화번호"
-            :value="phone.val" :disabled="!phone.modify" subplaceholder="예) 010-0000-0000"
-            @input="v=>phone.val=v" tabindex="12"/>
+            v-model="phone.val" :disabled="!phone.modify" subplaceholder="예) 010-0000-0000"
+            tabindex="12"/>
           <default-button class="button" :value="phone.button" type="submit" tabindex="13"/>
         </div>
         <section class="modify-info-phone-sub">
@@ -91,8 +88,8 @@
           class="modify-field" @submit.prevent="modify('birth')" method="POST">
         <div class="input-with-button">
           <input-box class="box" id="modify-birth" type="text" placeholder="생년월일 (선택)"
-            :value="birth.val" :disabled="!birth.modify" subplaceholder="예) 2000-01-01"
-            @input="v=>birth.val=v" tabindex="14"/>
+            v-model="birth.val" :disabled="!birth.modify" subplaceholder="예) 2000-01-01"
+            tabindex="14"/>
           <default-button class="button" :value="birth.button" type="submit" tabindex="15"/>
         </div>
         <section class="modify-info-birth-sub">
@@ -105,7 +102,7 @@
           class="modify-field" @submit.prevent="modify('gender')" method="POST">
         <div class="input-with-button">
           <radio-box id="modify-gender" title="성별" :options="gender.options"
-            :value="gender.val" :disabled="!gender.modify" @change="v=>gender.val=v"/>
+            v-model="gender.val" :disabled="!gender.modify"/>
           <default-button class="button" :value="gender.button" type="submit" tabindex="13"/>
         </div>
         <section class="modify-info-gender-sub">
@@ -233,11 +230,11 @@ export default{
         target = this.$data[v]
       }
       if(v === 'pw') {
-        this.$refs.pw.write('00000000')
-        this.$refs.pwNew.write('')
-        this.$refs.pwConfirm.write('')
+        target.val = '00000000'
+        target.new = ''
+        target.confirm = ''
       } else if(v === 'email') {
-        this.$refs.email.write(target.oldVal)
+        target.val = target.oldVal
       }
       target.modify = false
       target.button = '수정'
@@ -249,14 +246,14 @@ export default{
     // Private API
     _modifyInit(v, target) {
       if(v === 'pw') {
-        this.$refs.pw.write('')
-        this.$refs.pwNew.write('')
-        this.$refs.pwConfirm.write('')
+        target.val = ''
+        target.new = ''
+        target.confirm = ''
         target.button = '확인'
       } else if(v === 'email') {
-        this.$refs.emailCheck.write('')
-        this.email.oldVal = this.email.val
-        this.email.check = false
+        target.number = ''
+        target.oldVal = target.val
+        target.check = false
         target.button = '인증'
       } else {
         target.button = '확인'

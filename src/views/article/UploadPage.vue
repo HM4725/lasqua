@@ -1,13 +1,15 @@
 <template>
   <div class="upload-page">
     <header class="title">
-      <input-box class="info-box" type="text" id="upload-title" placeholder="프로젝트 제목" @input="v=>title=v" maxlength="20" focus/>
+      <input-box class="info-box" type="text" id="upload-title"
+        placeholder="프로젝트 제목" v-model="title" maxlength="20" focus/>
     </header>
     <section class="images">
       <upload-images ref="images"/>
     </section>
     <section class="content">
-      <textarea-box class="content-box" type="text" id="details" placeholder="프로젝트 설명글" @input="v=>content=v"/>
+      <textarea-box class="content-box" type="text" id="upload-content"
+        placeholder="프로젝트 설명글" v-model="content"/>
     </section>
     <footer class="submit">
       <default-button class="button" value="취소" @click="cancel"/>

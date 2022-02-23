@@ -5,43 +5,43 @@
       <div class="necessary">
         <h3>필수 사항</h3>
         <input-box id="signup-id" type="text" placeholder="아이디" autocomplete="off"
-          @input="v=>id.val=v" focus/>
+          v-model="id.val" focus/>
         <p class="message">{{id.msg}}</p>
         <input-box id="signup-pw" type="password" placeholder="비밀번호" autocomplete="off"
-          @input="v=>pw.val=v"/>
+          v-model="pw.val"/>
         <p class="message">{{pw.msg}}</p>
         <input-box id="signup-confirmPw" type="password" placeholder="비밀번호 확인" autocomplete="off"
-          @input="v=>confirmPw.val=v"/>
+          v-model="confirmPw.val"/>
         <p class="message">{{confirmPw.msg}}</p>
-        <input-box id="signup-name" type="text" placeholder="이름" @input="v=>name.val=v"/>
+        <input-box id="signup-name" type="text" placeholder="이름" v-model="name.val"/>
         <p class="message">{{name.msg}}</p>
         <form @submit.prevent="authMail" method="POST">
           <div class="input-with-button">
-            <input-box id="signup-email" type="text" placeholder="이메일" @input="v=>email.val=v"
+            <input-box id="signup-email" type="text" placeholder="이메일" v-model="email.val"
               :disabled="email.check||email.auth"/>
             <default-button class="button" type="submit" :value="email.button" v-if="!email.auth"/>
           </div>
           <div class="input-with-button" v-show="email.check">
             <input-box id="signup-email-auth" type="text" placeholder="인증번호"
-              @input="v=>email.number=v"/>
+              v-model="email.number"/>
             <default-button class="button" value="취소" @click="cancelAuthMail"/>
           </div>
         </form>
         <p class="message">{{email.msg}}</p>
         <input-box id="signup-phone" type="text" placeholder="전화번호" subplaceholder="예) 010-0000-0000"
-          @input="v=>phone.val=v"/>
+          v-model="phone.val"/>
         <p class="message">{{phone.msg}}</p>
       </div>
       <div class="optional">
         <h3>선택 사항</h3>
-        <radio-box id="signup-company" title="회원 구분" :options="company.options" :value="company.val"
-          @change="selectCompany"/>
+        <radio-box id="signup-company" title="회원 구분" :options="company.options" v-model="company.val"
+          @update:modelValue="selectCompany"/>
         <p class="message">{{company.msg}}</p>
         <radio-box v-if="company.val==='N'" id="signup-gender" title="성별" :options="gender.options" 
-          :value="gender.val" @change="v=>gender.val=v"/>
+          v-model="gender.val"/>
         <p class="message">{{gender.msg}}</p>
         <input-box v-if="company.val==='N'" id="signup-birth" type="text" placeholder="생년월일"
-          subplaceholder="예) 2000-01-01" @input="v=>birth.val=v"/>
+          subplaceholder="예) 2000-01-01" v-model="birth.val"/>
         <p class="message">{{birth.msg}}</p>
       </div>
     </div>
@@ -183,7 +183,6 @@ export default{
       this.email.check = false
     },
     selectCompany(v) {
-      this.company.val = v
       if(v === 'Y') {
         this.gender.val = 'N'
         this.birth.val = ''
