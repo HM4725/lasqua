@@ -191,6 +191,10 @@ export default{
     width: 100%;
     margin-bottom: 32px;
   }
+  div.artists {
+    width: 100%;
+    margin-bottom: 32px;
+  }
   @media (max-width: 767px) {
     .search-page {
       width: 100%;
@@ -201,6 +205,7 @@ export default{
     }
     div.artists {
       width: 100%;
+      margin-bottom: 0;
       background-color: white;
       border-top: 1px solid var(--disabled-color);
     }
