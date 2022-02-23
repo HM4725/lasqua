@@ -37,12 +37,12 @@
         <radio-box id="signup-company" title="회원 구분" :options="company.options" v-model="company.val"
           @update:modelValue="selectCompany"/>
         <p class="message">{{company.msg}}</p>
-        <radio-box v-if="company.val==='N'" id="signup-gender" title="성별" :options="gender.options" 
+        <radio-box v-show="company.val==='N'" id="signup-gender" title="성별" :options="gender.options" 
           v-model="gender.val"/>
-        <p class="message">{{gender.msg}}</p>
-        <input-box v-if="company.val==='N'" id="signup-birth" type="text" placeholder="생년월일"
+        <p v-show="company.val==='N'" class="message">{{gender.msg}}</p>
+        <input-box v-show="company.val==='N'" id="signup-birth" type="text" placeholder="생년월일"
           subplaceholder="예) 2000-01-01" v-model="birth.val"/>
-        <p class="message">{{birth.msg}}</p>
+        <p v-show="company.val==='N'" class="message">{{birth.msg}}</p>
       </div>
     </div>
     <footer>
@@ -337,7 +337,7 @@ export default{
               errors.phone = data.phone.constraint
             }
             if(!response['Id Unique']) {
-              errors.id = "중복된 아이디입니다."
+              errors.id = "사용할 수 없는 아이디입니다."
             }
             if(!response['Id enable']) {
               errors.id = "사용할 수 없는 아이디입니다."
