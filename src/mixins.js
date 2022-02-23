@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const HOST = "https://lasqua.bludi-blu.com/api"
-axios.defaults.withCredentials = true
 
 export default {
   methods: {
