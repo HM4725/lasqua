@@ -45,18 +45,24 @@ export default{
       this.$router.go(-1)
     },
     async upload() {
-      try {
-        const data = {
-          title: this.title,
-          images: this.$refs.images.commit(),
-          content: this.content
-        }
-        if(data.title != '' && data.images.length > 0 && data.content != '') {
+      if(this.title.trim().length === 0) {
+        alert('프로젝트의 제목을 입력해주세요.')
+      } else if(this.content.trim().length === 0) {
+        alert('프로젝트의 설명글을 입력하세요.')
+      } else if(this.$refs.images.isEmpty()){
+        alert('프로젝트의 이미지를 업로드해주세요.')
+      } else {
+        try {
+          const data = {
+            title: this.title,
+            images: this.$refs.images.commit(),
+            content: this.content
+          }
           await this.$api("POST", "/article", data)
           this.$router.push(`/artist/${this.$store.getters.userId}`)
+        } catch(error) {
+          console.error(error)
         }
-      } catch(error) {
-        console.error(error)
       }
     },
   },

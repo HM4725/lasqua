@@ -78,8 +78,11 @@ export default{
       }
     },
     // Parent API
+    isEmpty() {
+      return this.images.length === 0
+    },
     commit() {
-      if(this.images.length > 0) {
+      if(!this.isEmpty()) {
         this.images[0].orderNo = 1
         this._deleteImages()
       }
