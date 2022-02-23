@@ -77,17 +77,13 @@
           @click="openLinkModal" :class="{ 'is-active': editor.isActive('link') }">
         <img :src="require(`../../assets/svg/editor/link.svg`)"/>
       </button>
-      <modal-slot ref="linkModal">
+      <modal-slot ref="linkModal" @submit="setLink">
         <template v-slot:header>
           링크 연결
         </template>
         <template v-slot:body>
           <input-box type="text" id="editor-link" placeholder="URL"
              v-model="link" @keyup.enter.prevent="setLink" focus/>
-        </template>
-        <template v-slot:footer>
-          <default-button class="footer-button" value="취소" @click="closeLinkModal"/>
-          <default-button class="footer-button" value="확인" @click="setLink"/>
         </template>
       </modal-slot>
 
@@ -137,15 +133,13 @@ import TextAlign from '@tiptap/extension-text-align'
 import Link from '@tiptap/extension-link'
 import ModalSlot from '../utils/ModalSlot.vue'
 import InputBox from './InputBox.vue'
-import DefaultButton from '../buttons/DefaultButton.vue'
 
 export default {
   name: 'Editor',
   components: {
     EditorContent,
     ModalSlot,
-    InputBox,
-    DefaultButton
+    InputBox
   },
   props: {
     modelValue: {
@@ -184,9 +178,6 @@ export default {
       this.link = this.editor.getAttributes('link').href
       this.$refs.linkModal.show()
     },
-    closeLinkModal() {
-      this.$refs.linkModal.close()
-    },
     setLink() {
       if (this.link === undefined || this.link.length === 0) {
         this.editor
@@ -203,7 +194,6 @@ export default {
           .setLink({ href: this.link })
           .run()
       }
-      this.closeLinkModal()
     },
     // Private
     async _upload(formData) {
