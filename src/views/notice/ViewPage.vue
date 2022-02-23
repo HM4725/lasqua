@@ -8,7 +8,15 @@
     <notice-content :content="content"/>
     <footer>
       <default-button class="button" value="목록" @click="backToList"/>
-      <default-button class="button" value="삭제" @click="deleteNotice" v-if="isAdmin"/>
+      <default-button class="button" value="삭제" @click="openDeletionModal" v-if="isAdmin"/>
+      <modal-slot ref="deletionModal" @submit="deleteNotice" v-if="isAdmin">
+        <template v-slot:header>
+          삭제 확인
+        </template>
+        <template v-slot:body>
+          삭제를 진행하시겠습니까?
+        </template>
+      </modal-slot>
       <default-button class="button" value="수정" @click="modifyNotice" v-if="isAdmin"/>
     </footer>
   </article>
@@ -17,12 +25,14 @@
 <script>
 import NoticeContent from '@/components/notice/NoticeContent.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
+import ModalSlot from '@/components/utils/ModalSlot.vue'
 
 export default{
   name: 'notice.view.page',
   components: {
     NoticeContent,
-    DefaultButton
+    DefaultButton,
+    ModalSlot
   },
   data() {
     return {
@@ -40,6 +50,9 @@ export default{
     },
     modifyNotice() {
       this.$router.push({name: 'notice.modify', params: {data: JSON.stringify(this.$data)}})
+    },
+    openDeletionModal() {
+      this.$refs.deletionModal.show()
     },
     async deleteNotice() {
       try {

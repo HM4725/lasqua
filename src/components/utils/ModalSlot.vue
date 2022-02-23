@@ -19,7 +19,9 @@
 
             <footer class="modal-footer">
               <slot name="footer">
-                <default-button value="확인" @click="close"/>
+                <default-button class="button" value="취소" @click="close"/>
+                <default-button class="button" type="submit" value="확인"
+                  @click="submit"/>
               </slot>
             </footer>
 
@@ -35,6 +37,10 @@ import DefaultButton from '../buttons/DefaultButton.vue'
 
 export default{
   name: 'components.utils.modal.slot',
+  emits: [
+    'close',
+    'submit'
+  ],
   components: {
     DefaultButton
   },
@@ -48,6 +54,12 @@ export default{
       this.showModal = true
       document.documentElement.style.overflow = 'hidden'
       document.documentElement.style.touchAction = 'none'
+    },
+    submit() {
+      this.showModal = false
+      document.documentElement.style.overflow = ''
+      document.documentElement.style.touchAction = ''
+      this.$emit("submit")
     },
     close() {
       this.showModal = false
@@ -100,13 +112,18 @@ export default{
   .modal-header {
     font-size: 1.2em;
     font-weight: bold;
+    text-align: center;
   }
   .modal-body {
     margin: 20px 0;
+    text-align: left;
   }
   .modal-footer {
     text-align: right;
     padding: 16px 0;
+  }
+  .modal-footer > .button {
+    margin-left: 16px;
   }
   
   .modal-enter-active {

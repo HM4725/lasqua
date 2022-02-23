@@ -15,7 +15,15 @@
     </article>
     <artist-details v-if="id" class="artist" :uid="id" :no="no"/>
     <footer v-if="myPage">
-      <default-button class="button" value="삭제" @click="deleteArticle"/>
+      <default-button class="button" value="삭제" @click="openDeletionModal"/>
+      <modal-slot ref="deletionModal" @submit="deleteArticle">
+        <template v-slot:header>
+          삭제 확인
+        </template>
+        <template v-slot:body>
+          삭제를 진행하시겠습니까?
+        </template>
+      </modal-slot>
       <default-button class="button" value="수정" @click="modifyArticle"/>
     </footer>
   </div>
@@ -25,12 +33,14 @@
 import ImgComponent from '@/components/utils/ImgComponent.vue'
 import DefaultButton from '@/components/buttons/DefaultButton.vue'
 import ArtistDetails from '@/components/artist/ArtistDetails.vue'
+import ModalSlot from '@/components/utils/ModalSlot.vue'
 
 export default{
   name: 'article.view.page',
   components: {
     ImgComponent,
     DefaultButton,
+    ModalSlot,
     ArtistDetails
   },
   data() {
@@ -53,6 +63,9 @@ export default{
       } catch(error) {
         console.error(error)
       }
+    },
+    openDeletionModal() {
+      this.$refs.deletionModal.show()
     },
     modifyArticle() {
       this.$router.push({name: 'article.modify', params: {data: JSON.stringify(this.$data)}})
