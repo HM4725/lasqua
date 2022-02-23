@@ -158,6 +158,7 @@ export default{
   ul {
     display: flex;
     flex-direction: row;
+    margin: 1px 0;
   }
   ul.slide {
     transition: transform .25s ease-in-out;
