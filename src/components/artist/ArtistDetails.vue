@@ -137,7 +137,6 @@ export default{
   }
   .projects > label {
     margin-right: 48px;
-    color: red;
   }
   span {
     color: var(--active-color);
