@@ -109,7 +109,7 @@ export default{
       this.artist.facebook !== this.modified.facebook && (payload.facebook = this.modified.facebook)
       this.artist.instagram !== this.modified.instagram && (payload.instagram = this.modified.instagram)
       this.artist.twitter !== this.modified.twitter && (payload.twitter = this.modified.twitter)
-      this.artist.info !== this.modified.info && (payload.info = this.modified.info)
+      this.artist.info !== this.modified.info && (payload.info = this.modified.info.trim())
       this.$emit('modify', payload)
       this.$refs.profileModal.close()
     },
