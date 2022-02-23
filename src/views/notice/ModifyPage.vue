@@ -37,12 +37,16 @@ export default{
   },
   methods: {
     async submit() {
-      try {
-        const payload = {no: this.no, title: this.title, content: this.content}
-        await this.$api('PUT', '/notice', payload)
-        this.$router.go(-1)
-      } catch(error) {
-        console.error(error)
+      if(this.title.trim().length === 0) {
+        alert('공지사항 제목을 입력해주세요.')
+      } else {
+        try {
+          const payload = {no: this.no, title: this.title, content: this.content}
+          await this.$api('PUT', '/notice', payload)
+          this.$router.push(`/notice/view?no=${this.no}`)
+        } catch(error) {
+          console.error(error)
+        }
       }
     },
     cancel() {

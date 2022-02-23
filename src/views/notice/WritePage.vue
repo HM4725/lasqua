@@ -30,12 +30,16 @@ export default{
   },
   methods: {
     async submit() {
-      try {
-        const payload = {title: this.title, content: this.content}
-        await this.$api('POST', '/notice', payload)
-        this.$router.push('/notice')
-      } catch(error) {
-        console.error(error)
+      if(this.title.trim().length === 0) {
+        alert('공지사항 제목을 입력해주세요.')
+      } else {
+        try {
+          const payload = {title: this.title, content: this.content}
+          await this.$api('POST', '/notice', payload)
+          this.$router.push('/notice')
+        } catch(error) {
+          console.error(error)
+        }
       }
     },
     cancel() {
