@@ -3,7 +3,8 @@
     <label :for="id">
       <slot></slot>
     </label>
-    <input type="file" :id="id" @change="upload"/>
+    <input type="file" :id="id" accept="image/*"
+      @change="upload"/>
   </div>
 </template>
 

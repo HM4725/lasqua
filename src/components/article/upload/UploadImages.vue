@@ -1,9 +1,9 @@
 <template>
   <div class="upload-wrapper">
     <table-list v-if="pagination==='scroll'" ref="images" :rowlength="rowlength"
-      @clicked="handleClick" @upload="handleUpload"/>
+      @clicked="remove" @upload="handleUpload" @error="handleError"/>
     <slide-list v-else-if="pagination==='button'" ref="images" :rowlength="rowlength"
-      @clicked="handleClick" @upload="handleUpload"/>
+      @clicked="remove" @upload="handleUpload" @error="handleError"/>
   </div>
 </template>
 
@@ -71,7 +71,11 @@ export default{
         console.error(error)
       }
     },
-    handleClick(no) {
+    handleError(no) {
+      this.remove(no)
+      alert('파일 크기가 너무 크거나, 지원하지 않는 파일 형식입니다.')
+    },
+    remove(no) {
       const idx = this.images.findIndex(image => image.orderNo === no)
       if(idx !== -1) {
         this.deleted.push(this.images.splice(idx, 1)[0].link)

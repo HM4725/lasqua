@@ -2,7 +2,7 @@
   <tr>
     <td v-for="(article, i) in articles" :key="`cell_${i}`">
       <article-cell :article="article"
-        @clicked="handleClick" @error="handleClick"/>
+        @clicked="handleClick" @error="handleError"/>
     </td>
   </tr>
 </template>
@@ -13,7 +13,8 @@ import ArticleCell from '../articlelist/ArticleCell.vue'
 export default{
   name: 'components.article.upload.table.row',
   emits: [
-    'clicked'
+    'clicked',
+    'error'
   ],
   components: {
     ArticleCell
@@ -31,6 +32,9 @@ export default{
     handleClick(no) {
       this.$emit('clicked', no)
     },
+    handleError(no) {
+      this.$emit('error', no)
+    }
   }
 }
 </script>

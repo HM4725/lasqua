@@ -1,9 +1,10 @@
 <template>
   <table>
     <image-row v-for="(row, i) in rows" :articles="row" :key="`row_${i}`"
-      @clicked="handleClickArticle"/>
+      @clicked="handleClickArticle" @error="handleError"/>
     <tfoot>
-      <input type="file" ref="file" @change="handleUpload"/>
+      <input type="file" ref="file" accept="image/*" 
+        @change="handleUpload"/>
     </tfoot>
   </table>
 </template>
@@ -15,7 +16,8 @@ export default{
   name: 'components.article.upload.table',
   emits: [
     'upload',
-    'clicked'
+    'clicked',
+    'error'
   ],
   components: {
     ImageRow
@@ -53,6 +55,12 @@ export default{
       } else {
         this._remove(no)
         this.$emit('clicked', no)
+      }
+    },
+    handleError(no) {
+      if(no !== this.addButton.no) {
+        this._remove(no)
+        this.$emit('error', no)
       }
     },
     // Parent API

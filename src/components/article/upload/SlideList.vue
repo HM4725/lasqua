@@ -8,7 +8,7 @@
         <ul class="slide" 
           :style="{width: `${slideStyle.ulWidth}%`, transform: `translateX(-${slideStyle.left}%)`}">
           <li v-for="(image, i) in images" :key="`cell_${i}`" :style="{width: `${slideStyle.liWidth}%`}">
-            <article-cell :article="image" @clicked="handleClickArticle" @error="handleClickArticle"/>
+            <article-cell :article="image" @clicked="handleClickArticle" @error="handleError"/>
           </li>
         </ul>
       </article>
@@ -32,7 +32,8 @@ export default{
   name: 'components.article.upload.slide',
   emits: [
     'upload',
-    'clicked'
+    'clicked',
+    'error'
   ],
   components: {
     ArticleCell,
@@ -88,6 +89,10 @@ export default{
     handleClickArticle(no) {
       this._remove(no)
       this.$emit('clicked', no)
+    },
+    handleError(no) {
+      this._remove(no)
+      this.$emit('error', no)
     },
     // Parent API
     push(image) {
