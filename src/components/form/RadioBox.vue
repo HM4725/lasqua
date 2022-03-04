@@ -69,7 +69,7 @@ export default{
     box-sizing: border-box;
     display: flex;
     width: 100%;
-    transition: all .25s;
+    transition: all .25s ease-in-out;
     margin-top: 11px;
     padding: 8px 2px 0 2px;
     border: 1px solid var(--base-color);
@@ -106,6 +106,9 @@ export default{
     cursor: pointer;
     padding: 3px;
     transition: all .25s ease-in-out;
+  }
+  fieldset.radio-box:disabled > .option > label {
+    cursor: default;
   }
   .option > input[type="radio"]:checked + label {
     font-weight: bolder;
