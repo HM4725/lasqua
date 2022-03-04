@@ -130,6 +130,8 @@ export default{
   }
   .input-box > input:disabled{
     color: #707070;
+    opacity: 1;
+    -webkit-text-fill-color: #707070;
     border-color: var(--disabled-color);
   }
 </style>
