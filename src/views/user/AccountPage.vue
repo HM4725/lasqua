@@ -283,7 +283,7 @@ export default{
           target.msg = '올바르게 입력해주세요.'
         }
       } else {
-        if(target.val.length === 0) {
+        if(target.val === "") {
           target.val = null
         }
         if(v === 'birth') {
