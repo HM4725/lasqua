@@ -69,7 +69,7 @@ export default{
     box-sizing: border-box;
     display: flex;
     width: 100%;
-    transition: all .25s ease-in-out;
+    transition: border-color .25s ease-in-out;
     margin-top: 11px;
     padding: 8px 2px 0 2px;
     border: 1px solid var(--base-color);
@@ -91,6 +91,7 @@ export default{
   .option {
     border: 1px solid var(--base-color);
     border-radius: 4px;
+    transition: border-color .25s ease-in-out;
     flex: 1;
     margin: 3px;
   }
@@ -105,7 +106,8 @@ export default{
     display: block;
     cursor: pointer;
     padding: 3px;
-    transition: all .25s ease-in-out;
+    transition: background-color .25s ease-in-out,
+      color .25s ease-in-out;
   }
   fieldset.radio-box:disabled > .option > label {
     cursor: default;
