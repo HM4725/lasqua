@@ -94,6 +94,7 @@ export default{
     transition: border-color .25s ease-in-out;
     flex: 1;
     margin: 3px;
+    overflow: hidden;
   }
   fieldset.radio-box:disabled > .option {
     border-color: var(--disabled-color);
