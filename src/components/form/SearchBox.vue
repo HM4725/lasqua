@@ -1,8 +1,9 @@
 <template>
   <div class="search-box">
     <form @submit.prevent="search">
-        <input class="search-input" type="text" v-model="keyword" placeholder="Search..."/>
-        <default-button class="search-button" type="submit" value="검색"/>
+      <input class="search-input" type="text" v-model="keyword" placeholder="Search..."
+        @focus="$emit('focus')" @blur="$emit('blur')"/>
+      <default-button class="search-button" type="submit" value="검색"/>
     </form>
   </div>
 </template>
@@ -13,7 +14,9 @@ import DefaultButton from '../buttons/DefaultButton.vue'
 export default{
   name: 'components.form.search',
   emits: [
-    'search'
+    'search',
+    'focus',
+    'blur'
   ],
   components: {
     DefaultButton

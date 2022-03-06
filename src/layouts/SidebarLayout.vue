@@ -2,13 +2,14 @@
   <div class="sidebar-wrapper" :class="{open: isOpen}" @click="clickOutside">
     <div class="sidebar">
       <header class="sidebar-header">
-        <search-box ref="search" @search="close"/>
+        <search-box ref="search" @search="close"
+          @focus="focusSearchBox" @blur="blurSearchBox"/>
       </header>
       <nav class="sidebar-nav">
         <router-button class="nav-button" v-for="(cate, i) in categories" 
           :value="cate" @click="close" :key="`nav_${i}`" :link="`/${cate}`" after/>
       </nav>
-      <footer class="sidebar-footer">
+      <footer class="sidebar-footer" :class="{searching: search.searching}">
         <sidebar-footer/>
       </footer>
     </div>
@@ -32,7 +33,11 @@ export default{
   data() {
     return {
       categories: CATEGORIES,
-      isOpen: false
+      isOpen: false,
+      search: {
+        searching: false,
+        blured: true
+      }
     }
   },
   methods: {
@@ -53,6 +58,18 @@ export default{
       if(el.classList.contains('sidebar-wrapper')) {
         this.close()
       }
+    },
+    focusSearchBox() {
+      this.search.searching = true
+      this.search.blured = false
+    },
+    blurSearchBox() {
+      this.search.blured = true
+      setTimeout(() => {
+        if(this.search.blured) {
+          this.search.searching = false
+        }
+      }, 300);
     }
   }
 }
@@ -102,5 +119,10 @@ export default{
   .sidebar-footer {
     position: absolute;
     bottom: 24px;
+  }
+  @media (max-width: 767px) {
+    .sidebar-footer.searching {
+      display: none;
+    }
   }
 </style>
