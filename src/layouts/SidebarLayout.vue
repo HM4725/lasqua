@@ -96,7 +96,7 @@ export default{
   }
   .sidebar {
     position: relative;
-    overflow: scroll;
+    overflow: auto;
     top: 0;
     left: -288px;
     width: 288px;

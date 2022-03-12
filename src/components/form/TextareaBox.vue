@@ -54,7 +54,7 @@ export default{
   .textarea-box textarea {
     width: 100%;
     height: 100px;
-    overflow: scroll;
+    overflow: auto;
     resize: none;
     transition: all .25s;
     margin-top: 8px;

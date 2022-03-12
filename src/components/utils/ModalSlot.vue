@@ -102,7 +102,7 @@ export default{
     max-height: -webkit-calc(100 * var(--vh, 1vh));
     max-height: -moz-calc(100 * var(--vh, 1vh));
     max-height: calc(100 * var(--vh, 1vh));
-    overflow: scroll;
+    overflow: auto;
     margin: 0px auto;
     padding: 20px 30px;
     background-color: #fff;
